@@ -1,0 +1,11 @@
+.bundle
+db/*.sqlite3
+log/*.log
+tmp
+public/assets
+config/database.yml
+.idea
+.sass-cache/*
+.tm_properties
+.DS_Store
+public/uploads/
