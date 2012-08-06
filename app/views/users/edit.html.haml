@@ -1,0 +1,4 @@
+= simple_form_for @user, :validate => true, :html => {:multipart => true} do |f|
+  = f.input :name
+  = f.input :email
+  = f.submit 'Save Changes', :class => 'btn btn-primary'
