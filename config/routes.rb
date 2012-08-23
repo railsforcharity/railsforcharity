@@ -3,7 +3,12 @@ Railsforcharity::Application.routes.draw do
   devise_for :users
   resources :users
 
+  
+  #STATIC PAGES
   root :to => 'static_pages#home'
+  match 'contact' => 'static_pages#contact'
+  match 'faq' => 'static_pages#faq'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
