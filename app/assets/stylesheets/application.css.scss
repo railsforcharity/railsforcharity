@@ -12,9 +12,6 @@
  *= require_tree .
  */
 
- body {
-   background-color: gray;
- }
 .content {
   padding: 20px;
   margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
@@ -25,64 +22,3 @@
   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
   box-shadow: 0 1px 2px rgba(0,0,0,.15);
 }
-
-div.hero-unit {
-  //background-image:url('paper.png');
-  background-color:#8C0F0F;
-}
-
-div#page-title {
-  border-width:5px;
-}
-
-#page-title {
-	padding: 20px;
-	margin-right: 0;
-	margin-bottom: 1em;
-	margin-left: 0;
-		
-	text-align: left;
-  border-top: 1px solid red;
-  //border-bottom: 1px solid gray;
-  //border-image: url("border.png") 30 30 stretch;
-  //background: #EEE;
-}
-#page-title h1 {
-	margin-bottom: .40em;
-	font-weight: 600;
-}
-
-#page-title p {
-	margin-bottom: 0;
-	font-size: 15px;
-}
-
-.frame1 {
-//background-image:url('green_dust_scratch.png');
-  padding: 20px 20px;
-  margin: 20px 0;
-}
-
-
-//.methodology {
-//  border-image:url('border.png') 30 30;
-//  background-color:#FFF6C9;
-//}
-//.members {
-//  border-image:url('border.png') 30 30;
-//  background-color:#FFF6C9;
-//}
-//.motive {
-//  border-image:url('border.png') 30 30;
-//  background-color:#FFF6C9;
-//}
-//.mission {
-//  border-image:url('border.png') 30 30;
-//  background-color:#FFF6C9;
-//}
-//
-//.topbar{
-//  height: 8px;
-//  background-color:blue;
-//}
-
