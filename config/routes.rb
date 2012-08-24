@@ -8,6 +8,9 @@ Railsforcharity::Application.routes.draw do
   root :to => 'static_pages#home'
   match 'contact' => 'static_pages#contact'
   match 'faq' => 'static_pages#faq'
+  match 'blog' => 'static_pages#blog'
+  match 'workshops' => 'static_pages#workshops'
+  
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
