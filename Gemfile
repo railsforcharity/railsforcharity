@@ -5,7 +5,7 @@ gem 'devise'
 
 gem 'haml-rails'
 gem 'jquery-rails'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', "~> 2.0.4.0"
 gem 'simple_form'
 
 # Gems used only for assets and not required
