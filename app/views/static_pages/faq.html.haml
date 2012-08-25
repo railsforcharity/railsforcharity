@@ -1,3 +1,5 @@
+- i = 0
+
 .container-fluid
   .row-fluid
     .faq-container
@@ -9,43 +11,45 @@
       .faq-toc  
         %ol
           %li
-            1.
+            =i=i+1
             =link_to "What is the vision for Rails for Charity?", '#faq-1'
           %li
-            2.
+            =i=i+1
             =link_to "Inspiration behind Rails for Charity?", '#faq-2'
           %li
-            3.
+            =i=i+1
             =link_to "What are the types of Open Source licences?", '#faq-3'
           %li
-            4.
+            =i=i+1
             =link_to "Who do we need?", '#faq-4'
           %li
-            5.
+            =i=i+1
             =link_to "Why can't we just post and add in craigslist for our requirements and get people work them?", '#faq-5'
           %li
-            6.
+            =i=i+1
             =link_to "What are the benefits that a Rails for Charity community member enjoys?", '#faq-6'
           %li
-            7.
+            =i=i+1
             =link_to "How will we manage money issues?", '#faq-7'
           %li
-            8.
+            =i=i+1
             =link_to "Are we open to work with NGO's?", '#faq-8'
-          
+
+      - i = 0
+
       %ol.faq-list
-        %li#faq-1
+        %li{:id => "faq-#{i=i+1}"}
           .faq-icon
-            .faq-number 1
+            .faq-number #{i}
           .faq-text
             %h4 What is the Rails for Charity vision?
             %p
               Rails for Charity(RFC) aims to create and maintain open source web based applications.
               We want to incubate, foster, develop, mentor and support web based software projects which could potentially have a social impact.
 
-        %li#faq-2
+        %li{:id => "faq-#{i=i+1}"}
           .faq-icon
-            .faq-number 2
+            .faq-number #{i}
           .faq-text
             %h4 Inspiration behind Rails for Charity?
             %p
@@ -53,9 +57,9 @@
               which help the society in a big way. We think that with the availability of all the awesome open source software today, the stars have aligned
               properly for us to take the next step and create and maintain complete end to end web based applications as an open source community.
 
-        %li#faq-3
+        %li{:id => "faq-#{i=i+1}"}
           .faq-icon
-            .faq-number 3
+            .faq-number #{i}
           .faq-text
             %h4 What are the different kinds of open source project licences?
             %p
@@ -65,18 +69,18 @@
               people who made the softwares.
               Non-Restrictive - example, MIT Licence.
 
-        %li#faq-4
+        %li{:id => "faq-#{i=i+1}"}
           .faq-icon
-            .faq-number 4
+            .faq-number #{i}
           .faq-text
             %h4 Who do we need?
             %p
               Everyone. We need Artists, Businessmen, Designers, Editors, Evangelists, Marketing, Salesmen, Lawyers, Writes, Quality Analysts, etc.
               In short, we need everyone who wants and can contribute in any area he/she is willing.
 
-        %li#faq-6
+        %li{:id => "faq-#{i=i+1}"}
           .faq-icon
-            .faq-number 5
+            .faq-number #{i}
           .faq-text
             %h4 What will be the benefits that RFC members enjoy?
             %p
@@ -84,9 +88,9 @@
               learn a lot about web software designing, development, content creation, marketing, selling, legal aspects, testing, etc.
               feel good about your contribution to the society.
 
-        %li#faq-7
+        %li{:id => "faq-#{i=i+1}"}
           .faq-icon
-            .faq-number 6
+            .faq-number #{i}
           .faq-text
             %h4 How will we manage money issues?
             %p
@@ -95,17 +99,17 @@
               make a better world for our children and their children to live in. We will run RFC using contributions made by RFC volunteers and
               various sponsorships and donations from companies and governments.
 
-        %li#faq-8
+        %li{:id => "faq-#{i=i+1}"}
           .faq-icon
-            .faq-number 7
+            .faq-number #{i}
           .faq-text
             %h4 Are we open to work with Non-profits or Charitable organizations?
             %p
               Yes, want to work Non-profits and Charitable organizations to help solve the problems that they face by the use of web technology.
 
-        %li#faq-8
+        %li{:id => "faq-#{i=i+1}"}
           .faq-icon
-            .faq-number 8
+            .faq-number #{i}
           .faq-text
             %h4 Why are you limiting yourself to web technologies only?
             %p
