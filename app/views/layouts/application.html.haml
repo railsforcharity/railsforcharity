@@ -17,11 +17,19 @@
       %nav.navbar-inner
         .container
           = render 'layouts/navigation'
-    #main{:role => "main"}
-      .container
-        .row
-          .span12
-            = render 'layouts/messages'
-            .content
-              = yield
-        %footer
+    =yield
+    -# #subheader
+    -#   .inner
+    -#     .container
+    -#       %h1 Contact Us
+    -#     / /.container
+    -#   / /inner
+    -# 
+    -# 
+    -# #main{:role => "main"}
+    -#   .container
+    -#     .row
+    -#       .span12
+    -#         = render 'layouts/messages'
+    -#         .content
+    -#           = yield

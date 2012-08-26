@@ -1,78 +1,98 @@
-.container-fluid
-  .row-fluid
-    .faq-container
-      .page-title
-        %h2 Frequently Asked Questions
+#subheader
+  .inner
+    .container
+      %h1 Frequently Asked Questions
+    / /.container
+  / /inner
+#subpage
+  .container
+    .row
+      .span8
+        %h3 
+          %span.slash //
+          Search...
         %br
+        %ol.faq-list
+          %li
+            %h4 What is the vision for Rails for Charity?
+            %p
+              Rails for Charity(RFC) aims to create and maintain open source web based applications.
+              We want to incubate, foster, develop, mentor and support web based software projects which could potentially have a social impact.
 
-      %ol.faq-list
-        %li
-          %h4 What is the vision for Rails for Charity?
-          %p
-            Rails for Charity(RFC) aims to create and maintain open source web based applications.
-            We want to incubate, foster, develop, mentor and support web based software projects which could potentially have a social impact.
+          %li
+            %h4 Inspiration behind Rails for Charity?
+            %p
+              We have and are making a lot of open source software and tools. We believe that now is the time to step up and make complete end to end solutions
+              which help the society in a big way. We think that with the availability of all the awesome open source software today, the stars have aligned
+              properly for us to take the next step and create and maintain complete end to end web based applications as an open source community.
 
-        %li
-          %h4 Inspiration behind Rails for Charity?
-          %p
-            We have and are making a lot of open source software and tools. We believe that now is the time to step up and make complete end to end solutions
-            which help the society in a big way. We think that with the availability of all the awesome open source software today, the stars have aligned
-            properly for us to take the next step and create and maintain complete end to end web based applications as an open source community.
+          %li
+            %h4 Are we open to work with Non-profits or Charitable organizations?
+            %p
+              Yes, want to work Non-profits and Charitable organizations to help solve the problems that they face by the use of web technology.
 
-        %li
-          %h4 Are we open to work with Non-profits or Charitable organizations?
-          %p
-            Yes, want to work Non-profits and Charitable organizations to help solve the problems that they face by the use of web technology.
+          %li
+            %h4 Who do we need?
+            %p
+              Everyone. We need Artists, Businessmen, Designers, Editors, Evangelists, Marketing, Salesmen, Lawyers, Writes, Quality Analysts, etc.
+              In short, we need everyone who wants and can contribute in any area he/she is willing.
 
-        %li
-          %h4 Who do we need?
-          %p
-            Everyone. We need Artists, Businessmen, Designers, Editors, Evangelists, Marketing, Salesmen, Lawyers, Writes, Quality Analysts, etc.
-            In short, we need everyone who wants and can contribute in any area he/she is willing.
+          %li
+            %h4 What will be the benefits that RFC members enjoy?
+            %p
+              Interface with people from various backgrounds, work on hard real world whacky problems, a chance to give back to the society,
+              learn a lot about web software designing, development, content creation, marketing, selling, legal aspects, testing, etc.
+              feel good about your contribution to the society.
 
-        %li
-          %h4 What will be the benefits that RFC members enjoy?
-          %p
-            Interface with people from various backgrounds, work on hard real world whacky problems, a chance to give back to the society,
-            learn a lot about web software designing, development, content creation, marketing, selling, legal aspects, testing, etc.
-            feel good about your contribution to the society.
+          %li
+            %h4 Why the name "Rails for Charity" ?
+            %p
+              Because we
+              .icon-heart
+              Rails and we
+              .icon-heart
+              Charities (People who work for the well being of the needy or the general social betterment).
 
-        %li
-          %h4 Why the name "Rails for Charity" ?
-          %p
-            Because we
-            .icon-heart
-            Rails and we
-            .icon-heart
-            Charities (People who work for the well being of the needy or the general social betterment).
+          %li
+            %h4 Is RFC only going to build applications in Ruby on Rails?
+            %p
+              Even though our primary focus will be to build and encourage building of applications in #{link_to_blank "Ruby on Rails", "http://rubyonrails.org/"} which is an awesome technology
+              to build web applications, we support other technologies too.
 
-        %li
-          %h4 Is RFC only going to build applications in Ruby on Rails?
-          %p
-            Even though our primary focus will be to build and encourage building of applications in #{link_to_blank "Ruby on Rails", "http://rubyonrails.org/"} which is an awesome technology
-            to build web applications, we support other technologies too.
+          %li
+            %h4 How will we manage money issues?
+            %p
+              RFC is a not-for-profit social group. We do not and will not intend to create web applications from the motive of making money.
+              There are a lot of social problems to solve which may not earn money but it will earn us a better world to live in. We will be able to
+              make a better world for our children and their children to live in. We will run RFC using contributions made by RFC volunteers and
+              various sponsorships and donations from companies and governments.
 
-        %li
-          %h4 How will we manage money issues?
-          %p
-            RFC is a not-for-profit social group. We do not and will not intend to create web applications from the motive of making money.
-            There are a lot of social problems to solve which may not earn money but it will earn us a better world to live in. We will be able to
-            make a better world for our children and their children to live in. We will run RFC using contributions made by RFC volunteers and
-            various sponsorships and donations from companies and governments.
+          %li
+            %h4 Why are you limiting yourself to web technologies only?
+            %p
+              Because, we're just starting out. As we have more and more volunteers, we will increase our scope of work and technologies.
 
-        %li
-          %h4 Why are you limiting yourself to web technologies only?
-          %p
-            Because, we're just starting out. As we have more and more volunteers, we will increase our scope of work and technologies.
-
-        %li
-          %h4 What are the different kinds of open source project licences?
+          %li
+            %h4 What are the different kinds of open source project licences?
+            %p
+              There are many different kinds of open source licences. But all of them fall into 3 main categories.
+              Largely Restrictive - example, GNU Public Licence. GPL entails that people should not make any profits from the open source software at all.
+              Less Restrictive - example, Apache Licence. People can make profits out of using AL kind of licences, just that they have to give credits to
+              people who made the softwares.
+              Non-Restrictive - example, MIT Licence.
+      .span4
+        .sidebar
+          %h3
+            %span.slash //
+            More Information
+          %br
           %p
             There are many different kinds of open source licences. But all of them fall into 3 main categories.
             Largely Restrictive - example, GNU Public Licence. GPL entails that people should not make any profits from the open source software at all.
             Less Restrictive - example, Apache Licence. People can make profits out of using AL kind of licences, just that they have to give credits to
             people who made the softwares.
             Non-Restrictive - example, MIT Licence.
+            
 
 :javascript
   $(function () {
