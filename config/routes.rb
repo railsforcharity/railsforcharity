@@ -7,6 +7,7 @@ Railsforcharity::Application.routes.draw do
   #STATIC PAGES
   root :to => 'static_pages#home'
   match 'contact' => 'static_pages#contact'
+  match 'contact_us_create' => 'static_pages#contact_us_create'
   match 'faq' => 'static_pages#faq'
   match 'blog' => 'static_pages#blog'
   match 'workshops' => 'static_pages#workshops'
