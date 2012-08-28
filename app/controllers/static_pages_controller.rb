@@ -7,8 +7,8 @@ class StaticPagesController < ApplicationController
   def contact_us_create
     @contact_us = ContactUs.new(params[:contact_us])
     if @contact_us.save
-      flash[:notice] = "Email sent successfully."
-      render 'contact_us_success'
+      flash[:notice] = "Thanks for getting in touch! You will receive a response from us within 24 hours. Have a wonderful day ahead!"
+      redirect_to :back
     else
       flash[:error] = "Could not send email."
       render 'contact'
