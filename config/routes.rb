@@ -2,7 +2,6 @@ Railsforcharity::Application.routes.draw do
 
   devise_for :users
   resources :users
-
   
   #STATIC PAGES
   root :to => 'static_pages#home'
@@ -10,7 +9,7 @@ Railsforcharity::Application.routes.draw do
   match 'contact_us_create' => 'static_pages#contact_us_create'
   match 'faq' => 'static_pages#faq'
   match 'blog' => 'static_pages#blog'
-  match 'workshops' => 'static_pages#workshops'
+  match 'supporters' => 'static_pages#supporters'
   match 'contributors' => 'static_pages#contributors'
 
   # The priority is based upon order of creation:
