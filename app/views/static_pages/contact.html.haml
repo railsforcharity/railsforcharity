@@ -1,47 +1,38 @@
-#subheader
-  .inner
-    .container
-      %h1 Contact Us
-#subpage
-  .container
-    .row
-      .span12
+.container
+  .row
+    .span8
+      %h3
+        %span.slash //
+        Get in Touch
+      %p
+        We want to hear from you! Just enter your name, email address, and message into the form below and send away.
+      %br
+      %h3
+        %span.slash //
+        Send a Message
+      %br
+      = simple_form_for @contact_us, :url => { :action => "contact_us_create" }, :validate => true do |f|
+        = f.input :name, :label => 'Your good name'
+        = f.input :email, :label => 'Your awesome email', :placeholder => 'you@awesome.com'
+        = f.input :description, :label => 'Please tell me', :as => 'text', :input_html => {:style => 'width: 600px', :rows => 10}
+        = f.button :submit, "Submit"
+
+    .span4
+      .sidebar
         %h3
           %span.slash //
-          Get in Touch
-        %br
+          Contact Details
         %p
-          We want to hear from you! Just enter your name, email address, and message into the form below and send away.
-        %br
-        %iframe{:frameborder => "0", :height => "260", :marginheight => "0", :marginwidth => "0", :scrolling => "no", :src => "https://maps.google.com/maps?f=d&source=s_d&saddr=396+Ano+Nuevo+Ave,+Sunnyvale,+CA&daddr=&hl=en&geocode=Fd-HOgIdLsK5-Cn9AcSKAbePgDERbI3X6x5n_A&aq=0&oq=396+&sll=37.397161,-122.024121&sspn=0.151922,0.305901&mra=ls&ie=UTF8&t=m&z=12&output=embed", :width => "100%"}
-        %br/
-        %small
-          %a{:href => "https://maps.google.com/maps?f=d&source=embed&saddr=396+Ano+Nuevo+Ave,+Sunnyvale,+CA&daddr=&hl=en&geocode=Fd-HOgIdLsK5-Cn9AcSKAbePgDERbI3X6x5n_A&aq=0&oq=396+&sll=37.397161,-122.024121&sspn=0.151922,0.305901&mra=ls&ie=UTF8&t=m&z=12", :style => "color:#0000FF;text-align:left"} View Larger Map
-        %br
-      .span8
-        %h3
-          %span.slash //
-          Send a Message
-        %br
-        = simple_form_for @contact_us, :url => { :action => "contact_us_create" }, :validate => true do |f|
-          = f.input :name, :label => 'Your name please'
-          = f.input :email, :placeholder => 'user@domain.com'
-          = f.input :description, :as => 'text', :input_html => {:style => 'width: 600px', :rows => 10}
-          = f.button :submit, "Submit"
-      .span4
-        .sidebar
-          %h3
-            %span.slash //
-            Contact Details
+          %strong Address
+          %br 396 Ano Nuevo Ave
+          Sunnyvale, CA, 94085, USA
           %br
-          %p
-            %strong Address
-            %br 396 Ano Nuevo Ave
-            Sunnyvale, CA, 94085, USA
-            %br
-            %br
-            %strong Phone and Email details
-            %br Phone: (314) 277-1639
-            Email: info@railsforcharity.com
-            
-          
+          %br
+          %strong Phone and Email details
+          %br Phone: (314) 277-1639
+          Email: info@railsforcharity.com
+      %br
+      %iframe{:frameborder => "0", :height => "260", :marginheight => "0", :marginwidth => "0", :scrolling => "no", :src => "https://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q=396+Ano+Nuevo+Ave,+Sunnyvale,+CA&sll=37.390303,-122.043858&sspn=0.039757,0.072784&ie=UTF8&hq=&hnear=396+Ano+Nuevo+Ave,+Sunnyvale,+California+94085&t=m&z=14&ll=37.390303,-122.043858&output=embed", :width => "100%"}
+      %br/
+      %small
+        %a{:href => "https://maps.google.com/maps?f=q&source=embed&hl=en&geocode=&q=396+Ano+Nuevo+Ave,+Sunnyvale,+CA&sll=37.390303,-122.043858&sspn=0.039757,0.072784&ie=UTF8&hq=&hnear=396+Ano+Nuevo+Ave,+Sunnyvale,+California+94085&t=m&z=14&ll=37.390303,-122.043858", :style => "color:#0000FF;text-align:left", :target => "_blank"} View Larger Map
