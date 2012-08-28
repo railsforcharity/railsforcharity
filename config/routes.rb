@@ -11,6 +11,7 @@ Railsforcharity::Application.routes.draw do
   match 'blog' => 'static_pages#blog'
   match 'supporters' => 'static_pages#supporters'
   match 'contributors' => 'static_pages#contributors'
+  match 'how_it_works' => 'static_pages#how_it_works'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
