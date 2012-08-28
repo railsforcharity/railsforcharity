@@ -6,7 +6,7 @@ class ContactUs
   validates :email, :presence => true,
     :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "email is invalid" }
   validates :description, :presence => true,
-    :length => {:minimum => 10, :maximum => 300}
+    :length => {:minimum => 10}
 
   # to deal with form, you must have an id attribute
   attr_accessor :id, :name, :email, :description

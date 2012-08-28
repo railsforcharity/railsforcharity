@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.7'
 gem 'devise'
+gem 'omniauth-twitter'
 
 gem 'haml-rails'
 gem 'jquery-rails'
