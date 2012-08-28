@@ -18,7 +18,6 @@
     %li
       = link_to 'Contact Us', contact_path
   %ul.pull-right.nav
-
     - if user_signed_in?
       %li
         = link_to "Edit Profile", edit_user_path(current_user)
@@ -28,8 +27,7 @@
       = link_to "Log In", new_user_session_path, :class => 'btn btn-warning'
     - if user_not_signed_in?
       %li
-        %div
-          = link_to "Sign Up", new_user_registration_path, :class => 'btn btn-success'
+      = link_to "Sign Up", new_user_registration_path, :class => 'btn btn-success'
 
     -# %li
     -#   %div
