@@ -4,7 +4,7 @@
   %span.icon-bar
 = link_to "Rails for Charity", root_path, :class => 'brand'
 .nav-collapse
-  %ul.pull-right.nav
+  %ul.pull-left.nav
     %li
       = link_to 'Home', root_path
     %li
@@ -17,25 +17,23 @@
       = link_to 'Blog', blog_path
     %li
       = link_to 'Contact Us', contact_path
+  %ul.pull-right.nav
+
+    - if user_signed_in?
+      %li
+        = link_to "Edit Profile", edit_user_path(current_user)
+      %li
+        = link_to "Log Out", destroy_user_session_path, 'data-skip-pjax' => true, :class => 'btn btn-danger'
+    - else
+      = link_to "Log In", new_user_session_path, :class => 'btn btn-warning'
+    - if user_not_signed_in?
+      %li
+        %div
+          = link_to "Sign Up", new_user_registration_path, :class => 'btn btn-success'
+
     -# %li
     -#   %div
     -#     - link_to 'Charities', root_path, :class => 'btn btn-primary'
     -# %li
     -#   %div
     -#     - link_to 'Developers', root_path, :class => 'btn btn-primary'
-
-    %li
-      -# - if user_signed_in?
-      -#      %li
-      -#        = link_to "Edit Profile", edit_user_path(current_user)
-      -#      %li
-      -#        %div
-      -#          = link_to "Log Out", destroy_user_session_path, 'data-skip-pjax' => true, :class => 'btn btn-danger'
-      -#    - else
-      -#      %div
-      -#        = link_to "Log In", new_user_session_path, :class => 'btn btn-warning'
-      -#  - if user_not_signed_in?
-      -#    %li
-      -#      %div
-      -#        = link_to "Sign Up", new_user_registration_path, :class => 'btn btn-success'
-      -#
