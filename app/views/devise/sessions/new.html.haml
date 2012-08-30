@@ -1,0 +1,42 @@
+.container
+  .span6
+    .row-fluid
+      .span12
+        %h3 Sign in through one of these services:
+        %br
+        .span8
+          .span2
+            .shadow
+              = link_to image_tag('icons/facebook.png'), user_omniauth_authorize_path(:facebook)
+            %p Facebook
+          .span2
+            .shadow
+              = link_to image_tag('icons/google.png'), user_omniauth_authorize_path(:google_oauth2)
+            %p Google
+          .span2
+            .shadow            
+              = link_to image_tag('icons/twitter.png'), user_omniauth_authorize_path(:twitter)
+            %p Twitter
+          .span2
+            .shadow          
+              = link_to image_tag('icons/github.png'), user_omniauth_authorize_path(:github)
+            %p Github
+        %br
+    %br
+      %hr
+    .row-fluid
+      .span6
+        %h3 Sign in
+        %br   
+        = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+          %div
+            = f.label :email
+            = f.email_field :email
+          %div
+            = f.label :password
+            = f.password_field :password
+          - if devise_mapping.rememberable?
+            = f.check_box :remember_me
+            = f.label :remember_me
+          %div= f.submit "Sign in"
+        = render "devise/shared/links"
