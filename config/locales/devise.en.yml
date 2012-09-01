@@ -51,8 +51,8 @@ en:
       failure: 'Could not authenticate you from %{kind} because "%{reason}".'
     mailer:
       confirmation_instructions:
-        subject: 'Confirmation instructions'
+        subject: '[Rails for Charity] Please confirm your account.'
       reset_password_instructions:
-        subject: 'Reset password instructions'
+        subject: '[Rails for Charity] Reset password instructions.'
       unlock_instructions:
-        subject: 'Unlock Instructions'
+        subject: '[Rails for Charity] Account unlocking instructions.'
