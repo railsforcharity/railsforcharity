@@ -12,8 +12,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       user.authentications.build(:provider => provider, :uid => uid)
 
       if user.save
-        flash.notice = "Signed in!"
-        sign_in_and_redirect user
+        flash.notice = "Thanks for joining Rails for Charity! Please take a moment to update your profile."
+        custom_sign_in_and_redirect(user)
       else
         session["devise.user_attributes"] = user.attributes
         redirect_to new_user_registration_url
@@ -31,4 +31,11 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   alias_method :facebook, :all
   alias_method :google_oauth2, :all
   alias_method :github, :all
+
+  private
+  def custom_sign_in_and_redirect(resource)
+    scope = Devise::Mapping.find_scope!(resource)
+    sign_in(scope, resource, {})
+    redirect_to edit_user_path(current_user)
+  end
 end
