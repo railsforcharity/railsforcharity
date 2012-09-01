@@ -2,3 +2,6 @@
   = f.input :name
   = f.input :email
   = f.submit 'Save Changes', :class => 'btn btn-primary'
+
+= link_to t('views.users.edit.delete_account'), user_registration_path, :method => :delete,
+  :confirm => 'Are you sure you want to destroy your account?', :class => "close"

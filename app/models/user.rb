@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
 
   # Relations
-  has_many :authentications
+  has_many :authentications, :dependent => :destroy
 
   def self.new_with_session(params, session)
     if session["devise.user_attributes"]
