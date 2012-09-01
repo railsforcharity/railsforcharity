@@ -2,7 +2,7 @@
   .span6
     .row-fluid
       .span12
-        %h3 Sign in through one of these services:
+        %h3 Sign up through one of these services:
         %br
         .span8
           .span2
@@ -39,5 +39,5 @@
       %div
         = f.label :password_confirmation
         = f.password_field :password_confirmation
-      %div= f.submit "Sign up"
+      %div= f.submit "Sign up", :class => 'btn btn-primary'
     = render "devise/shared/links"
