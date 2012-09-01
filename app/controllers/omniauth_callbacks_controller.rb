@@ -10,7 +10,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if user.nil?
       user = User.new(:email => email)
       user.authentications.build(:provider => provider, :uid => uid)
-      #user = User.create(:email => email, :authentication => { :provider => provider, :uid => uid })
 
       if user.save
         flash.notice = "Signed in!"

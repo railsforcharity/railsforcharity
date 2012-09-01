@@ -1,3 +1,5 @@
+@import "compass";
+
 body {
     font: 13px/1.7em 'Open Sans';
 }
@@ -75,7 +77,5 @@ body {
 }
 
 .shadow {
-  -moz-box-shadow:    3px 3px 5px 6px #ccc;
-  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
-  box-shadow:         3px 3px 5px 6px #ccc;
+  @include box-shadow(skyblue 2px 2px 10px);
 }

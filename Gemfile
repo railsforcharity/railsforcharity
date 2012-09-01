@@ -11,7 +11,7 @@ gem 'heroku'
 
 gem 'haml-rails'
 gem 'jquery-rails'
-gem 'bootstrap-sass', "~> 2.0.4.0"
+gem 'bootstrap-sass', "~> 2.0.4.2"
 gem 'simple_form'
 
 # Gems used only for assets and not required
@@ -24,6 +24,7 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+  gem 'compass-rails'
 end
 
 group :development, :test do
