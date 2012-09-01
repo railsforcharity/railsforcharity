@@ -10,6 +10,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if user.nil?
       user = User.new(:email => email)
       user.authentications.build(:provider => provider, :uid => uid)
+      user.skip_confirmation!
 
       if user.save
         flash.notice = t('controllers.omniauth_callbacks.sign_up.success')
