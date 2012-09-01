@@ -62,5 +62,7 @@ module Railsforcharity
       g.view_specs false
       g.helper_specs false
     end
+
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
   end
 end

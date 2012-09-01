@@ -11,7 +11,7 @@
         %span.slash //
         Send a Message
       %br
-      = simple_form_for @contact_us, :url => { :action => "contact_us_create" }, :validate => true do |f|
+      = simple_form_for @contact_us, :url => { :action => 'contact_us' }, :validate => true do |f|
         = f.input :name, :label => 'Your good name'
         = f.input :email, :label => 'Your awesome email', :placeholder => 'you@awesome.com'
         = f.input :description, :label => 'Please tell me', :as => 'text', :input_html => {:style => 'width: 90%', :rows => 10}

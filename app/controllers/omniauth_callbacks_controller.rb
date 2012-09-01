@@ -12,7 +12,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       user.authentications.build(:provider => provider, :uid => uid)
 
       if user.save
-        flash.notice = "Thanks for joining Rails for Charity! Please take a moment to update your profile."
+        flash.notice = t('controllers.omniauth_callbacks.sign_up.success')
         custom_sign_in_and_redirect(user)
       else
         session["devise.user_attributes"] = user.attributes
@@ -22,7 +22,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       # TODO: Verify that the authentication record belongs to this user only
 
       user.authentications.create(:provider => provider, :uid => uid) if !authentication # Regular signed up user, allow him this omniauth signup also
-      flash.notice = "Signed in!"
+      flash.notice = t('controllers.omniauth_callbacks.sign_in.success')
       sign_in_and_redirect user
     end
   end
