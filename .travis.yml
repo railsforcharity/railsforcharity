@@ -17,5 +17,6 @@ script:
 
 before_script:
   - psql -c 'create database railsforcharity_test' -U postgres
+  - cp config/database.jenkins.yml config/database.yml
 
 bundler_args: "--without development"
