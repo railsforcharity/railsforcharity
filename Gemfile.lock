@@ -284,6 +284,5 @@ DEPENDENCIES
   shoulda-matchers
   simple_form
   spork
-  sprockets
   uglifier (>= 1.0.3)
   unicorn
