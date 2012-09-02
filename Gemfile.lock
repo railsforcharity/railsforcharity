@@ -280,9 +280,10 @@ DEPENDENCIES
   populator
   rails (= 3.2.7)
   rspec-rails
-  sass-rails (~> 3.2.3)
+  sass-rails (~> 3.2.5)
   shoulda-matchers
   simple_form
   spork
+  sprockets
   uglifier (>= 1.0.3)
   unicorn
