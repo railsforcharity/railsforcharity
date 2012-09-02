@@ -53,6 +53,7 @@ end
 gem 'pg'
 gem 'unicorn'
 gem 'friendly_id'
+gem "travis-lint", "~> 1.4.0"
 
 # Deploy with Capistrano
 # gem 'capistrano'
