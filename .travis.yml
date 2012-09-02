@@ -1,13 +1,21 @@
 language: ruby
+
 rvm:
   - 1.9.3
+
+env:
+  - DB=postgresql
 
 branches:
   only:
     - 'master'
-bundler_args: "--without development"
-before_script: "./config/before-travis.sh"
-script: "export DISPLAY=:99.0 && bundle exec rake"
 
-# uncomment this line if your project needs to run something other than `rake`:
-# script: bundle exec rspec spec
+script:
+  - bundle exec rake --trace db:create:all
+  - bundle exec rake db:test:prepare
+  - bundle exec rspec spec/
+
+before_script:
+  - psql -c 'create database railsforcharity_test' -U postgres
+
+bundler_args: "--without development"

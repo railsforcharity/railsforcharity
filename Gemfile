@@ -44,7 +44,6 @@ group :development, :test do
 end
 
 group :test do
-  gem 'sqlite3'
   gem 'email_spec'
   gem 'cucumber-rails'
   gem 'capybara'
