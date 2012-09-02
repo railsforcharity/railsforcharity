@@ -4,15 +4,15 @@
       .span12
         %h3 Sign in through one of these services:
         %br
-        .span8
-          .span2
-            .shadow
-              = link_to image_tag('icons/facebook.png'), user_omniauth_authorize_path(:facebook)
-            %p Facebook
-          .span2
-            .shadow
-              = link_to image_tag('icons/google.png'), user_omniauth_authorize_path(:google_oauth2)
-            %p Google
+        %ul#authentications_list
+          %li
+            = link_to "user_omniauth_authorize_path(:facebook)" do
+              = image_tag 'icons/providers/facebook.png', :size => "64x64", :alt => "Facebook"
+              Facebook
+          %li
+            = link_to "user_omniauth_authorize_path(:google_oauth2)" do
+              = image_tag 'icons/providers/google.png', :size => "64x64", :alt => "Google"
+              Google
         %br
     %br
       %hr
