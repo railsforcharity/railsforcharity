@@ -1,0 +1,12 @@
+= simple_form_for(@project) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :description, :as => :ckeditor, :label => 'Description', :input_html => { :toolbar => 'Basic', :style => 'width: 90%', :rows => 10 }
+    -#= f.input :description, :label => 'Please tell me', :as => 'text', :input_html => {:style => 'width: 90%', :rows => 10}
+    -#= f.input :description, :as => :ckeditor, :label => false, :input_html => { :toolbar => 'Basic' }
+
+
+  .form-actions
+    = f.button :submit, :class => 'btn btn-primary'

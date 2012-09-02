@@ -11,6 +11,7 @@
           home: 'Home',
           user_settings: 'User Settings',
           edit_profile: 'Edit Profile',
+          projects: 'Projects',
           sign_up: 'Sign Up',
           log_in: 'Log In',
           sign_in: 'Sign In',

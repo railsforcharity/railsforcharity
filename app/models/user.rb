@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   # Relations
   has_many :authentications, :dependent => :destroy
+  has_and_belongs_to_many :projects
 
   # Friendly Id
   extend FriendlyId
