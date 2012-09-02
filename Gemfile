@@ -14,6 +14,10 @@ gem 'bootstrap-sass', "~> 2.0.4.2"
 gem 'simple_form'
 gem 'friendly_id'
 gem 'compass-rails'
+gem 'ckeditor', '3.7.2'
+gem 'carrierwave'
+gem 'mini_magick'
+
 
 # Gems used only for assets and not required
 # in production environments by default.
