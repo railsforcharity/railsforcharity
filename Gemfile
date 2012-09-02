@@ -1,18 +1,19 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.7'
+gem 'pg'
 gem 'devise'
 gem 'omniauth'
-gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
-gem 'omniauth-github'
 gem 'heroku'
 
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'bootstrap-sass', "~> 2.0.4.2"
 gem 'simple_form'
+gem 'friendly_id'
+gem 'compass-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -25,7 +26,10 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 end
-gem 'compass-rails'
+
+group :development do
+  gem "travis-lint", "~> 1.4.0"
+end
 
 group :development, :test do
   gem 'rspec-rails'
@@ -40,6 +44,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'sqlite3'
   gem 'email_spec'
   gem 'cucumber-rails'
   gem 'capybara'
@@ -47,16 +52,9 @@ group :test do
   gem 'launchy'
 end
 
+group :production do
+  gem 'unicorn'
+end
+
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
-
-gem 'pg'
-gem 'unicorn'
-gem 'friendly_id'
-gem "travis-lint", "~> 1.4.0"
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'debugger'
