@@ -2,13 +2,13 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def all
     auth = request.env["omniauth.auth"]
-    provider, uid, email = auth.provider, auth.uid, auth.info.email
+    provider, uid, name, email = auth.provider, auth.uid, auth.info.name, auth.info.email
 
     user = User.find_by_email(email)
     authentication = Authentication.find_by_provider_and_uid(provider, uid)
 
     if user.nil?
-      user = User.new(:email => email)
+      user = User.new(:email => email, :name => name)
       user.authentications.build(:provider => provider, :uid => uid)
       user.skip_confirmation!
 

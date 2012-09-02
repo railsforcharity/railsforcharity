@@ -52,6 +52,7 @@ end
 
 gem 'pg'
 gem 'unicorn'
+gem 'friendly_id'
 
 # Deploy with Capistrano
 # gem 'capistrano'

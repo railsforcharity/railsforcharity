@@ -7,6 +7,11 @@ class User < ActiveRecord::Base
   # Relations
   has_many :authentications, :dependent => :destroy
 
+  # Friendly Id
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
+  # Devise
   def self.new_with_session(params, session)
     if session["devise.user_attributes"]
       new(session["devise.user_attributes"], without_protection: true) do |user|

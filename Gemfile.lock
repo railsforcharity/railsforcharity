@@ -91,6 +91,7 @@ GEM
     faraday (0.8.4)
       multipart-post (~> 1.1)
     ffi (1.1.4)
+    friendly_id (4.0.8)
     fssm (0.2.9)
     gherkin (2.11.1)
       json (>= 1.4.6)
@@ -263,6 +264,7 @@ DEPENDENCIES
   email_spec
   factory_girl_rails
   faker
+  friendly_id
   haml-rails
   heroku
   hirb
