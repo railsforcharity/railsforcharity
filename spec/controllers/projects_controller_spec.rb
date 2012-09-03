@@ -24,7 +24,11 @@ describe ProjectsController do
   # Project. As you add validations to Project, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {
+        name: 'Rails for Charity',
+        title: 'Open Source Web based App',
+        description: 'To build open source web based applications which help in improving the society.'
+    }
   end
 
   # This should return the minimal set of values that should be in the session
