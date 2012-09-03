@@ -1,4 +1,4 @@
-%h1 Listing projects
+%h2 Listing projects
 
 %table
   %tr
@@ -11,7 +11,7 @@
   - @projects.each do |project|
     %tr
       %td= project.name
-      %td= project.description
+      %td= project.title
       %td= link_to 'Show', project
       %td= link_to 'Edit', edit_project_path(project)
       %td= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete

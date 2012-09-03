@@ -1,11 +1,8 @@
-%p#notice= notice
-
-%p
-  %b Name:
-  = @project.name
-%p
-  %b Description:
-  = @project.description
+%b Name:
+= @project.name
+%br
+%b Description:
+= @project.description.html_safe
 
 = link_to 'Edit', edit_project_path(@project)
 \|

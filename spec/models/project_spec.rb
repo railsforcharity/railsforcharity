@@ -1,5 +1,22 @@
 require 'spec_helper'
 
 describe Project do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'associations' do
+    it { should have_and_belong_to_many(:users) }
+  end
+
+  describe 'validations' do
+    it { should allow_mass_assignment_of(:name) }
+    it { should validate_presence_of(:name) }
+    it { should ensure_length_of(:name).is_at_least(3).is_at_most(25) }
+    #it { should validate_uniqueness_of(:name) }
+
+    it { should allow_mass_assignment_of(:title) }
+    it { should validate_presence_of(:title) }
+    it { should ensure_length_of(:title).is_at_least(10).is_at_most(140) }
+
+    it { should allow_mass_assignment_of(:description) }
+    it { should validate_presence_of(:description) }
+    it { should ensure_length_of(:description).is_at_least(50).is_at_most(2000) }
+  end
 end

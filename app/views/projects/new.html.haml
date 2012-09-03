@@ -1,5 +1,10 @@
-%h1 New project
+.row-fluid
+  .span8
+    %h2 New project
 
-= render 'form'
+    %br
+    = render 'form'
 
-= link_to 'Back', projects_path
+    = link_to 'Back', projects_path
+  .span4
+    = render :partial => 'projects/help'

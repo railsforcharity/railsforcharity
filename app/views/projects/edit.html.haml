@@ -1,7 +1,11 @@
-%h1 Editing project
+.row-fluid
+  .span8
+    %h2 Editing project
 
-= render 'form'
+    = render 'form'
 
-= link_to 'Show', @project
-\|
-= link_to 'Back', projects_path
+    = link_to 'Show', @project
+    \|
+    = link_to 'Back', projects_path
+  .span4
+    = render :partial => 'projects/help'
