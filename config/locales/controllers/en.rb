@@ -21,6 +21,15 @@
         update: {
           success: 'User was successfully updated.'
         }
+      },
+
+      projects: {
+        create: {
+            success: 'Project was successfully created. Now take a momemt to select collaborators and assign roles.'
+        },
+        update: {
+            success: 'Project was successfully updated.'
+        }
       }
     }
   }
