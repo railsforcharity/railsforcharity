@@ -1,0 +1,16 @@
+Id	Name	Description	Category	Is Deprecated
+1	Ruby	Backend programmer	Programming	
+2	Java	Backend programmer	Programming	
+3	CSS	UI Programmer who beautifies web apps	Programming	
+4	Javascript	UI Programmer who brings interactivity to web apps	Programming	
+5	Node.js	Backend programmer	Programming	
+6	Ruby on Rails	Web applications developer	Programming	
+7	JRuby	Backend programmer	Programming	
+8	MySQL	Database programmer	Programming	
+9	Oracle	Database programmer	Programming	
+10	UX	User Experience Designer	Web Design	
+11	Photoshop Designer	Artist who can make images and web designing in photoshop	Web Design	
+12	Marketing	Advertising the product. Taking it to the market	Marketing	
+13	Sales	Person/Team who can sell the idea/service/product to prospective customers	Marketing	
+14	Funding	Person/Team who can bring funding for the projects	Finance	
+15	Legal	Person/Team who can advise on legal matters	Legal	1
