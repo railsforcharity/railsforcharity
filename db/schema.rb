@@ -46,10 +46,8 @@ ActiveRecord::Schema.define(:version => 20120903061809) do
   end
 
   create_table "projects_users", :force => true do |t|
-    t.integer  "project_id"
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer "project_id"
+    t.integer "user_id"
   end
 
   create_table "skills", :force => true do |t|
