@@ -10,6 +10,12 @@ class UsersController < ApplicationController
   end
 
   def index
+    @users = User.name_like(params[:q]).limit(10)
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @users }
+    end
   end
 
   def update

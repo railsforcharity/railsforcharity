@@ -1,23 +1,31 @@
 source 'https://rubygems.org'
 
+# Infrastructure
 gem 'rails', '3.2.7'
 gem 'pg'
+gem 'heroku'
+
+# Authentication
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
-gem 'heroku'
 
-gem 'haml-rails'
+# Javascript
 gem 'jquery-rails'
+gem 'jquery-tokeninput-rails'
+
+# Forms
+gem 'haml-rails'
 gem 'bootstrap-sass', "~> 2.0.4.2"
-gem 'simple_form'
-gem 'friendly_id'
 gem 'compass-rails'
+gem 'simple_form'
 gem 'ckeditor', '3.7.2'
+
+# Other
+gem 'friendly_id'
 gem 'carrierwave'
 gem 'mini_magick'
-
 
 # Gems used only for assets and not required
 # in production environments by default.

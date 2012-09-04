@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
 
+  # Named Scopes
+  scope :name_like, lambda { |n| where("name ilike ?", "%#{n}%") } # WARN: Potential DB Change Problem
+
   # Devise
   def self.new_with_session(params, session)
     if session["devise.user_attributes"]
