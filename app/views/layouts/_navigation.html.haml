@@ -2,7 +2,10 @@
   %span.icon-bar
   %span.icon-bar
   %span.icon-bar
-= link_to t('views.layouts._navigation.app_name'), root_path, :class => 'brand'
+%a(href='/' class='brand')
+  %span(style='color:red') Rails
+  %span(style='color:white') for
+  %span(style='color:lightgreen') Charity
 .nav-collapse
   %ul.pull-left.nav
     - if !user_signed_in?
@@ -14,8 +17,8 @@
         = link_to t('views.layouts._navigation.faq'), faq_path
       %li
         = link_to t('views.layouts._navigation.supporters'), supporters_path
-      %li
-        = link_to t('views.layouts._navigation.blog'), blog_path
+      -#%li
+      -#  = link_to t('views.layouts._navigation.blog'), blog_path
       %li
         = link_to t('views.layouts._navigation.contact_us'), contact_path
   %ul.pull-right.nav
