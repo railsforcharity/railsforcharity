@@ -39,6 +39,7 @@ class User < ActiveRecord::Base
 
   # Named Scopes
   scope :name_like, lambda { |n| where("name ilike ?", "%#{n}%") } # WARN: Potential DB Change Problem
+  scope :confirmed_users, where("confirmed_at is not null")
 
   # Devise
   def self.new_with_session(params, session)

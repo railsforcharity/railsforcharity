@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, :except => [:show, :index]
   before_filter :find_user, :only => [:edit, :update, :show]
 
   def edit
@@ -10,7 +9,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.name_like(params[:q]).limit(10)
+    @users = User.confirmed_users.name_like(params[:q]).limit(10)
 
     respond_to do |format|
       format.html
@@ -36,4 +35,5 @@ class UsersController < ApplicationController
   def find_user
     @user = User.find(params[:id])
   end
+
 end
