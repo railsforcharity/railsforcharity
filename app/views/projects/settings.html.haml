@@ -7,14 +7,49 @@
       resultsFormatter: function(item) {
         return "<li>" + "<img src='" + '/assets/avatar.png' + "' title='" + item.name + "' height='25px' width='25px' />" + "<div style='display: inline-block; padding-left: 10px;'><div class='name'>" + item.name + "</div></div></li>"
       },
+      onAdd: function (item) {
+        $('table tr td').appendTo('Vinti');
+
+      }
     });
   });
+= @users = @project.users
+= @skills = Skill.all
 
 .row-fluid
   .span8
     %h3 Select Collaborators
     %br
-    %input(type='text' class='typeahead' data-provide='typeahead' placeholder='Type name or username...')
+    = form_tag project_path(@project), :method => :put do |f|
+      = text_field_tag "project[user_ids][]", nil, :class => 'typeahead'
 
+      .form-actions
+        = submit_tag 'Save', :class => 'btn btn-primary'
+
+      %h3 User skills Matrix
+      = form_tag project_path(@project), :method => :put do |f|
+        %table.projects_skills(style='border:1px black solid')
+          %thead(style='border:1px black solid')
+            %tr
+              %td
+                %table
+                  %tr
+                    %th Skills
+                  %tr
+                    %th Users
+
+              - @skills.each do |skill|
+                %th
+                  = skill.name
+          %tbody
+            %tr
+              - @users.each do |user|
+                %td
+                  =user.name
+              - @skills.count.times do
+                %td
+                  = check_box_tag("skill[skill_ids][]", nil)
+        .form-actions
+          = submit_tag 'Save', :class => 'btn btn-primary'
   .span4
     = render :partial => 'projects/settings_help'
