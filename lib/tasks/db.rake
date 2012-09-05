@@ -6,4 +6,9 @@ namespace :db do
   task :development_environment_only do
     raise "Hey, development only, you monkey!" unless Rails.env.development?
   end
+
+  desc "Importing skills data"
+  task :import_skills do
+    Rake::Task["data:import_skills"].execute
+  end
 end
