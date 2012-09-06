@@ -1,6 +1,6 @@
 namespace :db do
   desc "Refresh database, drop, create and migrate"
-  task :refresh => [:development_environment_only, :drop, :create, :migrate]
+  task :refresh => [:development_environment_only, :drop, :create, :migrate, :import_skills]
   
   desc "Raise an error unless the Rails.env is development"
   task :development_environment_only do
