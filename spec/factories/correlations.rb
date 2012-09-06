@@ -1,8 +1,8 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :projects_user do
-    project_id 1
+  factory :correlation do
     user_id 1
+    project_id 1
   end
 end

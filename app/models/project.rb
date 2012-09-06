@@ -14,7 +14,14 @@ class Project < ActiveRecord::Base
   attr_accessible :description, :name, :title, :user_ids
 
   # Relations
-  has_and_belongs_to_many :users
+  has_many :correlations
+  has_many :users, :through => :correlations
+  has_many :taggings, :dependent => :destroy
+  has_many :tags, :through => :taggings
+
+  attr_writer :tags_names
+  #after_save :assign_tags
+
 
   # Validations
   validates :name, :presence => true, :uniqueness => true, :length => { :in => 3..25 }
@@ -22,4 +29,6 @@ class Project < ActiveRecord::Base
   validates :description, :presence => true, :length => { :in => 50..2000 }
 
   accepts_nested_attributes_for :users
+
+
 end

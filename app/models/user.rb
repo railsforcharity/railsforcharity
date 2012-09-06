@@ -31,7 +31,8 @@ class User < ActiveRecord::Base
 
   # Relations
   has_many :authentications, :dependent => :destroy
-  has_and_belongs_to_many :projects
+  has_many :correlations
+  has_many :projects, :through => :correlations
 
   # Friendly Id
   extend FriendlyId
