@@ -27,6 +27,10 @@ gem 'ckeditor', '3.7.2'
 gem 'friendly_id'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'carmen-rails', '~> 1.0.0.beta3'
+gem 'rmagick', '2.13.1'
+gem 'fog'
+
 
 # Gems used only for assets and not required
 # in production environments by default.

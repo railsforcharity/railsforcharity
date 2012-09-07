@@ -11,16 +11,14 @@
 #
 
 class Project < ActiveRecord::Base
-  attr_accessible :description, :name, :title, :user_ids
+  attr_accessible :description, :name, :title, :user_ids, :avatar_attributes, :location_attributes
 
   # Relations
   has_many :correlations
   has_many :users, :through => :correlations
-  has_many :taggings, :dependent => :destroy
-  has_many :tags, :through => :taggings
+  has_one :location, :as => :locatable, :dependent => :destroy
+  has_one :avatar, :as => :avatarable, :dependent => :destroy
 
-  attr_writer :tags_names
-  #after_save :assign_tags
 
 
   # Validations
@@ -28,7 +26,7 @@ class Project < ActiveRecord::Base
   validates :title, :presence => true, :length => { :in => 10..140 }
   validates :description, :presence => true, :length => { :in => 50..2000 }
 
-  accepts_nested_attributes_for :users
+  accepts_nested_attributes_for :users, :avatar, :location
 
 
 end

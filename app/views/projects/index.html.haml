@@ -1,21 +1,12 @@
-%h2 Listing projects
-
-%table
-  %tr
-    %th Name
-    %th Description
-    %th
-    %th
-    %th
-
-  - @projects.each do |project|
-    %tr
-      %td= project.name
-      %td= project.title
-      %td= link_to 'Show', project
-      %td= link_to 'Edit', edit_project_path(project)
-      %td= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete
-
-%br
-
-= link_to 'New Project', new_project_path
+.container
+  .row-fluid
+    %h1 RFC Projects
+    - @projects.each do |project|
+      %ul.thumbnails
+        %li.span4
+          .thumbnail
+            - if project.avatar
+              = link_to image_tag(project.avatar.image_url(:thumb).to_s), project_path(project)
+            .caption
+              %h3= project.name
+              %p= project.title

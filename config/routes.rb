@@ -4,8 +4,14 @@ Railsforcharity::Application.routes.draw do
 
   devise_for :users, path_names: { sign_in: "login", sign_out: "logout" },
                      controllers: { omniauth_callbacks: "omniauth_callbacks" }
-  resources :users
+
+  resources :users do  # Important note: The devise_for :users route must be placed above :users
+    resources :avatars
+    resources :locations
+  end
   resources :projects do
+    resources :avatars
+    resources :locations
     member do
       get 'settings'
     end

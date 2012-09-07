@@ -1,5 +1,10 @@
 = simple_form_for @project do |f|
   = f.error_notification
+  .pull-right
+    - if @project.avatar
+      = image_tag @project.avatar.image_url(:thumb).to_s
+    = f.fields_for :avatar, @project.avatar || Avatar.new do |a|
+      = a.file_field :image
 
   .form-inputs
     = f.input :name

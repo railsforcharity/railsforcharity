@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120903061809) do
+ActiveRecord::Schema.define(:version => 20120907015507) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -19,6 +19,14 @@ ActiveRecord::Schema.define(:version => 20120903061809) do
     t.string   "uid"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "avatars", :force => true do |t|
+    t.string   "avatarable_type"
+    t.integer  "avatarable_id"
+    t.string   "image"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "ckeditor_assets", :force => true do |t|
@@ -37,17 +45,32 @@ ActiveRecord::Schema.define(:version => 20120903061809) do
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], :name => "idx_ckeditor_assetable"
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], :name => "idx_ckeditor_assetable_type"
 
+  create_table "correlations", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "locations", :force => true do |t|
+    t.string   "address_line1"
+    t.string   "address_line2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "postal"
+    t.string   "country"
+    t.string   "locatable_type"
+    t.integer  "locatable_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "projects", :force => true do |t|
     t.string   "name"
     t.string   "title"
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-  end
-
-  create_table "projects_users", :force => true do |t|
-    t.integer "project_id"
-    t.integer "user_id"
   end
 
   create_table "skills", :force => true do |t|
@@ -77,6 +100,8 @@ ActiveRecord::Schema.define(:version => 20120903061809) do
     t.string   "unconfirmed_email"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.string   "bio"
+    t.string   "website"
     t.string   "slug"
   end
 

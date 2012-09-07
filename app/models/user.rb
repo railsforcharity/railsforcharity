@@ -20,6 +20,8 @@
 #  unconfirmed_email      :string(255)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  bio                    :string(255)
+#  website                :string(255)
 #  slug                   :string(255)
 #
 
@@ -27,12 +29,17 @@ class User < ActiveRecord::Base
   # Devise modules. Others available are: :token_authenticatable, :lockable, :timeoutable
   devise :database_authenticatable, :registerable, :omniauthable, :confirmable, :recoverable, :rememberable, :trackable, :validatable
 
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :name, :email, :password, :password_confirmation, :remember_me , :website, :bio, :avatar_attributes, :location_attributes
 
   # Relations
   has_many :authentications, :dependent => :destroy
   has_many :correlations
   has_many :projects, :through => :correlations
+  has_one :location, :as => :locatable, :dependent => :destroy
+  has_one :avatar, :as => :avatarable, :dependent => :destroy
+
+  accepts_nested_attributes_for :avatar, :location
+
 
   # Friendly Id
   extend FriendlyId

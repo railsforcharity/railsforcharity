@@ -1,0 +1,19 @@
+= provide(:title, "User #{@user.name}")
+.container-fluid
+  .row-fluid
+    .span9
+      .pull-left
+        - if @user.avatar
+          = image_tag @user.avatar.image_url(:thumb).to_s
+        %br
+        %br
+        %b Name:
+        = @user.name
+        %br
+        %b About Me:
+        = @user.bio.html_safe
+
+
+  = link_to 'Edit', edit_user_path(@user)
+  \|
+  = link_to 'Back', users_path
