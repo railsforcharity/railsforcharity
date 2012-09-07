@@ -14,6 +14,7 @@ gem 'omniauth-google-oauth2'
 # Javascript
 gem 'jquery-rails'
 gem 'jquery-tokeninput-rails'
+gem "select2-rails", "~> 3.1.1"
 
 # Forms
 gem 'haml-rails'
