@@ -12,9 +12,8 @@ Railsforcharity::Application.routes.draw do
   resources :projects do
     resources :avatars
     resources :locations
-    member do
-      get 'settings'
-    end
+    member { get :settings }
+    member { post :vote }
   end
 
   

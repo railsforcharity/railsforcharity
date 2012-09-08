@@ -1,8 +1,10 @@
 class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
+  before_filter :find_project, :only => [:show, :edit, :update, :destroy, :settings, :show, :vote]
+
   def index
-    @projects = Project.all
+    @projects = Project.find_with_reputation(:votes, :all, order: 'votes desc')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,8 +15,6 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @project = Project.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @project }
@@ -34,7 +34,6 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    @project = Project.find(params[:id])
   end
 
   # POST /projects
@@ -56,8 +55,6 @@ class ProjectsController < ApplicationController
   # PUT /projects/1
   # PUT /projects/1.json
   def update
-    @project = Project.find(params[:id])
-
     respond_to do |format|
       if @project.update_attributes(params[:project])
         format.html { redirect_to settings_project_path(@project), notice: t('controllers.projects.update.success') }
@@ -72,7 +69,6 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
-    @project = Project.find(params[:id])
     @project.destroy
 
     respond_to do |format|
@@ -82,6 +78,17 @@ class ProjectsController < ApplicationController
   end
 
   def settings
+  end
+
+  def vote
+    value = params[:type] == "up" ? 1 : -1
+    @project.add_or_update_evaluation(:votes, value, current_user)
+    redirect_to :back, notice: "Thank you for voting!"
+  end
+
+  private
+
+  def find_project
     @project = Project.find(params[:id])
   end
 

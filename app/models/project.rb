@@ -18,6 +18,7 @@ class Project < ActiveRecord::Base
   has_many :users, :through => :correlations
   has_one :location, :as => :locatable, :dependent => :destroy
   has_one :avatar, :as => :avatarable, :dependent => :destroy
+  has_reputation :votes, source: :user, aggregated_by: :sum
 
 
 

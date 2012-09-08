@@ -30,6 +30,7 @@ gem 'mini_magick'
 gem 'carmen-rails', '~> 1.0.0.beta3'
 gem 'rmagick', '2.13.1'
 gem 'fog'
+gem 'activerecord-reputation-system', require: 'reputation_system'
 
 
 # Gems used only for assets and not required

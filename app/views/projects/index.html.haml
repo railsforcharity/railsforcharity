@@ -10,3 +10,11 @@
             .caption
               %h3= project.name
               %p= project.title
+            .project
+              = simple_format project.title
+              %em
+                \-- #{project.name}
+                | #{pluralize project.reputation_value_for(:votes).to_i, "vote"}
+                | #{link_to "up", vote_project_path(project, type: "up"), method: "post"}
+                | #{link_to "down", vote_project_path(project, type: "down"), method: "post"}
+              
