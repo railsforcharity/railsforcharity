@@ -33,7 +33,7 @@ GEM
       rake
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
-    bootstrap-sass (2.0.4.2)
+    bootstrap-sass (2.1.0.0)
     builder (3.0.0)
     capybara (1.1.2)
       mime-types (>= 1.16)
@@ -279,7 +279,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
-  bootstrap-sass (~> 2.0.4.2)
+  bootstrap-sass (~> 2.1)
   capybara
   carmen-rails (~> 1.0.0.beta3)
   carrierwave
