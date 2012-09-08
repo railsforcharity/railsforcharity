@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
-  before_filter :find_project, :only => [:show, :edit, :update, :destroy, :settings, :show, :vote]
+  before_filter :find_project, :only => [:show, :edit, :update, :destroy, :settings, :vote]
 
   def index
     @projects = Project.find_with_reputation(:votes, :all, order: 'votes desc')
@@ -40,7 +40,7 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(params[:project])
-
+    @project.created_by = current_user
     respond_to do |format|
       if @project.save
         format.html { redirect_to settings_project_path(@project), notice: t('controllers.projects.create.success') }

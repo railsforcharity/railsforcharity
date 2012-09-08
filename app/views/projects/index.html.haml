@@ -1,6 +1,7 @@
 .container
   .row-fluid
     %h1 RFC Projects
+    %br
     - @projects.each do |project|
       %ul.thumbnails
         %li.span4
@@ -10,8 +11,8 @@
             .caption
               %h3= project.name
               %p= project.title
+              %p Creator: #{User.find(project.created_by).name}
             .project
-              = simple_format project.title
               %em
                 \-- #{project.name}
                 | #{pluralize project.reputation_value_for(:votes).to_i, "vote"}

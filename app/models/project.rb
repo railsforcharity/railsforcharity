@@ -8,10 +8,11 @@
 #  description :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  created_by  :integer
 #
 
 class Project < ActiveRecord::Base
-  attr_accessible :description, :name, :title, :user_ids, :avatar_attributes, :location_attributes
+  attr_accessible :description, :name, :title, :user_ids, :avatar_attributes, :location_attributes, :created_by
 
   # Relations
   has_many :correlations
