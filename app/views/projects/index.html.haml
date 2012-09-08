@@ -9,13 +9,13 @@
             - if project.avatar
               = link_to image_tag(project.avatar.image_url(:thumb).to_s), project_path(project)
             .caption
-              %h3= project.name
+              %h3=link_to project.name, project_path(project)
               %p= project.title
-              %p Creator: #{User.find(project.created_by).name}
+              %p Creator: #{link_to project.creator.name, user_path(project.created_by)}
             .project
               %em
                 \-- #{project.name}
                 | #{pluralize project.reputation_value_for(:votes).to_i, "vote"}
-                | #{link_to "up", vote_project_path(project, type: "up"), method: "post"}
-                | #{link_to "down", vote_project_path(project, type: "down"), method: "post"}
-              
+                - if current_user && !current_user.voted_for?(project)
+                  | #{link_to "up", vote_project_path(project, type: "up"), method: "post"}
+                  | #{link_to "down", vote_project_path(project, type: "down"), method: "post"}

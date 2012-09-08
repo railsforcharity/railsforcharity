@@ -8,6 +8,7 @@
 #  description :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  created_by  :integer
 #
 
 require 'spec_helper'

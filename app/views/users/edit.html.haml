@@ -1,24 +1,26 @@
--provide(:title, 'Edit Profile')
-.frame1
-  -if @user.errors.any?
-    .alert.alert-error
-      %h4= "#{pluralize(@user.errors.count, "error")} prohibited this information from being saved:"
-      %ul
-        - @user.errors.full_messages.each do |msg|
-          %li= msg
+.container
+  .row-fluid
+    .span8
+      -if @user.errors.any?
+        .alert.alert-error
+          %h4= "#{pluralize(@user.errors.count, "error")} prohibited this information from being saved:"
+          %ul
+            - @user.errors.full_messages.each do |msg|
+              %li= msg
 
-  = simple_form_for @user, :validate => true, :html => {:multipart => true} do |f|
-    .pull-right
-      - if @user.avatar
-        = image_tag @user.avatar.image_url(:thumb).to_s
-      = f.fields_for :avatar, @user.avatar || Avatar.new do |a|
-        = a.file_field :image
-    = f.input :name
-    = f.input :email
-    = f.input :website
-    = f.simple_fields_for :location, @user.location || Location.new do |l|
-      = l.label :country
-      = l.country_select :country, {priority: %w(US CA)}, prompt: 'Please select a country'
-    = f.label :bio
-    = f.input :bio, :as => :ckeditor, :label => false, :input_html => { :toolbar => 'Basic' }
-    = f.submit 'Save Changes', :class => 'btn btn-primary'
+      = simple_form_for @user, :validate => true, :html => {:multipart => true} do |f|
+        .pull-right
+          - if @user.avatar
+            = image_tag @user.avatar.image_url(:thumb).to_s
+          = f.fields_for :avatar, @user.avatar || Avatar.new do |a|
+            = a.file_field :image
+        = f.input :name
+        = f.input :email
+        = f.input :website
+        = f.simple_fields_for :location, @user.location || Location.new do |l|
+          = l.label :country
+          = l.country_select :country, {priority: %w(US CA)}, prompt: 'Please select a country'
+        = f.label :bio
+        = f.input :bio, :as => :ckeditor, :label => false, :input_html => { :toolbar => 'Basic', :style => 'width: 50%', :rows => 5 }
+        = f.submit 'Save Changes', :class => 'btn btn-primary'
+    .offset2.span4{:style =>"background:black; height:560px;"}

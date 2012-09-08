@@ -38,6 +38,8 @@ class User < ActiveRecord::Base
   has_one :location, :as => :locatable, :dependent => :destroy
   has_one :avatar, :as => :avatarable, :dependent => :destroy
   has_reputation :votes, source: {reputation: :votes, of: :projects}, aggregated_by: :sum
+  has_many :evaluations, class_name: "RSEvaluation", as: :source
+
 
   accepts_nested_attributes_for :avatar, :location
 
@@ -72,5 +74,13 @@ class User < ActiveRecord::Base
 
   def password_required?
     (authentications.empty? || !password.blank?) && super
+  end
+
+  def voted_for?(project)
+    evaluations.where(target_type: project.class, target_id: project.id).present?
+  end
+
+  def karma_points
+   reputation_value_for(:votes).to_i* 10
   end
 end

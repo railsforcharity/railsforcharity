@@ -10,8 +10,8 @@
         %b Name:
         = @user.name
         %br
-        %b About Me:
-        = @user.bio.html_safe
+        %b About me:
+        = @user.try(:bio).try(:html_safe)
 
 
   = link_to 'Edit', edit_user_path(@user)

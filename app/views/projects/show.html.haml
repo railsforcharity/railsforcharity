@@ -6,6 +6,9 @@
           = image_tag @project.avatar.image_url(:thumb).to_s
         %br
         %br
+        %b Votes:
+        = pluralize @project.reputation_value_for(:votes).to_i, "vote"
+        %br
         %b Name:
         = @project.name
         %br
