@@ -24,6 +24,10 @@
     = f.input :video
     %br
     = f.input :collaborator_tokens, :input_html => { :class => 'typeahead', data: { load: @project.users } }, :label => 'Add Collaborators'
+    - if !edit
+      %br
+      = f.input :terms, :label => false, :as => :boolean, :inline_label => 'By clicking on the check box, you agree with the Terms and Conditions of RailsforCharity.'
+      -# TODO: Make Terms & Conditions Page
 
   .form-actions
     = f.button :submit, :class => 'btn btn-primary'

@@ -9,7 +9,8 @@
           website: "If you have any website for your project, or a blog or a meetup page, you can put it here.",
           profile_url: "This is the unique public profile url of your project, like name of the project, it has to be unique across all projects on RailsforCharity. The project's github repository will be created under the railsforcharity account at github.com/railsforcharity with this name. Once set, it cannot be changed.",
           video: "Video url of your pitch, so that people join your project and collaborate with you, donate you. You can upload your url on youtube or other sites and link it here.",
-          collaborators: 'Select collaborators who will work on you project with you. Also, assign some roles which they will be performing in your project. You can change these settings later also.'
+          collaborators: 'Select collaborators who will work on you project with you. Also, assign some roles which they will be performing in your project. You can change these settings later also.',
+          terms: 'Please click on the checkbox to accept RailsforCharities terms and conditions.'
         }
       }
     }

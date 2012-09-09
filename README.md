@@ -24,4 +24,10 @@ rake db:refresh
 rails s
 ```
 
-Go to http://localhost:3000/ and play with the app.
+Browse to http://localhost:3000/
+
+app/controllers/omniauth_callbacks_controller.rb:
+  * [ 23] [TODO] Verify that the authentication record belongs to this user only
+
+app/views/projects/_form.html.haml:
+  * [ 30] [TODO] Make Terms & Conditions Page

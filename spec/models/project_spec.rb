@@ -49,6 +49,8 @@ describe Project do
 
     it { should allow_mass_assignment_of(:collaborator_tokens) }
     it { should allow_mass_assignment_of(:avatar_attributes) }
+
+    # it { should validate_acceptance_of(:terms) }  Waiting for https://github.com/thoughtbot/shoulda-matchers/issues/131
   end
 
   describe 'behaviour' do
