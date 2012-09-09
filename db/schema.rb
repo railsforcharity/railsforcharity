@@ -70,13 +70,12 @@ ActiveRecord::Schema.define(:version => 20120909055842) do
     t.string   "name"
     t.string   "title"
     t.text     "description"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "created_by"
     t.string   "website"
-    t.string   "repository_name"
+    t.string   "profile_url"
     t.string   "status"
-    t.string   "category"
     t.string   "video"
   end
 

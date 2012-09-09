@@ -28,7 +28,7 @@ describe ProjectsController do
         name: Faker.name,
         title: 'Open Source Web based App',
         description: 'To build open source web based applications which help in improving the society.',
-        repository_name: 'mobflair'
+        profile_url: 'mobflair'
     }
   end
 

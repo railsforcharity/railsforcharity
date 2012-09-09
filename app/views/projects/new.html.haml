@@ -16,6 +16,15 @@
         = f.input :title, :input_html => { :style => 'width:90%' }
         = f.input :description, :as => :ckeditor, :input_html => { :toolbar => 'Basic' }
         %br
+        = '* Public Profile Url'
+        .input-prepend
+          %span.add-on
+            http://railsforcharity.org/
+          = f.input :profile_url, :label => false
+        %br
+        = f.input :website
+        = f.input :video
+        %br
         = f.input :collaborator_tokens, :input_html => { :class => 'typeahead', data: { load: @project.users } }, :label => 'Add Collaborators'
 
       .form-actions

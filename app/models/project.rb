@@ -2,23 +2,22 @@
 #
 # Table name: projects
 #
-#  id              :integer          not null, primary key
-#  name            :string(255)
-#  title           :string(255)
-#  description     :text
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  created_by      :integer
-#  website         :string(255)
-#  repository_name :string(255)
-#  status          :string(255)
-#  video           :string(255)
+#  id          :integer          not null, primary key
+#  name        :string(255)
+#  title       :string(255)
+#  description :text
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  created_by  :integer
+#  website     :string(255)
+#  profile_url :string(255)
+#  status      :string(255)
+#  video       :string(255)
 #
 
 class Project < ActiveRecord::Base
 
-  attr_accessible :description, :name, :title, :collaborator_tokens, :avatar_attributes, :location_attributes,
-                  :website, :repository_name, :video
+  attr_accessible :description, :name, :title, :collaborator_tokens, :avatar_attributes, :website, :profile_url, :video
   attr_reader :collaborator_tokens
 
   # Relations
@@ -36,7 +35,7 @@ class Project < ActiveRecord::Base
   validates :description, :presence => true, :length => { :in => 50..2000 }
   validates :website, :length => { :maximum => 500 }
   validates :video, :length => { :maximum => 500 }
-  validates :repository_name, :presence => true, :length => { :in => 2..50 }
+  validates :profile_url, :presence => true, :length => { :in => 2..50 }
 
   accepts_nested_attributes_for :users, :avatar, :location
 
