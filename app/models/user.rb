@@ -33,16 +33,14 @@ class User < ActiveRecord::Base
 
   # Relations
   has_many :authentications, :dependent => :destroy
-  has_many :correlations
-  has_many :projects, :through => :correlations
+  has_many :collaborators
+  has_many :projects, :through => :collaborators
   has_one :location, :as => :locatable, :dependent => :destroy
   has_one :avatar, :as => :avatarable, :dependent => :destroy
   has_reputation :votes, source: {reputation: :votes, of: :projects}, aggregated_by: :sum
   has_many :evaluations, class_name: "RSEvaluation", as: :source
 
-
   accepts_nested_attributes_for :avatar, :location
-
 
   # Friendly Id
   extend FriendlyId

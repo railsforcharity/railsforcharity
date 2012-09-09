@@ -32,4 +32,20 @@ describe Project do
     it { should validate_presence_of(:description) }
     it { should ensure_length_of(:description).is_at_least(50).is_at_most(2000) }
   end
+
+  describe 'behaviour' do
+    before :each do
+      @project = create(:project)
+      @user1 = create(:user)
+      @user2 = create(:user)
+    end
+
+    it 'saves collaborators for a project' do
+      h = {}
+      h["user_ids"] = [@user1.id, @user2.id]
+      @project.update_attributes(h)
+      @project.users.size.should == 2
+    end
+
+  end
 end

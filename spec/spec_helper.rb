@@ -38,4 +38,11 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+  config.include FactoryGirl::Syntax::Methods
+end
+
+# Factory Helpers
+def words(num, separator = " ")
+  Faker::Lorem.words(num).join(separator)
 end

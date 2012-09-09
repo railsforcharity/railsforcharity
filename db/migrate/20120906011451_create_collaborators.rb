@@ -1,6 +1,6 @@
-class CreateCorrelations < ActiveRecord::Migration
+class CreateCollaborators < ActiveRecord::Migration
   def change
-    create_table :correlations do |t|
+    create_table :collaborators do |t|
       t.integer :user_id
       t.integer :project_id
 

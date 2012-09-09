@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: correlations
+# Table name: collaborators
 #
 #  id         :integer          not null, primary key
 #  user_id    :integer
@@ -9,8 +9,11 @@
 #  updated_at :datetime         not null
 #
 
-require 'spec_helper'
+class Collaborator < ActiveRecord::Base
+  attr_accessible :project_id, :user_id
 
-describe Correlation do
-  pending "add some examples to (or delete) #{__FILE__}"
+  # Relations
+  belongs_to :user
+  belongs_to :project
+
 end

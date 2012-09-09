@@ -43,7 +43,7 @@ class ProjectsController < ApplicationController
     @project.created_by = current_user
     respond_to do |format|
       if @project.save
-        format.html { redirect_to settings_project_path(@project), notice: t('controllers.projects.create.success') }
+        format.html { redirect_to @project, notice: t('controllers.projects.create.success') }
         format.json { render json: @project, status: :created, location: @project }
       else
         format.html { render action: "new" }
@@ -57,7 +57,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update_attributes(params[:project])
-        format.html { redirect_to settings_project_path(@project), notice: t('controllers.projects.update.success') }
+        format.html { redirect_to @project, notice: t('controllers.projects.update.success') }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

@@ -12,11 +12,13 @@
 #
 
 class Project < ActiveRecord::Base
-  attr_accessible :description, :name, :title, :user_ids, :avatar_attributes, :location_attributes, :created_by
+
+  attr_accessible :description, :name, :title, :user_ids, :collaborator_tokens, :avatar_attributes, :location_attributes, :created_by
+  attr_reader :collaborator_tokens
 
   # Relations
-  has_many :correlations
-  has_many :users, :through => :correlations
+  has_many :collaborators
+  has_many :users, :through => :collaborators
   has_one :location, :as => :locatable, :dependent => :destroy
   has_one :avatar, :as => :avatarable, :dependent => :destroy
   belongs_to :creator, :class_name => 'User', :foreign_key => "created_by"
@@ -31,5 +33,9 @@ class Project < ActiveRecord::Base
 
   accepts_nested_attributes_for :users, :avatar, :location
 
+  # Attr Writers
+  def collaborator_tokens=(ids_csv)
+    self.user_ids = ids_csv.split(',')
+  end
 
 end

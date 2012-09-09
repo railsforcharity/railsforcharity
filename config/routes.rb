@@ -9,6 +9,7 @@ Railsforcharity::Application.routes.draw do
     resources :avatars
     resources :locations
   end
+
   resources :projects do
     resources :avatars
     resources :locations

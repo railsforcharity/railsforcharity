@@ -15,10 +15,10 @@
   .span8
     %h3 Select Collaborators
     %br
-    = form_tag project_path(@project), :method => :put do |f|
-      = text_field_tag "project[user_ids][]", nil, :class => 'typeahead', data: {load: @project.users}
+    = simple_form_for project_path(@project), :method => :put do |f|
+      = f.input :collaborator_tokens, :input_html => { :class => 'typeahead' }, :label => false, data: { load: @project.users }
 
       .form-actions
-        = submit_tag 'Save', :class => 'btn btn-primary'
+        = f.submit 'Save', :class => 'btn btn-primary'
   .span4
     = render :partial => 'projects/settings_help'

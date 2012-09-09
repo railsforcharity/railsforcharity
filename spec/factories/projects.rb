@@ -2,7 +2,8 @@
 
 FactoryGirl.define do
   factory :project do
-    name "MyString"
-    description "MyText"
+    name { words(1) }
+    title { words(4) }
+    description { words(40) }
   end
 end
