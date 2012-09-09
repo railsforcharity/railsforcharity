@@ -42,7 +42,8 @@ describe Project do
 
     it { should allow_mass_assignment_of(:profile_url) }
     it { should validate_presence_of(:profile_url) }
-    it { should ensure_length_of(:profile_url).is_at_least(2).is_at_most(50) }
+    it { should ensure_length_of(:profile_url).is_at_least(2).is_at_most(25) }
+    it { should validate_uniqueness_of(:profile_url) }
 
     it { should allow_mass_assignment_of(:video) }
     it { should ensure_length_of(:video).is_at_most(500) }
@@ -50,6 +51,7 @@ describe Project do
     it { should allow_mass_assignment_of(:collaborator_tokens) }
     it { should allow_mass_assignment_of(:avatar_attributes) }
 
+    it { should allow_mass_assignment_of(:terms) }
     # it { should validate_acceptance_of(:terms) }  Waiting for https://github.com/thoughtbot/shoulda-matchers/issues/131
   end
 

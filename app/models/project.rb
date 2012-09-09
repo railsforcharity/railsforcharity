@@ -17,7 +17,7 @@
 
 class Project < ActiveRecord::Base
 
-  attr_accessible :description, :name, :title, :collaborator_tokens, :avatar_attributes, :website, :profile_url, :video
+  attr_accessible :description, :name, :title, :collaborator_tokens, :avatar_attributes, :website, :profile_url, :video, :terms
   attr_reader :collaborator_tokens
 
   # Relations
@@ -35,7 +35,7 @@ class Project < ActiveRecord::Base
   validates :description, :presence => true, :length => { :in => 50..2000 }
   validates :website, :length => { :maximum => 500 }
   validates :video, :length => { :maximum => 500 }
-  validates :profile_url, :presence => true, :length => { :in => 2..50 }
+  validates :profile_url, :presence => true, :uniqueness => true, :length => { :in => 2..25 }
   validates_acceptance_of :terms, :on => :create
 
   accepts_nested_attributes_for :users, :avatar, :location
