@@ -74,6 +74,13 @@ ActiveRecord::Schema.define(:version => 20120908183537) do
     t.integer  "created_by"
   end
 
+  create_table "projects_users", :force => true do |t|
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "rs_evaluations", :force => true do |t|
     t.string   "reputation_name"
     t.integer  "source_id"
@@ -145,8 +152,6 @@ ActiveRecord::Schema.define(:version => 20120908183537) do
     t.string   "unconfirmed_email"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
-    t.string   "bio"
-    t.string   "website"
     t.string   "slug"
   end
 
