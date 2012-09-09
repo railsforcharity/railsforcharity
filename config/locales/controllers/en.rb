@@ -25,7 +25,7 @@
 
       projects: {
         create: {
-            success: 'Project was successfully created. Now take a momemt to select collaborators and assign roles.'
+            success: 'Project was successfully created.'
         },
         update: {
             success: 'Project was successfully updated.'

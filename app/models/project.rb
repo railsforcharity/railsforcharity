@@ -13,7 +13,7 @@
 
 class Project < ActiveRecord::Base
 
-  attr_accessible :description, :name, :title, :user_ids, :collaborator_tokens, :avatar_attributes, :location_attributes, :created_by
+  attr_accessible :description, :name, :title, :collaborator_tokens, :avatar_attributes, :location_attributes, :created_by
   attr_reader :collaborator_tokens
 
   # Relations

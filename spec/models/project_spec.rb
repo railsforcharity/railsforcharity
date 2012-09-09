@@ -42,10 +42,9 @@ describe Project do
 
     it 'saves collaborators for a project' do
       h = {}
-      h["user_ids"] = [@user1.id, @user2.id]
+      h["collaborator_tokens"] = [@user1.id, @user2.id].join(",")
       @project.update_attributes(h)
       @project.users.size.should == 2
     end
-
   end
 end

@@ -83,6 +83,13 @@ describe ProjectsController do
         assigns(:project).should be_persisted
       end
 
+      it "assigns collaborators" do
+        users_csv = [create(:user).id, create(:user).id].join(",")
+        project = Project.create!(valid_attributes.merge({:collaborator_tokens => users_csv}))
+        post :create, {:project => valid_attributes}, valid_session
+        project.users.size.should == 2
+      end
+
       it "redirects to the created project" do
         post :create, {:project => valid_attributes}, valid_session
         response.should redirect_to(project_path(assigns(:project)))
@@ -122,6 +129,14 @@ describe ProjectsController do
         project = Project.create! valid_attributes
         put :update, {:id => project.to_param, :project => valid_attributes}, valid_session
         assigns(:project).should eq(project)
+      end
+
+      it "assigns collaborators" do
+        users_csv = [create(:user).id, create(:user).id].join(",")
+        project = Project.create! valid_attributes.merge({:collaborator_tokens => users_csv})
+        put :update, {:id => project.to_param, :project => valid_attributes}, valid_session
+        assigns(:project).should eq(project)
+        assigns(:project).users.size.should == 2
       end
 
       it "redirects to the project" do

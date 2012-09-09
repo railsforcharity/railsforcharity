@@ -40,7 +40,7 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(params[:project])
-    @project.created_by = current_user
+    @project.creator = current_user
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: t('controllers.projects.create.success') }

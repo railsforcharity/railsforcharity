@@ -2,7 +2,23 @@
   .span8
     %h2 Editing project
 
-    = render 'form'
+    %br
+    = simple_form_for @project do |f|
+      = f.error_notification
+      .pull-right
+        - if @project.avatar
+          = image_tag @project.avatar.image_url(:thumb).to_s
+        = f.fields_for :avatar, @project.avatar || Avatar.new do |a|
+          = a.file_field :image
+
+      .form-inputs
+        = f.input :title, :input_html => { :style => 'width:90%' }
+        = f.input :description, :as => :ckeditor, :input_html => { :toolbar => 'Basic' }
+        %br
+        = f.input :collaborator_tokens, :input_html => { :class => 'typeahead', data: { load: @project.users } }, :label => 'Add Collaborators'
+
+      .form-actions
+        = f.button :submit, 'Save', :class => 'btn btn-primary'
 
     = link_to 'Show', @project
     \|
