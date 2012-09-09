@@ -2,13 +2,18 @@
 #
 # Table name: projects
 #
-#  id          :integer          not null, primary key
-#  name        :string(255)
-#  title       :string(255)
-#  description :text
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  created_by  :integer
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  title           :string(255)
+#  description     :text
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  created_by      :integer
+#  website         :string(255)
+#  repository_name :string(255)
+#  status          :string(255)
+#  category        :string(255)
+#  video           :string(255)
 #
 
 require 'spec_helper'
@@ -19,10 +24,11 @@ describe Project do
   end
 
   describe 'validations' do
+    subject { create(:project) }
     it { should allow_mass_assignment_of(:name) }
     it { should validate_presence_of(:name) }
-    it { should ensure_length_of(:name).is_at_least(3).is_at_most(25) }
-    #it { should validate_uniqueness_of(:name) }
+    it { should ensure_length_of(:name).is_at_least(2).is_at_most(25) }
+    it { should validate_uniqueness_of(:name) }
 
     it { should allow_mass_assignment_of(:title) }
     it { should validate_presence_of(:title) }
@@ -31,6 +37,20 @@ describe Project do
     it { should allow_mass_assignment_of(:description) }
     it { should validate_presence_of(:description) }
     it { should ensure_length_of(:description).is_at_least(50).is_at_most(2000) }
+
+    it { should allow_mass_assignment_of(:website) }
+    it { should ensure_length_of(:website).is_at_most(500) }
+
+    it { should allow_mass_assignment_of(:repository_name) }
+    it { should validate_presence_of(:repository_name) }
+    it { should ensure_length_of(:repository_name).is_at_least(2).is_at_most(50) }
+
+    it { should allow_mass_assignment_of(:video) }
+    it { should ensure_length_of(:video).is_at_most(500) }
+
+    it { should allow_mass_assignment_of(:collaborator_tokens) }
+    it { should allow_mass_assignment_of(:avatar_attributes) }
+    it { should allow_mass_assignment_of(:location_attributes) }
   end
 
   describe 'behaviour' do

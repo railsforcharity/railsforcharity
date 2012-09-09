@@ -7,6 +7,7 @@
 #  project_id :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  status     :string(255)
 #
 
 class Collaborator < ActiveRecord::Base
@@ -15,5 +16,6 @@ class Collaborator < ActiveRecord::Base
   # Relations
   belongs_to :user
   belongs_to :project
+
 
 end

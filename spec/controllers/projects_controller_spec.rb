@@ -25,9 +25,10 @@ describe ProjectsController do
   # update the return value of this method accordingly.
   def valid_attributes
     {
-        name: 'Rails for Charity',
+        name: Faker.name,
         title: 'Open Source Web based App',
-        description: 'To build open source web based applications which help in improving the society.'
+        description: 'To build open source web based applications which help in improving the society.',
+        repository_name: 'mobflair'
     }
   end
 

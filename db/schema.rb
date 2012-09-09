@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120908183537) do
+ActiveRecord::Schema.define(:version => 20120909055842) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20120908183537) do
     t.integer  "project_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "status"
   end
 
   create_table "locations", :force => true do |t|
@@ -69,9 +70,14 @@ ActiveRecord::Schema.define(:version => 20120908183537) do
     t.string   "name"
     t.string   "title"
     t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.integer  "created_by"
+    t.string   "website"
+    t.string   "repository_name"
+    t.string   "status"
+    t.string   "category"
+    t.string   "video"
   end
 
   create_table "rs_evaluations", :force => true do |t|
