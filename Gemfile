@@ -18,7 +18,7 @@ gem "select2-rails", "~> 3.1.1"
 
 # Forms
 gem 'haml-rails'
-gem 'bootstrap-sass', "~> 2.1"
+gem 'bootstrap-sass', "~> 2.0.4.2"
 gem 'compass-rails'
 gem 'simple_form'
 gem 'ckeditor', '3.7.2'
