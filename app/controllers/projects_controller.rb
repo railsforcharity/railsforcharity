@@ -43,6 +43,7 @@ class ProjectsController < ApplicationController
     @project.creator = current_user
     respond_to do |format|
       if @project.save
+        @project.tags.each {|t| t.update_attributes(:tag_type => 'project')}
         format.html { redirect_to @project, notice: t('controllers.projects.create.success') }
         format.json { render json: @project, status: :created, location: @project }
       else
@@ -57,6 +58,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update_attributes(params[:project])
+        @project.tags.each {|t| t.update_attributes(:tag_type => 'project')}
         format.html { redirect_to @project, notice: t('controllers.projects.update.success') }
         format.json { head :no_content }
       else

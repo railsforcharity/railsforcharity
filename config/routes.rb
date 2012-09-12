@@ -11,13 +11,13 @@ Railsforcharity::Application.routes.draw do
   end
 
   resources :projects do
+    resources :tags
     resources :avatars
     resources :locations
     member { get :settings }
     member { post :vote }
   end
 
-  
   #STATIC PAGES
   root :to => 'static_pages#home'
   match 'contact' => 'static_pages#contact'

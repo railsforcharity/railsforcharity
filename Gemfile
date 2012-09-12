@@ -71,7 +71,6 @@ end
 
 group :production do
   gem 'unicorn'
-  gem 'newrelic_rpm'
 end
 
 # To use Jbuilder templates for JSON
