@@ -72,7 +72,7 @@ describe Project do
 
   describe 'tagging' do
     it 'assigns tags' do
-      p = create(:project, :tag_names => 'abc cde')
+      p = create(:project, :tag_names => 'abc, cde')
       p.tags.size.should == 2
     end
   end
