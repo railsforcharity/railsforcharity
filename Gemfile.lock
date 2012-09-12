@@ -166,6 +166,7 @@ GEM
       net-ssh (>= 1.99.1)
     net-ssh (2.5.2)
     netrc (0.7.7)
+    newrelic_rpm (3.4.2)
     nokogiri (1.5.5)
     oauth2 (0.8.0)
       faraday (~> 0.8)
@@ -304,6 +305,7 @@ DEPENDENCIES
   launchy
   mini_magick
   mocha
+  newrelic_rpm
   omniauth
   omniauth-facebook
   omniauth-google-oauth2
