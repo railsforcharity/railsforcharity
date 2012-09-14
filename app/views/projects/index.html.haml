@@ -1,11 +1,12 @@
 .container
   .row-fluid
     %h1 RFC Projects
-    %br
-    - @projects.each do |project|
-      %ul.thumbnails
-        %li.span4
-          .thumbnail
+    %br.span2.search_box
+    %input(type="text" placeholder="Search..." id="filter")
+      .project_box
+
+        - @projects.each do |project|
+          #project_content
             - if project.avatar
               = link_to image_tag(project.avatar.image_url(:thumb).to_s), project_path(project)
             .caption

@@ -1,21 +1,94 @@
-.container-fluid
-  .row-fluid
-    .span9
+.container
+  .row
+    .span3
       .pull-left
         - if @project.avatar
           = image_tag @project.avatar.image_url(:thumb).to_s
         %br
         %br
-        %b Votes:
+        %h2{style:"color:#880000"}
+          = @project.name
+        %br
+        = @project.title
+        %br
+        %a{:href => @project.website, :target => "_blank"}
+          = @project.website
+        %br
+          %a{:href => "https://github.com/railsforcharity/railsforcharity", :target => "_blank"}
+            %p Browse Github Source Code
+          %a{:href => "http://travis-ci.org/railsforcharity/railsforcharity"}
+            %img{:alt => "Build Status", :src => "https://secure.travis-ci.org/railsforcharity/railsforcharity.png", :height => "20px"}/
+        %br
+        %h3 Project Categories
+        -@project.tags.map(&:name).each do |tag|
+          %p.label #{tag}
+        %br
+
+    .span9
+      .span5
+        %a.btn.btn-inverse.btn-small.disabled{:href => "(vote_project_path(project, type: up)"}
+          %i.icon-white.icon-hand-up
+        %a.btn.btn-failure.btn-small{:href => "#"}
+          %i.icon-hand-down
         = pluralize @project.reputation_value_for(:votes).to_i, "vote"
         %br
-        %b Name:
-        = @project.name
+      .span2
+        .pull-right
+          .btn.btn-success.btn-large Join
+      .span1
+        .pull-left
+          .btn.btn.btn-large Donate
+    .span5
+      %iframe{:allowfullscreen => "", :frameborder => "0", :height => "360", :src => "http://www.youtube.com/embed/0T_hzXRr24s?feature=player_detailpage", :width => "550"}
+    .span3.offset1
+      %br
+        %b Pitch:
         %br
-        %b Description:
         = @project.description.html_safe
+  .row
+    .span12{style:"border:1px dashed green"}
+      %br
+      %h3 Project Tasks
+      .tabbable
+        %ul.nav.nav-tabs
+          %li.active
+            %a{"data-toggle" => "tab", :href => "#tab1"} Current
+          %li
+            %a{"data-toggle" => "tab", :href => "#tab2"} Open
+          %li
+            %a{"data-toggle" => "tab", :href => "#tab3"} Done
+        .tab-content
+          #tab1.tab-pane.active
+            %ol
+              %li more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+              %li more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+              %li more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          #tab2.tab-pane
+            %ol
+              %li more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+              %li more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+              %li Ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+          #tab3.tab-pane
+            %ol
+              %li Ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+              %li Ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+              %li more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          %br
+  .row
+    .span12
+      %br
+      %h3 Contributors
+      .span3
+        = image_tag 'icons/providers/facebook.png'
+      .span6
+        %p  This error is most often caused by having no connection to the Internet or a misconfigured network.
+    %br
+    %br
 
 
-= link_to 'Edit', edit_project_path(@project)
-\|
-= link_to 'Back', projects_path
+
+
+
+
+
+
