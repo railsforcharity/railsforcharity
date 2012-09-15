@@ -35,7 +35,7 @@ class Project < ActiveRecord::Base
   has_reputation :votes, source: :user, aggregated_by: :sum
 
   # Validations
-  validates :name, :presence => true, :uniqueness => true, :length => { :in => 2..25 }
+  validates :name, :presence => true, :uniqueness => true, :length => { :in => 2..40 }
   validates :title, :presence => true, :length => { :in => 10..140 }
   validates :description, :presence => true, :length => { :in => 50..2000 }
   validates :website, :length => { :maximum => 500 }

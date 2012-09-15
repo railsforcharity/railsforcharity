@@ -26,7 +26,7 @@ describe Project do
     subject { create(:project) }
     it { should allow_mass_assignment_of(:name) }
     it { should validate_presence_of(:name) }
-    it { should ensure_length_of(:name).is_at_least(2).is_at_most(25) }
+    it { should ensure_length_of(:name).is_at_least(2).is_at_most(40) }
     it { should validate_uniqueness_of(:name) }
 
     it { should allow_mass_assignment_of(:title) }
