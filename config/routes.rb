@@ -1,13 +1,5 @@
 Railsforcharity::Application.routes.draw do
 
-  get "tasks/new"
-
-  get "tasks/edit"
-
-  get "tasks/index"
-
-  get "tasks/show"
-
   mount Ckeditor::Engine => '/ckeditor'
 
   devise_for :users, path_names: { sign_in: "login", sign_out: "logout" },
