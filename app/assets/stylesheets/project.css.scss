@@ -14,3 +14,7 @@
   @include border-radius(5px);
   margin-left: 3%;
 }
+
+.tasks {
+  @include box-shadow(#ccc 2px 2px 10px);
+}

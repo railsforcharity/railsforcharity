@@ -30,6 +30,15 @@
         update: {
             success: 'Project was successfully updated.'
         }
+      },
+
+      tasks: {
+        create: {
+          success: 'Task was successfully created.'
+        },
+        update: {
+          success: 'Task was successfully updated.'
+        }
       }
     }
   }

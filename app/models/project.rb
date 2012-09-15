@@ -18,7 +18,7 @@
 class Project < ActiveRecord::Base
 
   # Attributes
-  attr_accessible :description, :name, :title, :collaborator_tokens, :avatar_attributes, :tag_names, :website, :profile_url, :video, :terms
+  attr_accessible :description, :name, :title, :collaborator_tokens, :avatar_attributes, :task_attributes, :tag_names, :website, :profile_url, :video, :terms, :status
   attr_reader :collaborator_tokens
   attr_accessor :tag_names
   after_save :assign_tags
@@ -31,6 +31,7 @@ class Project < ActiveRecord::Base
   belongs_to :creator, :class_name => 'User', :foreign_key => "created_by"
   has_many :taggings, :as => :taggable, :dependent => :destroy
   has_many :tags, :through => :taggings
+  has_many :tasks
 
   has_reputation :votes, source: :user, aggregated_by: :sum
 
@@ -51,6 +52,14 @@ class Project < ActiveRecord::Base
   # Attr Writers
   def collaborator_tokens=(ids_csv)
     self.user_ids = ids_csv.split(',')
+  end
+
+  def github_url
+    "https://github.com/railsforcharity/" + self.profile_url
+  end
+
+  def travis_url
+    "http://travis-ci.org/railsforcharity/" + self.profile_url + '.png'
   end
 
   private

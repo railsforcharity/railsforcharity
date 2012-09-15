@@ -16,6 +16,7 @@ class Tag < ActiveRecord::Base
   # Relations
   has_many :taggings, :dependent => :destroy
   has_many :projects, :through => :taggings, :source => :taggable, :source_type => 'Project'
+  has_many :tasks, :through => :taggings, :source => :taggable, :source_type => 'Task'
 
   #Named scopes
   scope :name_like, lambda { |n| where("name ilike ?", "%#{n}%") } # WARN: Potential DB Change Problem

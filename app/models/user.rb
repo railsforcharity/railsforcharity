@@ -81,4 +81,8 @@ class User < ActiveRecord::Base
   def karma_points
    reputation_value_for(:votes).to_i* 10
   end
+
+  def is_collaborator?(project)
+    self.project_ids.include? project.id
+  end
 end
