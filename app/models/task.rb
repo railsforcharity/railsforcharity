@@ -28,7 +28,7 @@ class Task < ActiveRecord::Base
 
   # Validations
   validates :name, :presence => true, :length => { :in => 2..255}
-  validates :description, :presence => true, :length => { :in => 20..2000 }
+  validates :description, :presence => true, :length => { :minimum => 20}
   validates :task_type, :presence => true
   validates :hours, :presence => true
 

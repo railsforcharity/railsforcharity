@@ -1,4 +1,5 @@
 - @tags_array = Tag.find_all_by_tag_type('project').map(&:name).sort
+=p current_user.name
 
 :javascript
   $(document).ready(function() {
@@ -48,7 +49,7 @@
     = f.input :website
     = f.input :video, :label => 'Video Pitch'
     %br
-    = f.input :collaborator_tokens, :input_html => { :class => 'typeahead', data: { load: @project.users } }, :label => 'Add Collaborators'
+    = f.input :collaborator_tokens, :input_html => { :class => 'typeahead', data: { load: @project.users << current_user } }, :label => 'Add Collaborators'
     - if !edit
       %br
       = f.input :terms, :label => false, :as => :boolean, :inline_label => 'By clicking on the check box, you agree with the Terms and Conditions of RailsforCharity.'

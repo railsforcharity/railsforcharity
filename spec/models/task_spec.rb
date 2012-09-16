@@ -27,7 +27,7 @@ describe Task do
 
     it { should allow_mass_assignment_of(:description) }
     it { should validate_presence_of(:description) }
-    it { should ensure_length_of(:description).is_at_least(20).is_at_most(2000) }
+    it { should ensure_length_of(:description).is_at_least(20) }
 
     it { should allow_mass_assignment_of(:task_type) }
     it { should validate_presence_of(:task_type) }
