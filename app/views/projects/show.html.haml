@@ -28,12 +28,10 @@
   .span9
     .span5
       #{pluralize @project.reputation_value_for(:votes).to_i, "vote"}
-      .btn.btn-inverse.btn-small.disabled
-        .icon-white.icon-hand-up
-          #{link_to ".", vote_project_path(@project, type: "up"), method: "post"}
-      .btn.btn-failure.btn-small
-        .icon-hand-down
-          #{link_to ".", vote_project_path(@project, type: "down"), method: "post"}
+      .btn.btn-inverse
+        = link_to "", vote_project_path(@project, type: "up"), method: "post", class: ' icon-hand-up icon-white'
+      .btn
+        = link_to "", vote_project_path(@project, type: "down"), method: "post", class: 'icon-black icon-hand-down'
     .span3
       .span2
         .pull-right
