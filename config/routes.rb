@@ -11,12 +11,9 @@ Railsforcharity::Application.routes.draw do
   end
 
   resources :projects do
-    resources :tags
     resources :avatars
     resources :locations
-    resources :tasks do
-      resources :tags
-    end
+    resources :tasks
     member { get :settings }
     member { post :vote }
   end
