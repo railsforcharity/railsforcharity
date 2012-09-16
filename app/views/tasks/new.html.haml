@@ -1,4 +1,4 @@
-- @tags_array = ['Education', 'Raising Funds', 'Feeding Homeless People', 'Health Care', 'Agricultural Production', 'Sustainable Construction', 'Citizen Activism', 'Empowerment', 'Childhood Education', 'Affordable Transportation', 'Community Solidarity', 'Efficacy']
+- @tags_array = Tag.find_all_by_tag_type('task').map(&:name).sort
 
 :javascript
   $(document).ready(function() {

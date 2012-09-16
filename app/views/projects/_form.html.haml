@@ -1,4 +1,4 @@
-- @tags_array = Tag.all.map(&:name).sort
+- @tags_array = Tag.find_all_by_tag_type('project').map(&:name).sort
 
 :javascript
   $(document).ready(function() {
