@@ -1,8 +1,11 @@
 require File.dirname(File.expand_path(__FILE__)) + "/../../config/environment"
 
-project_tags = ['Education', 'Raising Funds', 'Feeding Homeless People', 'Health Care', 'Agricultural Production', 'Sustainable Construction', 'Citizen Activism', 'Empowerment', 'Childhood Education', 'Affordable Transportation', 'Community Solidarity', 'Efficacy']
-task_tags = ['Ruby', 'Java', 'Javascript', 'Jquery', 'CSS', 'Node.js', 'SASS', 'Coffeescript', 'Ruby on Rails', 'Deployment', 'Management', 'Marketing', 'Legal', 'Design', 'Sales', 'Art', 'Analytics', 'Operations', 'Maintenance']
-other_tags = ['Management', 'Marketing', 'Legal', 'Design', 'Sales', 'Art', 'Analytics', 'Operations', 'Maintenance']
+project_tags = ['Education', 'Raising Funds', 'Feeding Homeless People', 'Health Care', 'Agricultural Production',
+                'Sustainable Construction', 'Citizen Activism', 'Empowerment', 'Childhood Education',
+                'Affordable Transportation', 'Community Solidarity', 'Efficacy', 'Orphanage', 'Old Age Homes']
+
+task_tags = ['ruby', 'java', 'javascript', 'jquery', 'css', 'node.js', 'sass', 'coffeescript', 'ruby on rails',
+             'deployment', 'management', 'marketing', 'legal', 'design', 'sales', 'art', 'analytics', 'operations', 'maintenance']
 
 project_tags.each do |tag_name|
   p "Creating #{tag_name}"
