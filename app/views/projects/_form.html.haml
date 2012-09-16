@@ -46,7 +46,7 @@
         = f.input :profile_url, :label => false
     %br
     = f.input :website
-    = f.input :video
+    = f.input :video, :label => 'Video Pitch'
     %br
     = f.input :collaborator_tokens, :input_html => { :class => 'typeahead', data: { load: @project.users } }, :label => 'Add Collaborators'
     - if !edit

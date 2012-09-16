@@ -1,13 +1,12 @@
-.container
-  .row-fluid
-    %h1 RFC Contributors
-    %br
-    - @users.each do |user|
-      %ul.thumbnails
-        %li.span4
-          .thumbnail
-            - if user.avatar
-              = link_to image_tag(user.avatar.image_url(:thumb).to_s), user_path(user)
-            .caption
-              %h3= user.name
-              %p= user.bio
+.row
+  %h1 Members
+  %br
+  - @users.each do |user|
+    %ul.thumbnails
+      %li.span4
+        .thumbnail
+          - if user.avatar
+            = link_to image_tag(user.avatar.image_url(:thumb).to_s), user_path(user)
+          .caption
+            %h3= user.name
+            %p= user.bio
