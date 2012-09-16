@@ -44,7 +44,7 @@ class Project < ActiveRecord::Base
   validates :profile_url, :presence => true, :uniqueness => true, :length => { :in => 2..25 }
   validates_acceptance_of :terms, :on => :create
 
-  accepts_nested_attributes_for :users, :avatar, :location, :tags
+  accepts_nested_attributes_for :users, :avatar, :location
 
   # Named Scopes
   scope :name_like, lambda { |n| where("name ilike ?", "%#{n}%") } # WARN: Potential DB Change Problem
@@ -67,7 +67,7 @@ class Project < ActiveRecord::Base
   def assign_tags
     if @tag_names
       self.tags = @tag_names.split(',').map do |name|
-        Tag.find_or_create_by_name(name)
+        Tag.find_or_create_by_name(name, :tag_type => 'project')
       end
     end
   end

@@ -1,9 +1,9 @@
-- @tags_array = ['Education', 'Raising Funds', 'Feeding Homeless People', 'Health Care', 'Agricultural Production', 'Sustainable Construction', 'Citizen Activism', 'Empowerment', 'Childhood Education', 'Affordable Transportation', 'Community Solidarity', 'Efficacy']
+- @tags_array = Tag.all.map(&:name).sort
 
 :javascript
   $(document).ready(function() {
     $(".typeahead").tokenInput("/users.json", {
-      minChars: 2,
+      minChars: 1,
       hintText: "Type name or username...",
       theme: "facebook",
       prePopulate: $(".typeahead").data("load"),
@@ -12,11 +12,12 @@
         return "<li>" + "<img src='" + "/assets/avatar.png" + "' title='" + item.name + "' height='25px' width='25px' />" + "<div style='display: inline-block; padding-left: 10px;'><div class='name'>" + item.name + "</div></div></li>";
       }
     });
-     $(".select_tags").select2({
+
+    $(".select_tags").select2({
       tags: #{@tags_array},
-      tokenSeparators: [',', ' '],
+      tokenSeparators: [','],
       placeholder: "Select existing tags or add new ones...",
-      width: '50%'
+      width: '70%'
     });
   });
 
@@ -33,7 +34,7 @@
     = f.input :name
     = f.input :title, :input_html => { :style => 'width:90%' }
     = f.input :description, :as => :ckeditor, :input_html => { :toolbar => 'Basic' }
-    = f.input :tag_names, :input_html => { :class => 'select_tags', data: { load: @project.tags } }, :label => 'Add Tags'
+    = f.input :tag_names, :input_html => { :class => 'select_tags', value: @project.tags.map(&:name).join(",") }, :label => 'Add Tags'
     %br
     = '* Public Profile Url'
     .input-prepend
