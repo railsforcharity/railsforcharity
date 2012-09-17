@@ -151,7 +151,7 @@ ActiveRecord::Schema.define(:version => 20120914015637) do
     t.string   "name"
     t.text     "description"
     t.string   "task_type"
-    t.string   "status"
+    t.integer  "status"
     t.integer  "hours"
     t.integer  "project_id"
     t.datetime "created_at",  :null => false

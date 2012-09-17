@@ -6,8 +6,8 @@
 #  name        :string(255)
 #  description :text
 #  task_type   :string(255)
-#  status      :string(255)
-#  hours       :string(255)
+#  status      :integer
+#  hours       :integer
 #  project_id  :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null

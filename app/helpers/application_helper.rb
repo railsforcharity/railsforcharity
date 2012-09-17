@@ -1,4 +1,9 @@
 module ApplicationHelper
+
+  def is_collaborator?(project)
+    current_user && current_user.is_collaborator?(project)
+  end
+
   def user_not_signed_in?
     !user_signed_in?
   end
