@@ -23,9 +23,11 @@
         = link_to t('views.layouts._navigation.contact_us'), contact_path
   %ul.pull-right.nav
     - unless Rails.env.production?
+      %li
+        = link_to t('views.layouts._navigation.submit_project'), new_project_path
+      %li
+        = link_to t('views.layouts._navigation.projects'), projects_path
       - if user_signed_in?
-        %li
-          = link_to t('views.layouts._navigation.projects'), new_project_path
         %li.dropdown
           %a.dropdown-toggle(href='#' data-toggle='dropdown') #{t('views.layouts._navigation.user_settings')}
           %ul.dropdown-menu(aria-labelledby='dLabel' role='menu')
