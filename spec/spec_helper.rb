@@ -14,6 +14,7 @@ RSpec.configure do |config|
   config.include EmailSpec::Matchers
   config.include Devise::TestHelpers, :type => :controller
   config.extend ControllerMacros, :type => :controller
+  config.include ActionView::TestCase::Behavior, example_group: {file_path: %r{spec/presenters}}
 
   # ## Mock Framework
   #

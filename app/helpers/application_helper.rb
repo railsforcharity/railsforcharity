@@ -1,9 +1,5 @@
 module ApplicationHelper
 
-  def is_collaborator?(project)
-    current_user && current_user.is_collaborator?(project)
-  end
-
   def user_not_signed_in?
     !user_signed_in?
   end
@@ -12,4 +8,12 @@ module ApplicationHelper
   def link_to_blank(body, url=body, html_options = {})
     link_to body, url, html_options.merge(:target => '_blank')
   end
+
+  def present(object, klass=nil)
+    klass ||= "#{object.class}Presenter".constantize
+    presenter = klass.new(object, self)
+    yield presenter if block_given?
+    presenter
+  end
+
 end

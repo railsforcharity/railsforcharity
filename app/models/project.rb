@@ -54,14 +54,6 @@ class Project < ActiveRecord::Base
     self.user_ids = ids_csv.split(',')
   end
 
-  def github_url
-    "https://github.com/railsforcharity/" + self.profile_url
-  end
-
-  def travis_url
-    "http://travis-ci.org/railsforcharity/" + self.profile_url + '.png'
-  end
-
   private
 
   def assign_tags
