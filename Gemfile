@@ -58,6 +58,7 @@ group :development, :test do
   gem 'hirb'
   gem 'shoulda-matchers' # shoulda-context causes the error http://stackoverflow.com/q/9523931/238880
   gem 'factory_girl_rails'  # Used for seeding data also
+  gem 'autotest-rails'
 end
 
 group :test do
