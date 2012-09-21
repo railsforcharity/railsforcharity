@@ -1,2 +1,7 @@
-%h1 Tasks#edit
-%p Find me in app/views/tasks/edit.html.haml
+.row
+  .span12
+    %h2 Editing Task
+    .span8
+      %br
+      = render :partial => 'form', :locals => { :edit => true }
+

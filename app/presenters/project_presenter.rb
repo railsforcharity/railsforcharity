@@ -1,6 +1,7 @@
 class ProjectPresenter < ApplicationPresenter
   presents :project
-  delegate :name, :title, :status, :video, :description, :tags, :tasks, :users, :reputation_value_for, to: :project
+  delegate :name, :title, :status, :video, :description, :to_param, :created_by,
+           :tags, :tasks, :users, :reputation_value_for, to: :project
 
   def website
     w = project.website
@@ -11,8 +12,12 @@ class ProjectPresenter < ApplicationPresenter
     h.link_to w, w, :target => '_blank'
   end
 
-  def avatar
-    h.image_tag project.avatar.image_url(:thumb).to_s if project.avatar
+  def avatar_name
+    if project.avatar
+      h.image_tag project.avatar.image_url(:thumb).to_s
+    else
+      h.image_tag "default.png"
+    end
   end
 
   def github_url
@@ -26,4 +31,20 @@ class ProjectPresenter < ApplicationPresenter
   def is_collaborator?
     h.current_user && h.current_user.is_collaborator?(project)
   end
+
+  def can_edit?(project)
+    User.find(project.created_by) == current_user
+  end
+
+  def collaborators
+    if !(project.users.include? h.current_user)
+      project.users << h.current_user
+    else
+      project.users
+    end
+  end
+
+  #def method_missing(method_name, *args, &block)
+  #  project.send(method_name, *args, &block)
+  #end
 end

@@ -2,8 +2,6 @@ class ProjectsController < ApplicationController
   before_filter :find_project, :only => [:show, :edit, :update, :destroy, :settings, :vote]
   before_filter :authenticate_user!, :except => [:show, :index]
 
-  # GET /projects
-  # GET /projects.json
   def index
     @projects = Project.find_with_reputation(:votes, :all, order: 'votes desc')
 

@@ -5,6 +5,6 @@ FactoryGirl.define do
     name { words(2) }
     title { words(4) }
     description { words(40) }
-    profile_url { words(1) }
+    profile_url 'railsforcharity'
   end
 end

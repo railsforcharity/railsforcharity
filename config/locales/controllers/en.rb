@@ -38,6 +38,27 @@
         },
         update: {
           success: 'Task was successfully updated.'
+        },
+        assign_me: {
+          success: 'Task was successfully assigned to you.',
+          failure: 'Failed to assign the task to you.'
+        },
+        finish: {
+          success: 'Task is successfully submitted.',
+          failure: 'Failed for submission the task.'
+        },
+        unassign: {
+          success: 'Task is successfully unassigned.',
+          failure: 'Failed to unassign the task.'
+        }
+      },
+
+      comments: {
+        create: {
+          success: 'Comment was successfully created.'
+        },
+        update: {
+          success: 'Comment was successfully updated.'
         }
       }
     }

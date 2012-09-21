@@ -16,7 +16,6 @@
         = f.input :email, :label => 'Your awesome email', :placeholder => 'you@awesome.com'
         = f.input :description, :label => 'Please tell me', :as => 'text', :input_html => {:style => 'width: 90%', :rows => 10}
         = f.button :submit, "Submit", :class => 'btn btn-primary'
-
     .span4
       .sidebar
         %h3
@@ -30,7 +29,6 @@
           %br
           %strong Other Details
           %br
-          %p
           Twitter Handle:
           %a{:href => "http://twitter.com/RailsforCharity", :target => "_blank"}
             @RailsforCharity
@@ -38,7 +36,8 @@
           Meetup:
           %a{:href => "http://meetup.com/Rails-for-Charity/", :target => "_blank"}
             http://meetup.com/Rails-for-Charity/
-          %br 
+          %br
+          %span.icon-envelope
           Email:
           %u info@railsforcharity.org
       %br

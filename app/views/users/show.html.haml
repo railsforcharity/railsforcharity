@@ -5,6 +5,12 @@
       .pull-left
         - if @user.avatar
           = image_tag @user.avatar.image_url(:thumb).to_s
+        - else
+          = image_tag 'default.png'
+          = simple_form_for @user, :validate => true, :html => {:multipart => true} do |f|
+            = f.fields_for :avatar, @user.avatar || Avatar.new do |a|
+              = a.file_field :image
+            = f.submit 'Save Changes', :class => 'btn btn-primary'
         %br
         %br
         %b Name:

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120914015637) do
+ActiveRecord::Schema.define(:version => 20120920073643) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -52,6 +52,18 @@ ActiveRecord::Schema.define(:version => 20120914015637) do
     t.datetime "updated_at", :null => false
     t.string   "status"
   end
+
+  create_table "comments", :force => true do |t|
+    t.text     "content"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.string   "ancestry"
+    t.integer  "created_by"
+  end
+
+  add_index "comments", ["ancestry"], :name => "index_comments_on_ancestry"
 
   create_table "locations", :force => true do |t|
     t.string   "address_line1"
@@ -154,6 +166,8 @@ ActiveRecord::Schema.define(:version => 20120914015637) do
     t.integer  "status"
     t.integer  "hours"
     t.integer  "project_id"
+    t.integer  "created_by"
+    t.integer  "assigned_to"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end

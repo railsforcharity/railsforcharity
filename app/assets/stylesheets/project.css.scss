@@ -18,3 +18,17 @@
 .tasks {
   @include box-shadow(#ccc 2px 2px 10px);
 }
+
+.video {
+  height: 360px;
+  width: 100%;
+  background-color: black;
+  line-height: 25em;
+  text-align: center;
+}
+
+.video_text {
+  color: gray;
+  vertical-align: middle;
+  font-size: 25px;
+}

@@ -1,0 +1,12 @@
+.row
+  .span12
+    .span8.comments
+      .created_at= comment.created_at.strftime("%B %d, %Y")
+      = simple_format comment.content
+      - if can_edit?(comment)
+        .span1
+          = link_to 'Destroy', task_comment_path(@task, comment), :confirm => 'Are you sure?', :method => 'delete'
+        .span1
+          = link_to 'Edit', edit_task_comment_path(@commentable, comment)
+      .span1
+        = link_to 'Reply', new_task_comment_path(@task, :parent_id => comment.id)

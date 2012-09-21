@@ -1,0 +1,17 @@
+@import "compass";
+
+.comments {
+  background: #fff;
+  padding: 10px;
+  margin-bottom: 10px;
+  @include box-shadow(#ccc 2px 2px 10px);
+  @include border-radius(10px);
+}
+.nested_comments {
+  margin-left: 30px;
+}
+
+.nested_comments .nested_comments .nested_comments {
+  margin-left: 0;
+}
+

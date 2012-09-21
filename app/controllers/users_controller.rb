@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to :back, notice: t('controllers.users.update.success') }
+        format.html { redirect_to user_path(@user), notice: t('controllers.users.update.success') }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

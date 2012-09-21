@@ -9,6 +9,8 @@
 #  status      :integer
 #  hours       :integer
 #  project_id  :integer
+#  created_by  :integer
+#  assigned_to :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #

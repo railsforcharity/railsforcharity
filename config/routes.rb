@@ -18,6 +18,13 @@ Railsforcharity::Application.routes.draw do
     member { post :vote }
   end
 
+  resources :tasks do
+    resources :comments
+    member { post :assign_me }
+    member { post :finish }
+    member { post :unassigned }
+  end
+
   #STATIC PAGES
   root :to => 'static_pages#home'
   match 'contact' => 'static_pages#contact'

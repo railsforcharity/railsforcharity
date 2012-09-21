@@ -1,7 +1,7 @@
 - present @project do |project|
   .row
     .span3
-      = project.avatar
+      = project.avatar_name
       %br
       %br
       %h2{style:"color:#880000"}
@@ -29,7 +29,7 @@
       .span5
         #{pluralize project.reputation_value_for(:votes).to_i, "vote"}
         .btn.btn-inverse
-          = link_to "", vote_project_path(project, type: "up"), method: "post", class: ' icon-hand-up icon-white'
+          = link_to "", vote_project_path(project, type: "up"), method: "post", class: 'icon-hand-up icon-white'
         .btn
           = link_to "", vote_project_path(project, type: "down"), method: "post", class: 'icon-black icon-hand-down'
       .span3
@@ -39,86 +39,120 @@
               .btn.btn-success.btn-large Join
             .btn.btn.btn-large Donate
     .span5
-      %iframe{:allowfullscreen => "", :frameborder => "0", :height => "360", :src => "#{project.video}", :width => "100%"}
+      -if project.video != ""
+        %iframe{:allowfullscreen => '', :frameborder => '0', :height => '360', :src => "#{project.video}", :width => '100%'}
+      -else
+        %div.video
+          %p.video_text Video is coming soon!
+        -if can_edit?(project)
+          %p=link_to 'Edit your page', edit_project_path(project)
     .span3.offset1
       %br
         %b Pitch:
         %br
         = project.description.html_safe
-  %br
-  %br
-  .row
-    .span12
-      %br
-      %h3 Project Tasks
-      %br
-      %h4 Open Tasks
-      %br
-      %table.table.table-striped.table-hover.table-bordered
-        %thead
-          %th Title
-          %th Description
-          %th Type
-          %th Estimated Hours
-          %th Actions
-        %tbody
-          - project.tasks.open_tasks.each do |task|
-            %tr
-              %td= link_to task.name, project_task_path(project, task)
-              %td= task.description.html_safe
-              %td= task.task_type
-              %td= task.hours
-              %td= link_to 'Assign to me', '#', :class => 'btn btn-primary'
-
-      .pull-right
-        = link_to "more..."
-      %h4 Ongoing Tasks
-      %br
-      %table.table.table-striped.table-hover.table-bordered
-        %thead
-          %th Title
-          %th Description
-          %th Type
-          %th Estimated Hours
-          %th Actions
-        %tbody
-          - project.tasks.in_progress.each do |task|
-            %tr
-              %td= link_to task.name, project_task_path(project, task)
-              %td= task.description.html_safe
-              %td= task.task_type
-              %td= task.hours
-              %td= link_to 'Finish', '#', :class => 'btn btn-primary'
-
-      .pull-right
-        = link_to "more..."
-      %h4 Closed Tasks
-      %br
-      %table.table.table-striped.table-hover.table-bordered
-        %thead
-          %th Title
-          %th Description
-          %th Type
-          %th Hours
-        %tbody
-          - project.tasks.closed.each do |task|
-            %tr
-              %td= link_to task.name, project_task_path(project, task)
-              %td= task.description.html_safe
-              %td= task.task_type
-              %td= task.hours
-      .pull-right
-        = link_to "more..."
-  .row
-    .span12
-      %br
-      %h3 Contributors
-      %br
-      .span3{style:"height:50px; width:50px"}
-        - project.users.each do |user|
-          - if user.avatar
-            = image_tag user.avatar.image_url(:thumb).to_s
-      .span6
-        %p This error is most often caused by having no connection to the Internet or a misconfigured network.
-  .row
+.row
+  .span12
     %br
+    %h3 Project Tasks
+    %br
+    .tabbable
+      %ul.nav.nav-tabs
+        %li.active
+          %a{"data-toggle" => "tab", :href => "#tab1"} Open
+        %li
+          %a{"data-toggle" => "tab", :href => "#tab2"} On Going
+        %li
+          %a{"data-toggle" => "tab", :href => "#tab3"} Done
+      .tab-content
+        #tab1.tab-pane.active
+          %h4 Open Tasks
+          %br
+          %table.table.table-striped.table-hover.table-bordered
+            %thead
+              %th Title
+              %th Description
+              %th Type
+              %th Estimated Hours
+              %th Requested By
+              %th Actions
+            %tbody
+              - @project.tasks.open_tasks.each do |task|
+                - if task.status == Task::STATUSES[:open]
+                  %tr
+                    %td= link_to task.name, project_task_path(@project, task)
+                    %td= truncate(task.description.html_safe, length: 30)
+                    %td= task.task_type
+                    %td= task.hours
+                    %td= link_to User.find(task.created_by).name, user_path(task.created_by)
+                    %td
+                      = simple_form_for [@project, task], :url => assign_me_task_path(task), :method => :post do |f|
+                        = f.button :submit, 'Assign to me', class: 'btn btn-table'
+          .pull-right
+            = link_to "more ..."
+        #tab2.tab-pane
+          %h4 Ongoing Tasks
+          %br
+          %table.table.table-striped.table-hover.table-bordered
+            %thead
+              %th Title
+              %th Description
+              %th Type
+              %th Estimated Hours
+              %th Requested By
+              %th Assigned to
+              %th Actions
+            %tbody
+              - @project.tasks.ongoing.each do |task|
+                -if task.status == Task::STATUSES[:ongoing]
+                  %tr
+                    %td= link_to task.name, project_task_path(@project, task)
+                    %td= truncate(task.description.html_safe, length: 17)
+                    %td= task.task_type
+                    %td= task.hours
+                    %td= link_to User.find(task.created_by).name, user_path(task.created_by)
+                    %td
+                      = link_to User.find(task.assigned_to).name, user_path(task.assigned_to)
+                    %td
+                      = simple_form_for [@project, task], :url => finish_task_path(task), :method => :post do |f|
+                        = f.button :submit, 'Deliver', class: 'btn btn-primary btn-table'
+                        %br
+                        %br
+                      = simple_form_for [@project, task], :url => unassigned_task_path(task), :method => :post do |f|
+                        = f.button :submit, 'I can\'t do it', class: 'btn btn-primary btn-table'
+
+          .pull-right
+            = link_to "more ..."
+        #tab3.tab-pane
+          %h4 Closed Tasks
+          %br
+          %table.table.table-striped.table-hover.table-bordered
+            %thead
+              %th Title
+              %th Description
+              %th Type
+              %th Hours
+              %th Requested By
+              %th Task Accomplished by
+            %tbody
+              - @project.tasks.closed.each do |task|
+                -if task.status == Task::STATUSES[:closed]
+                  %tr
+                    %td= link_to task.name, project_task_path(@project, task)
+                    %td= truncate(task.description.html_safe, length: 30)
+                    %td= task.task_type
+                    %td= task.hours
+                    %td= link_to User.find(task.created_by).name, user_path(task.created_by)
+                    %td= link_to User.find(task.assigned_to).name, user_path(task.assigned_to)
+          .pull-right
+            = link_to "more ..."
+.row
+  .span12
+    %h3 Contributors
+    %br
+    .span3{style:"height:50px; width:50px"}
+      - @project.users.each do |user|
+        - if user.avatar
+          = image_tag user.avatar.image_url(:thumb).to_s
+    .span6
+      %p This error is most often caused by having no connection to the Internet or a misconfigured network.
