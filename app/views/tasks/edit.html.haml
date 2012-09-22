@@ -1,7 +1,9 @@
 .row
-  .span12
+  .span8
     %h2 Editing Task
-    .span8
-      %br
-      = render :partial => 'form', :locals => { :edit => true }
+    %br
+    = render :partial => 'form', :locals => { :edit => true }
+  .span3
+    .pull-right
+      = render :partial => 'info', :locals => { :edit => true }
 

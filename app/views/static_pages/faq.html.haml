@@ -1,6 +1,6 @@
-.container
-  .row
-    .span8
+.row
+  .span12
+    .span7
       %h3
         %span.slash //
         Frequently Asked Questions...
@@ -87,8 +87,8 @@
           from #{link_to "here", contact_path}.
 
 
-:javascript
-$(function () {
-    $('.faq-list').goFaq();
-    $('.faq-empty').hide();
-});
+    :javascript
+    $(function () {
+      $('.faq-list').goFaq();
+      $('.faq-empty').hide();
+    });

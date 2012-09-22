@@ -20,19 +20,17 @@
     });
   });
 
-.container
-  .row
-    .span6
-    = simple_form_for [@project, @task] do |f|
-      = f.error_notification
+.span6
+= simple_form_for [@project, @task] do |f|
+  = f.error_notification
 
-      .form-inputs
-        = f.input :name, :label => 'Story Title', :input_html => { :style => 'width:50%' }
-        = f.input :description, :as => 'text', :label => 'Story Description', :as => :ckeditor, :input_html => { :toolbar => 'Basic' }
-        = f.input :tag_names, :input_html => { :class => 'select_tags', data: { load: @task.tags } }, :label => 'Add Tags'
-        = f.input :hours, :label => 'Estimated Hours', :collection => 1..5, :include_blank => false
-        = f.input :task_type, :collection => ['Feature', 'Bug', 'Chore', 'Release'], :include_blank => false
+  .form-inputs
+    = f.input :name, :label => 'Story Title', :input_html => { :style => 'width:50%' }
+    = f.input :description, :as => 'text', :label => 'Story Description', :as => :ckeditor, :input_html => { :toolbar => 'Basic' }
+    = f.input :tag_names, :input_html => { :class => 'select_tags', data: { load: @task.tags } }, :label => 'Add Tags'
+    = f.input :hours, :label => 'Estimated Hours', :collection => 1..5, :include_blank => false
+    = f.input :task_type, :collection => ['Feature', 'Bug', 'Chore', 'Release'], :include_blank => false
 
 
-      .form-actions
-        = f.button :submit, :class => 'btn btn-primary'
+  .form-actions
+    = f.button :submit, :class => 'btn btn-primary'

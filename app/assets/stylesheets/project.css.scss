@@ -1,12 +1,14 @@
 @import "compass";
 
-.project_box #project_content {
+#project_content {
   width: 30%;
   float: left;
   margin: 5px;
   min-height: 170px;
   min-width: 300px;
   @include box-shadow(#ccc 2px 2px 10px);
+  background-color: #98fb98;
+  padding:5px;
 }
 
 .search_box {
