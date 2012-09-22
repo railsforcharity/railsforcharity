@@ -32,13 +32,14 @@
         .btn
           = link_to "", vote_project_path(project, type: "down"), method: "post", class: 'icon-black icon-hand-down'
       .span2
-        .span1
-          .pull-right
-            .btn.btn.btn-large Donate
-            - if !project.is_collaborator?
-              .btn.btn-success.btn-large Join
-            %br
-            %br
+        .pull-right
+          .span1
+            .btn.btn.btn-small Donate
+          .span1
+          - if !project.is_collaborator?
+            .btn.btn-success.btn-large Join
+          %br
+          %br
     .span5
       -if project.video != ""
         %iframe{:allowfullscreen => '', :frameborder => '0', :height => '360', :src => "#{project.video}", :width => '100%'}
