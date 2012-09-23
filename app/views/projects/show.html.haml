@@ -137,6 +137,7 @@
               %th Hours
               %th Requested By
               %th Task Accomplished by
+              %th Actions
             %tbody
               - @project.tasks.closed.each do |task|
                 -if task.status == Task::STATUSES[:closed]
@@ -147,7 +148,11 @@
                     %td= task.hours
                     %td= link_to User.find(task.created_by).name, user_path(task.created_by)
                     %td= link_to User.find(task.assigned_to).name, user_path(task.assigned_to)
-          .pull-right
+                    %td
+                      = simple_form_for [@project, task], :url => finish_task_path(task), :method => :post do |f|
+                        = f.button :submit, 'Accept', class: 'btn-small btn-success'
+                      = simple_form_for [@project, task], :url => finish_task_path(task), :method => :post do |f|
+                        = f.button :submit, 'Reject', class: 'btn-small btn-warning'
             = link_to "more ..."
   .span12
     %h3 Contributors
