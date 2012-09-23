@@ -156,9 +156,10 @@
   .span12
     %h3 Contributors
     %br
-    .span{style:"height:50px; width:50px"}
-      - @project.users.each do |user|
+    - @project.users.each do |user|
+      .span2
         - if user.avatar
-          = image_tag user.avatar.image_url(:thumb).to_s
-        .span6
+          = image_tag user.avatar.image_url(:thumb).to_s, :height => '80', :width => '80'
+      .span8
+        .pull-left
           %p=user.bio
