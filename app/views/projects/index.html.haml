@@ -41,8 +41,7 @@
         %div.video
           %p.video_text Video is coming soon!
     .span2
-      %p
-        =truncate(project.description, length: 350 ).html_safe
+      =truncate(project.description, length: 350 ).html_safe
       .pull-right
         = link_to "more ...", project
 

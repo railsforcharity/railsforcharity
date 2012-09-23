@@ -68,8 +68,6 @@
           %a{"data-toggle" => "tab", :href => "#tab3"} Done
       .tab-content
         #tab1.tab-pane.active
-          %h4 Open Tasks
-          %br
           %table.table.table-striped.table-hover.table-bordered
             %thead
               %th Title
@@ -93,8 +91,6 @@
           .pull-right
             = link_to "more ..."
         #tab2.tab-pane
-          %h4 Ongoing Tasks
-          %br
           %table.table.table-striped.table-hover.table-bordered
             %thead
               %th Title
@@ -126,8 +122,6 @@
           .pull-right
             = link_to "more ..."
         #tab3.tab-pane
-          %h4 Closed Tasks
-          %br
           %table.table.table-striped.table-hover.table-bordered
             %thead
               %th Title
@@ -157,9 +151,12 @@
     %h3 Contributors
     %br
     - @project.users.each do |user|
-      .span2
+      .span1
         - if user.avatar
           = image_tag user.avatar.image_url(:thumb).to_s, :height => '80', :width => '80'
-      .span8
-        .pull-left
-          %p=user.bio
+        - else
+          = image_tag 'default.png', :height => '80', :width => '80'
+      .span10
+        %p=user.bio
+      .clearfix
+      %br
