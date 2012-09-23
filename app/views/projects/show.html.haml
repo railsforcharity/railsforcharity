@@ -157,9 +157,9 @@
   .span12
     %h3 Contributors
     %br
-    .span3{style:"height:50px; width:50px"}
+    .span{style:"height:50px; width:50px"}
       - @project.users.each do |user|
         - if user.avatar
           = image_tag user.avatar.image_url(:thumb).to_s
-    .span6
-      %p This error is most often caused by having no connection to the Internet or a misconfigured network.
+        .span6
+          %p=user.bio.html_safe
