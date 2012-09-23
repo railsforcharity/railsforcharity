@@ -1,29 +1,28 @@
-.container{:style=>'padding-top:35px; padding-bottom:35px'}
-  .row
-    .span12
-      -if @user.errors.any?
-        .alert.alert-error
-          %h4= "#{pluralize(@user.errors.count, "error")} prohibited this information from being saved:"
-          %ul
-            - @user.errors.full_messages.each do |msg|
-              %li= msg
+.row
+  .span12
+    -if @user.errors.any?
+      .alert.alert-error
+        %h4= "#{pluralize(@user.errors.count, "error")} prohibited this information from being saved:"
+        %ul
+          - @user.errors.full_messages.each do |msg|
+            %li= msg
 
-      = simple_form_for @user, :validate => true, :html => {:multipart => true} do |f|
-        .span7
-          = f.input :name
-          = f.input :email
-          = f.input :website
-          = f.simple_fields_for :location, @user.location || Location.new do |l|
-            = l.label :country
-            = l.country_select :country, {priority: %w(US CA)}, prompt: 'Please select a country'
-          = f.label :bio
-          = f.input :bio, :as => :ckeditor, :label => false, :input_html => { :toolbar => 'Basic', :style => 'width: 50%', :rows => 5 }
-          = f.submit 'Save Changes', :class => 'btn btn-primary'
-        .span4
-          .pull-right
-            - if @user.avatar
-              = image_tag @user.avatar.image_url(:thumb).to_s
-            - else
-              = image_tag 'default.png'
-            = f.fields_for :avatar, @user.avatar || Avatar.new do |a|
-              = a.file_field :image
+    = simple_form_for @user, :validate => true, :html => {:multipart => true} do |f|
+      .span7
+        = f.input :name
+        = f.input :email
+        = f.input :website
+        = f.simple_fields_for :location, @user.location || Location.new do |l|
+          = l.label :country
+          = l.country_select :country, {priority: %w(US CA)}, prompt: 'Please select a country'
+        = f.label :bio
+        = f.input :bio, :label => false, :input_html => { :style => 'width: 100%', :rows => 5 }
+        = f.submit 'Save Changes', :class => 'btn btn-primary'
+      .span4
+        .pull-right
+          - if @user.avatar
+            = image_tag @user.avatar.image_url(:thumb).to_s
+          - else
+            = image_tag 'default.png'
+          = f.fields_for :avatar, @user.avatar || Avatar.new do |a|
+            = a.file_field :image

@@ -47,7 +47,7 @@
         %div.video
           %p.video_text Video is coming soon!
       -if can_edit?(project)
-        %p=link_to 'Edit your page', edit_project_path(project)
+        %p=link_to 'Edit project details', edit_project_path(project)
     %br
     .span4
       .sidebar
@@ -58,7 +58,6 @@
   .span12
     %br
     %h3 Project Tasks
-    %br
     .tabbable.box-sizing
       %ul.nav.nav-tabs
         %li.active
