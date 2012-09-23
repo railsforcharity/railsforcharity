@@ -1,48 +1,48 @@
 .row
   - @projects.each do |project|
     - project_presenter = ProjectPresenter.new(project, self)
-    .project_content
-      .span5.project_details
-        .row
-          .span3
-            - if project.avatar
-              = link_to image_tag(project.avatar.image_url(:thumb).to_s, :height => '3', :width => '32'), project_path(project)
-            -else
-              = image_tag 'default.png'
-            .caption
-              %h3=link_to project.name, project_path(project)
-              %b Creator: #{link_to project.creator.name, user_path(project.created_by)}
-          .span2
-            %ul{:style=>'list-style:none'}
-              %li
-                .pull-left
-                  - if !project_presenter.is_collaborator?
-                    .btn.btn-success.btn-large Join
-              %li
-                %em
-                  #{pluralize project.reputation_value_for(:votes).to_i, "vote"}
-                  - if current_user && !current_user.voted_for?(project)
-                    .btn.btn-inverse
-                      = link_to "", vote_project_path(project, type: "up"), method: "post", class: 'icon-hand-up icon-white'
-                    .btn
-                      = link_to "", vote_project_path(project, type: "down"), method: "post", class: 'icon-black icon-hand-down'
-        .row
-          .span5
-            %b Mission: #{project.title}
-            %br
-            %br
-            %h2 Collaborators
-            - project.users.each do |user|
-              - if user.avatar
-                = image_tag user.avatar.image_url(:thumb).to_s, :height => '50', :width => '50'
-      .span4
-        -if project.video != ""
-          %iframe{:allowfullscreen => '', :frameborder => '0', :height => '360', :src => "#{project.video}", :width => '100%'}
-        -else
-          %div.video
-            %p.video_text Video is coming soon!
-      .span2
-        %p We want to incubate, foster, develop, mentor and support web based software projects which could potentially have a social impact.
-        .pull-right
-          = link_to "more ...", project
+    .span5
+      .row
+        .span3
+          - if project.avatar
+            = link_to image_tag(project.avatar.image_url(:thumb).to_s, :height => '3', :width => '32'), project_path(project)
+          -else
+            = image_tag 'default.png'
+          .caption
+            %h3=link_to project.name, project_path(project)
+            %b Creator: #{link_to project.creator.name, user_path(project.created_by)}
+        .span2
+          %ul{:style=>'list-style:none'}
+            %li
+              .pull-left
+                - if !project_presenter.is_collaborator?
+                  .btn.btn-success.btn-large Join
+            %li
+              %em
+                #{pluralize project.reputation_value_for(:votes).to_i, "vote"}
+                - if current_user && !current_user.voted_for?(project)
+                  .btn.btn-inverse
+                    = link_to "", vote_project_path(project, type: "up"), method: "post", class: 'icon-hand-up icon-white'
+                  .btn
+                    = link_to "", vote_project_path(project, type: "down"), method: "post", class: 'icon-black icon-hand-down'
+      .row
+        .span5
+          %b Mission: #{project.title}
+          %br
+          %br
+          %h2 Collaborators
+          - project.users.each do |user|
+            - if user.avatar
+              = image_tag user.avatar.image_url(:thumb).to_s, :height => '50', :width => '50'
+    .span4
+      -if project.video != ""
+        %iframe{:allowfullscreen => '', :frameborder => '0', :height => '360', :src => "#{project.video}", :width => '100%'}
+      -else
+        %div.video
+          %p.video_text Video is coming soon!
+    .span2
+      %p
+        =truncate(project.description, length: 350 ).html_safe
+      .pull-right
+        = link_to "more ...", project
 
