@@ -17,8 +17,6 @@
         = link_to t('views.layouts._navigation.faq'), faq_path
       %li
         = link_to t('views.layouts._navigation.supporters'), supporters_path
-      %li
-        = link_to t('views.layouts._navigation.terms'), terms_path
       -#%li
       -#  = link_to t('views.layouts._navigation.blog'), blog_path
       %li
@@ -35,8 +33,8 @@
           %li
             = link_to t('views.layouts._navigation.edit_profile'), edit_user_path(current_user)
 
-        = link_to t('views.layouts._navigation.log_out'), destroy_user_session_path, :method => 'delete', :class => 'btn btn-danger'
-      - else
-        = link_to t('views.layouts._navigation.log_in'), new_user_session_path, :class => 'btn btn-warning'
-      - if user_not_signed_in?
-        = link_to t('views.layouts._navigation.sign_up'), new_user_registration_path, :class => 'btn btn-success'
+      = link_to t('views.layouts._navigation.log_out'), destroy_user_session_path, :method => 'delete', :class => 'btn btn-danger'
+    - else
+      = link_to t('views.layouts._navigation.log_in'), new_user_session_path, :class => 'btn btn-warning'
+    - if user_not_signed_in?
+      = link_to t('views.layouts._navigation.sign_up'), new_user_registration_path, :class => 'btn btn-success'
