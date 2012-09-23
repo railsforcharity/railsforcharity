@@ -58,8 +58,7 @@
       data: { load: project_presenter.collaborators } }, :label => 'Add Collaborators'
     - if !edit
       %br
-      = f.input :terms, :label => false, :as => :boolean, :inline_label => 'By clicking on the check box, you agree with the Terms and Conditions of RailsforCharity.'
-      -# TODO: Make Terms & Conditions Page
+      = f.input :terms, :label => false, :as => :boolean, :inline_label => "By clicking on the check box, you agree with the #{link_to_blank 'Terms and Conditions', terms_path} of RailsforCharity.".html_safe
 
   .form-actions
     = f.button :submit, :class => 'btn btn-primary'

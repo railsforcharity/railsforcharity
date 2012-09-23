@@ -20,6 +20,7 @@
           faq: 'FAQ',
           how_it_works: 'How it works?',
           supporters: 'Supporters',
+          terms: 'Terms & Conditions',
           blog: 'Blog',
           contact_us: 'Contact Us'
         }

@@ -27,13 +27,10 @@ Railsforcharity::Application.routes.draw do
 
   #STATIC PAGES
   root :to => 'static_pages#home'
-  match 'contact' => 'static_pages#contact'
-  match 'contact_us' => 'static_pages#contact_us'
-  match 'faq' => 'static_pages#faq'
-  match 'blog' => 'static_pages#blog'
-  match 'supporters' => 'static_pages#supporters'
-  match 'contributors' => 'static_pages#contributors'
-  match 'how_it_works' => 'static_pages#how_it_works'
+
+  ['contact', 'contact_us', 'faq', 'blog', 'supporters', 'contributors', 'how_it_works', 'terms'].each do |route|
+    match route => "static_pages##{route}"
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
