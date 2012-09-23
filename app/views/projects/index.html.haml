@@ -1,5 +1,5 @@
-.row
-  - @projects.each do |project|
+- @projects.each do |project|
+  .row
     - project_presenter = ProjectPresenter.new(project, self)
     .span5
       .row
@@ -16,7 +16,7 @@
             %li
               .pull-left
                 - if !project_presenter.is_collaborator?
-                  .btn.btn-success.btn-large Join
+                  -#.btn.btn-success.btn-large Join
             %li
               %em
                 #{pluralize project.reputation_value_for(:votes).to_i, "vote"}
@@ -42,6 +42,6 @@
           %p.video_text Video is coming soon!
     .span2
       =truncate(project.description, length: 350 ).html_safe
-      .pull-right
-        = link_to "more ...", project
-
+    .pull-right
+      = link_to "more ...", project
+  %hr.style-seven
