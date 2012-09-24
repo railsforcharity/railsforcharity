@@ -32,6 +32,7 @@ gem 'rmagick', '2.13.1'
 gem 'fog'
 gem 'activerecord-reputation-system', require: 'reputation_system'
 gem 'ancestry'
+gem 'taps'
 
 # Gems used only for assets and not required
 # in production environments by default.
