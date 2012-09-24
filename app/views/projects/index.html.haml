@@ -11,7 +11,7 @@
               = image_tag 'default.png'
             .caption
               %h3=link_to project.name, project_path(project)
-              %b Creator: #{link_to project.creator.name, user_path(project.created_by)}
+              %b Idea Master: #{link_to project.creator.name, user_path(project.created_by)}
           .span2
             %ul{:style=>'list-style:none'}
               %li
