@@ -148,4 +148,4 @@
           .pull-right
             = link_to "more ..."
   .span12
-    = render :partial => 'projects/collaborators'
+    = render :partial => 'projects/collaborators', :locals => { project: @project, size: 80 }
