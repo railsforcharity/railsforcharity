@@ -33,6 +33,8 @@ gem 'fog'
 gem 'activerecord-reputation-system', require: 'reputation_system'
 gem 'ancestry'
 gem 'taps'
+gem 'hirb'
+
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -57,7 +59,6 @@ group :development, :test do
   gem 'faker'
   gem 'populator'
   gem 'annotate'
-  gem 'hirb'
   gem 'shoulda-matchers' # shoulda-context causes the error http://stackoverflow.com/q/9523931/238880
   gem 'factory_girl_rails'  # Used for seeding data also
   gem 'autotest-rails'
