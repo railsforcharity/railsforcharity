@@ -21,6 +21,7 @@ gem 'haml-rails'
 gem 'bootstrap-sass', "~> 2.0.4.2"
 gem 'compass-rails'
 gem 'simple_form'
+gem 'ckeditor', '3.7.2'
 
 # Other
 gem 'friendly_id'
@@ -33,6 +34,7 @@ gem 'activerecord-reputation-system', require: 'reputation_system'
 gem 'ancestry'
 gem 'taps'
 gem 'hirb'
+
 
 # Gems used only for assets and not required
 # in production environments by default.
