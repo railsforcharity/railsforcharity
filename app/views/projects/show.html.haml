@@ -145,6 +145,7 @@
                         = f.button :submit, 'Accept', class: 'btn-small btn-success'
                       = simple_form_for [@project, task], :url => finish_task_path(task), :method => :post do |f|
                         = f.button :submit, 'Reject', class: 'btn-small btn-warning'
+          .pull-right
             = link_to "more ..."
   .span12
     = render :partial => 'projects/collaborators'

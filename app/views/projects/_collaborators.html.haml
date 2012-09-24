@@ -1,10 +1,8 @@
 %h3 Contributors
 %br
 - @project.users.each do |user|
-  - user_presenter = UserPresenter.new(user, self)
-  .span1
-    = user_presenter.avatar
-  .span10
-    %p=user.bio
-  .clearfix
-  %br
+  %div(style="display:inline-block;padding:10px")
+    - user_presenter = UserPresenter.new(user, self)
+    = link_to user_presenter.avatar, user_path(user), title: user.name
+    %br
+    = link_to user.name, user_path(user)
