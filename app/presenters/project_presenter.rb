@@ -5,7 +5,7 @@ class ProjectPresenter < ApplicationPresenter
 
   def website
     w = project.website
-    if !project.website.start_with? 'http'
+    if !w.blank? && !(w.start_with? 'http')
       w = 'http://' + w
     end
 
