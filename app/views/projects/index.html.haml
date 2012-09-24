@@ -45,7 +45,7 @@
           %div.video
             %p.video_text Video is coming soon!
       .span2
-        %p We want to incubate, foster, develop, mentor and support web based software projects which could potentially have a social impact.
+        =truncate(project.description, length: 350 )
         .pull-right
           = link_to "more ...", project
 
