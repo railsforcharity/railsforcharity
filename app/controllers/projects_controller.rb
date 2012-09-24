@@ -40,6 +40,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(params[:project])
     @project.creator = current_user
+
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: t('controllers.projects.create.success') }

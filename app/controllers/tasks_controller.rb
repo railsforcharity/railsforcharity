@@ -15,7 +15,8 @@ class TasksController < ApplicationController
   def create
     @task = @project.tasks.build(params[:task])
     @task.status = Task::STATUSES[:open]
-    @task.created_by = current_user
+    @task.creator = current_user
+
     respond_to do |format|
       if @task.save
         @task.tags.each {|t| t.update_attributes(:tag_type => 'task')}

@@ -84,7 +84,7 @@
                     %td= truncate(task.description, length: 30).html_safe
                     %td= task.task_type
                     %td= task.hours
-                    %td= link_to task.creator.name, user_path(task.created_by)
+                    %td= link_to task.creator.name, user_path(task.creator)
                     %td
                       = simple_form_for [@project, task], :url => assign_me_task_path(task), :method => :post do |f|
                         = f.button :submit, 'Assign to me', class: 'btn-small btn-table'
