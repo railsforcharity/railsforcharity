@@ -32,6 +32,7 @@ class Task < ActiveRecord::Base
   # Relations
   belongs_to :project
   belongs_to :creator, :class_name => 'User', :foreign_key => "created_by"
+  belongs_to :assignee, :class_name => 'User', :foreign_key => "assigned_to"
   has_many :taggings, :as => :taggable, :dependent => :destroy
   has_many :tags, :through => :taggings
   has_many :comments, as: :commentable

@@ -1,0 +1,10 @@
+%h3 Contributors
+%br
+- @project.users.each do |user|
+  - user_presenter = UserPresenter.new(user, self)
+  .span1
+    = user_presenter.avatar
+  .span10
+    %p=user.bio
+  .clearfix
+  %br

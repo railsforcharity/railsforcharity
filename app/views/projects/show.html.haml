@@ -81,10 +81,10 @@
                 - if task.status == Task::STATUSES[:open]
                   %tr
                     %td= link_to task.name, project_task_path(@project, task)
-                    %td= truncate(task.description.html_safe, length: 30)
+                    %td= truncate(task.description, length: 30).html_safe
                     %td= task.task_type
                     %td= task.hours
-                    %td= link_to User.find(task.created_by).name, user_path(task.created_by)
+                    %td= link_to task.creator.name, user_path(task.created_by)
                     %td
                       = simple_form_for [@project, task], :url => assign_me_task_path(task), :method => :post do |f|
                         = f.button :submit, 'Assign to me', class: 'btn-small btn-table'
@@ -105,12 +105,11 @@
                 -if task.status == Task::STATUSES[:ongoing]
                   %tr
                     %td= link_to task.name, project_task_path(@project, task)
-                    %td= truncate(task.description.html_safe, length: 17)
+                    %td= truncate(task.description, length: 30).html_safe
                     %td= task.task_type
                     %td= task.hours
-                    %td= link_to User.find(task.created_by).name, user_path(task.created_by)
-                    %td
-                      = link_to User.find(task.assigned_to).name, user_path(task.assigned_to)
+                    %td= link_to task.creator.name, user_path(task.created_by)
+                    %td= link_to task.assignee.name, user_path(task.assigned_to)
                     %td
                       = simple_form_for [@project, task], :url => finish_task_path(task), :method => :post do |f|
                         = f.button :submit, 'Deliver', class: 'btn-small'
@@ -136,11 +135,11 @@
                 -if task.status == Task::STATUSES[:closed]
                   %tr
                     %td= link_to task.name, project_task_path(@project, task)
-                    %td= truncate(task.description.html_safe, length: 30)
+                    %td= truncate(task.description, length: 30).html_safe
                     %td= task.task_type
                     %td= task.hours
-                    %td= link_to User.find(task.created_by).name, user_path(task.created_by)
-                    %td= link_to User.find(task.assigned_to).name, user_path(task.assigned_to)
+                    %td= link_to task.creator.name, user_path(task.created_by)
+                    %td= link_to task.assignee.name, user_path(task.assigned_to)
                     %td
                       = simple_form_for [@project, task], :url => finish_task_path(task), :method => :post do |f|
                         = f.button :submit, 'Accept', class: 'btn-small btn-success'
@@ -148,15 +147,4 @@
                         = f.button :submit, 'Reject', class: 'btn-small btn-warning'
             = link_to "more ..."
   .span12
-    %h3 Contributors
-    %br
-    - @project.users.each do |user|
-      .span1
-        - if user.avatar
-          = image_tag user.avatar.image_url(:thumb).to_s, :height => '80', :width => '80'
-        - else
-          = image_tag 'default.png', :height => '80', :width => '80'
-      .span10
-        %p=user.bio
-      .clearfix
-      %br
+    = render :partial => 'projects/collaborators'
