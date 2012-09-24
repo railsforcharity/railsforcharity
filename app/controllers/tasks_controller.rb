@@ -31,7 +31,7 @@ class TasksController < ApplicationController
 
   def update
     respond_to do |format|
-      if @project.update_attributes(params[:project])
+      if @task.update_attributes(params[:task])
         format.html { redirect_to project_task_path(@project, @task), notice: t('controllers.tasks.update.success') }
         format.json { head :no_content }
       else
