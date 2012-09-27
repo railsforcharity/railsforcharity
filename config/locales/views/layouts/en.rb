@@ -22,7 +22,9 @@
           supporters: 'Supporters',
           terms: 'Terms & Conditions',
           blog: 'Blog',
-          contact_us: 'Contact Us'
+          contact_us: 'Contact Us',
+          browse_tasks: 'Browse Tasks',
+          new_task: 'Create Task'
         }
       }
     }

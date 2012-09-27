@@ -8,19 +8,21 @@ Railsforcharity::Application.routes.draw do
     resources :locations
   end
 
-  resources :projects do
-    resources :avatars
-    resources :locations
-    resources :tasks
-    member { get :settings }
-    member { post :vote }
-  end
-
   resources :tasks do
+    get :new
+    post :create
     resources :comments
     member { post :assign_me }
     member { post :finish }
     member { post :unassigned }
+  end
+
+  resources :projects do
+    resources :avatars
+    resources :locations
+    resources :tasks, :except => [:new, :create]
+    member { get :settings }
+    member { post :vote }
   end
 
   #STATIC PAGES
