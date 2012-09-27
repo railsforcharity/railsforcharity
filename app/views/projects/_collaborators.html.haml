@@ -1,8 +1,9 @@
 %h3 Contributors
 %br
 - project.users.each do |user|
-  %div(style="display:inline-block;padding:10px")
+  %div(style="display:inline-block; padding:10px")
     - user_presenter = UserPresenter.new(user, self)
     = link_to user_presenter.avatar(size), user_path(user), title: user.name
     %br
-    = link_to user.name, user_path(user)
+    %p(style='text-align:center')
+      = link_to user.name.scan(/\w+/).first , user_path(user)
