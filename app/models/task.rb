@@ -24,6 +24,13 @@ class Task < ActiveRecord::Base
     closed: 3
   }
 
+  TYPES = {
+    feature: 1,
+    bug: 2,
+    chore: 3,
+    enhancement: 4
+  }
+
   # Attributes
   attr_accessible :description, :estimated_hours, :estimated_minutes, :name, :project_id, :task_type, :tag_names, :content
   attr_accessor :tag_names, :estimated_hours, :estimated_minutes
@@ -57,11 +64,11 @@ class Task < ActiveRecord::Base
   end
 
   def estimated_hours
-    self.estimated_time.to_i / 60
+    self.estimated_time.to_i / 60 if self.estimated_time
   end
 
   def estimated_minutes
-    self.estimated_time.to_i % 60
+    self.estimated_time.to_i % 60 if self.estimated_time
   end
 
   private
