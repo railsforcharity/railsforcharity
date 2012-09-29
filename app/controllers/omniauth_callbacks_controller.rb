@@ -2,7 +2,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def all
     auth = request.env["omniauth.auth"]
-    provider, uid, name, email = auth.provider, auth.uid, auth.info.name, auth.info.email
+    provider, uid, name, email, avatar_url = auth.provider, auth.uid, auth.info.name, auth.info.email, auth.info.image
 
     user = User.find_by_email(email)
     authentication = Authentication.find_by_provider_and_uid(provider, uid)
@@ -13,6 +13,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       user.skip_confirmation!
 
       if user.save
+        user.create_avatar(:remote_image_url => avatar_url) rescue nil  # Dont fail if we're unable to save avatar
         flash.notice = t('controllers.omniauth_callbacks.sign_up.success')
         custom_sign_in_and_redirect(user)
       else
