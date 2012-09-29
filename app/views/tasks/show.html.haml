@@ -1,25 +1,24 @@
 - taskp = TaskPresenter.new(@task, self)
 
 .row
-  .span12
-    .pull-left
-      .span8
-        %h4 Task Title
-        = @task.name
-        %br
-        %br
-        %h4 Task Description
-        = @task.description.html_safe
-        %br
-    .span3
-      .pull-right
-        = render :partial => 'info', :locals => { :show => true}
-        %h4 Estimated time:
-        #{taskp.estimated_time}
-        %br
-        %br
-        = simple_form_for [@task.project, @task], :url => assign_me_task_path(@task), :method => :post do |f|
-          = f.button :submit, 'Assign to me', class: 'btn-small btn-table'
-  .span12
+  .span10
+    %h4 Task Title
+    = @task.name
+    %br
+    %br
+    %h4 Task Description
+    = @task.description
+    %br
+    %br
     = render :partial => 'comments/form'
     = nested_comments @comments.arrange(:order => :created_at)
+
+  .span2
+    = render :partial => 'info', :locals => { :show => true }
+    %h4 Estimated time:
+    #{taskp.estimated_time}
+    %br
+    %br
+    = simple_form_for [@task.project, @task], :url => assign_me_task_path(@task), :method => :post do |f|
+      = f.button :submit, 'Assign to me', class: 'btn-small btn-table'
+    = link_to 'Edit', edit_task_path(@task)

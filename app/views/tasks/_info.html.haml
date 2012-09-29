@@ -1,12 +1,18 @@
--project = Project.find(@task.project_id)
-= ProjectPresenter.new(project,self).avatar_name
+- project = @task.project
+= ProjectPresenter.new(project, self).avatar_name
+- taskp = TaskPresenter.new(@task, self)
+
+%br
+%br
 %h4 Project Name
 %p= project.name
-%h4 Task Requester
-%p= User.find(@task.created_by).name
+%h4 Requester
+%p= taskp.creator_name
 - if @task.status == Task::STATUSES[:ongoing]
   %h4 Assigned to
-  = User.find(@task.assigned_to).name
+  = taskp.assignee_name
 - if @task.status == Task::STATUSES[:closed]
   %h4 Accomplished by
-  = User.find(@task.assigned_to).name
+  = taskp.assignee_name
+%br
+%br
