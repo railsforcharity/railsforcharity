@@ -26,8 +26,7 @@ class Task < ActiveRecord::Base
 
   # Attributes
   attr_accessible :description, :estimated_hours, :estimated_minutes, :name, :project_id, :task_type, :tag_names, :content
-  attr_accessor :tag_names
-  attr_writer :estimated_hours, :estimated_minutes
+  attr_accessor :tag_names, :estimated_hours, :estimated_minutes
 
   # Relations
   belongs_to :project

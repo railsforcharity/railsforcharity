@@ -78,12 +78,13 @@
               %th Actions
             %tbody
               - @project.tasks.open_tasks.each do |task|
+                - taskp = TaskPresenter.new(task, self)
                 - if task.status == Task::STATUSES[:open]
                   %tr
                     %td= link_to task.name, project_task_path(@project, task)
                     %td= truncate(task.description, length: 30).html_safe
                     %td= task.task_type
-                    %td= "#{task.estimated_hours} hr #{task.estimated_minutes} minutes"
+                    %td= taskp.estimated_time
                     %td= link_to task.creator.name, user_path(task.creator)
                     %td
                       = simple_form_for [@project, task], :url => assign_me_task_path(task), :method => :post do |f|
@@ -96,18 +97,20 @@
               %th Title
               %th Description
               %th Type
-              %th Estimated Hours
+              %th Estimated Time
               %th Requested By
               %th Assigned to
               %th Actions
             %tbody
               - @project.tasks.ongoing.each do |task|
-                -if task.status == Task::STATUSES[:ongoing]
+                - taskp = TaskPresenter.new(task, self)
+                - if task.status == Task::STATUSES[:ongoing]
                   %tr
                     %td= link_to task.name, project_task_path(@project, task)
                     %td= truncate(task.description, length: 30).html_safe
                     %td= task.task_type
-                    %td= "#{task.estimated_hours} hr #{task.estimated_minutes} minutes"
+                    = task.estimated_time
+                    %td= taskp.estimated_time
                     %td= link_to task.creator.name, user_path(task.created_by)
                     %td= link_to task.assignee.name, user_path(task.assigned_to)
                     %td
@@ -132,12 +135,13 @@
               %th Actions
             %tbody
               - @project.tasks.closed.each do |task|
-                -if task.status == Task::STATUSES[:closed]
+                - taskp = TaskPresenter.new(task, self)
+                - if task.status == Task::STATUSES[:closed]
                   %tr
                     %td= link_to task.name, project_task_path(@project, task)
                     %td= truncate(task.description, length: 30).html_safe
                     %td= task.task_type
-                    %td= "#{task.estimated_hours} hr #{task.estimated_minutes} minutes"
+                    %td= taskp.estimated_time
                     %td= link_to task.creator.name, user_path(task.created_by)
                     %td= link_to task.assignee.name, user_path(task.assigned_to)
                     %td
