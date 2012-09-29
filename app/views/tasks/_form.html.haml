@@ -20,16 +20,18 @@
     });
   });
 
-= simple_form_for [@task] do |f|
+= simple_form_for @task do |f|
   = f.error_notification
 
   .form-inputs
+    = f.input :project_id, :collection => @user.projects, :label_method => :name, :include_blank => false
     = f.input :name, :label => 'Story Title', :input_html => { :style => 'width:50%' }
     = f.input :description, :label => 'Story Description', :input_html => { :style => 'width: 100%', :rows => 10 }
     = f.input :tag_names, :input_html => { :class => 'select_tags', data: { load: @task.tags } }, :label => 'Add Tags'
-    = f.input :hours, :label => 'Estimated Hours', :collection => 1..5, :include_blank => false
+    * Estimated Time
+    = f.input :estimated_hours, :label => false, :collection => 0..8, :prompt => 'Hours'
+    = f.input :estimated_minutes, :label => false, :collection => (0..59).step(15), :prompt => 'Minutes'
     = f.input :task_type, :collection => ['Feature', 'Bug', 'Chore'], :include_blank => false
-    = f.input :project_id, :collection => @user.projects, :label_method => :name, :include_blank => false
 
   .form-actions
     = f.button :submit, :class => 'btn btn-primary'

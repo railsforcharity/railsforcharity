@@ -3,10 +3,12 @@ require 'spec_helper'
 describe TasksController do
   def valid_attributes
     {
-        name: Faker.name,
-        description: 'To build open source web based applications which help in improving the society.',
-        hours: 4,
-        task_type: "chore"
+      name: Faker.name,
+      description: 'To build open source web based applications which help in improving the society.',
+      estimated_hours: 2,
+      estimated_minutes: 40,
+      task_type: "chore",
+      project_id: 1
     }
   end
 
@@ -20,21 +22,22 @@ describe TasksController do
     login_user
 
     describe "with valid params" do
+      before :each do
+        request.env["HTTP_REFERER"] = '/'
+      end
+
       it "creates a new Task" do
         expect {
-          post :create, { :task => valid_attributes, :project_id => @project.id }
+          post :create, { :task => valid_attributes }
         }.to change(Task, :count).by(1)
       end
 
       it "assigns a newly created task as @task" do
-        post :create, {:task => valid_attributes, :project_id => @project.id}
+        post :create, { :task => valid_attributes }
         assigns(:task).should be_a(Task)
         assigns(:task).should be_persisted
-      end
-
-      pending "redirects to the created task" do
-        post :create, {:task => valid_attributes, :project_id => @project.id}
-        response.should redirect_to(project_task_path(@project, :task))
+        assigns(:task).estimated_time.should_not be_nil
+        assigns(:task).estimated_time.should == 160
       end
     end
 
@@ -42,14 +45,14 @@ describe TasksController do
       it "assigns a newly created but unsaved task as @task" do
         # Trigger the behavior that occurs when invalid params are submitted
         Task.any_instance.stub(:save).and_return(false)
-        post :create, {:task => {}, :project_id => @project.id}
+        post :create, {:task => {}}
         assigns(:task).should be_a_new(Task)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Task.any_instance.stub(:save).and_return(false)
-        post :create, {:task => {},:project_id => @project.id }
+        post :create, {:task => {}}
         response.should render_template("new")
       end
     end

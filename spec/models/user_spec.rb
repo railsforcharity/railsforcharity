@@ -20,7 +20,7 @@
 #  unconfirmed_email      :string(255)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  bio                    :string(255)
+#  bio                    :text
 #  website                :string(255)
 #  slug                   :string(255)
 #

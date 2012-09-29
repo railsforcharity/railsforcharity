@@ -37,7 +37,6 @@
     = f.input :name, :label => 'Project Name'
     %br
     %br
-    %br
     = f.input :title, :label => 'Mission', :input_html => { :style => 'width:90%' }
     = f.input :description, :input_html => { :style => 'width: 100%', :rows => 20 }
     = f.input :tag_names, :input_html => { :class => 'select_tags', value: @project.tags.map(&:name).join(",") }, :label => 'Add Tags'

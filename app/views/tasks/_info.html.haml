@@ -1,6 +1,7 @@
-= ProjectPresenter.new(@project,self).avatar_name
+-project = Project.find(@task.project_id)
+= ProjectPresenter.new(project,self).avatar_name
 %h4 Project Name
-%p= @project.name
+%p= project.name
 %h4 Task Requester
 %p= User.find(@task.created_by).name
 - if @task.status == Task::STATUSES[:ongoing]

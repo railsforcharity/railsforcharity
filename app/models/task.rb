@@ -25,9 +25,9 @@ class Task < ActiveRecord::Base
   }
 
   # Attributes
-  attr_accessible :description, :hours, :name, :project_id, :task_type, :tag_names, :content
+  attr_accessible :description, :estimated_hours, :estimated_minutes, :name, :project_id, :task_type, :tag_names, :content
   attr_accessor :tag_names
-  after_save :assign_tags
+  attr_writer :estimated_hours, :estimated_minutes
 
   # Relations
   belongs_to :project
@@ -41,17 +41,29 @@ class Task < ActiveRecord::Base
   validates :name, :presence => true, :length => { :in => 2..255 }
   validates :description, :presence => true, :length => { :minimum => 20 }
   validates :task_type, :presence => true
-  validates :hours, :presence => true
 
   accepts_nested_attributes_for :tags
+
+  # Callbacks
+  before_save :set_estimated_time
+  after_save :assign_tags
 
   # Named Scopes
   scope :open_tasks, where(status: STATUSES[:open])
   scope :closed, where(status: STATUSES[:closed])
   scope :ongoing, where(status: STATUSES[:ongoing])
 
-  # Callbacks
-  #before_save :make_open
+  def set_estimated_time
+    self.estimated_time = @estimated_hours.to_i * 60 + @estimated_minutes.to_i
+  end
+
+  def estimated_hours
+    self.estimated_time.to_i / 60
+  end
+
+  def estimated_minutes
+    self.estimated_time.to_i % 60
+  end
 
   private
 
@@ -62,4 +74,5 @@ class Task < ActiveRecord::Base
       end
     end
   end
+
 end

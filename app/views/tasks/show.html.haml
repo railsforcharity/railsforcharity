@@ -12,8 +12,8 @@
     .span3
       .pull-right
         = render :partial => 'info', :locals => { :show => true}
-        %h4 Estimated Hours
-        = @task.hours
+        %h4 Estimated time
+        = (@task.estimated_time)
   .span12
     = render :partial => 'comments/form'
     = nested_comments @comments.arrange(:order => :created_at)

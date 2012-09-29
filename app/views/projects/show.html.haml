@@ -73,7 +73,7 @@
               %th Title
               %th Description
               %th Type
-              %th Estimated Hours
+              %th Estimated Time
               %th Requested By
               %th Actions
             %tbody
@@ -83,7 +83,7 @@
                     %td= link_to task.name, project_task_path(@project, task)
                     %td= truncate(task.description, length: 30).html_safe
                     %td= task.task_type
-                    %td= task.hours
+                    %td= "#{task.estimated_hours} hr #{task.estimated_minutes} minutes"
                     %td= link_to task.creator.name, user_path(task.creator)
                     %td
                       = simple_form_for [@project, task], :url => assign_me_task_path(task), :method => :post do |f|
@@ -107,7 +107,7 @@
                     %td= link_to task.name, project_task_path(@project, task)
                     %td= truncate(task.description, length: 30).html_safe
                     %td= task.task_type
-                    %td= task.hours
+                    %td= "#{task.estimated_hours} hr #{task.estimated_minutes} minutes"
                     %td= link_to task.creator.name, user_path(task.created_by)
                     %td= link_to task.assignee.name, user_path(task.assigned_to)
                     %td
@@ -137,7 +137,7 @@
                     %td= link_to task.name, project_task_path(@project, task)
                     %td= truncate(task.description, length: 30).html_safe
                     %td= task.task_type
-                    %td= task.hours
+                    %td= "#{task.estimated_hours} hr #{task.estimated_minutes} minutes"
                     %td= link_to task.creator.name, user_path(task.created_by)
                     %td= link_to task.assignee.name, user_path(task.assigned_to)
                     %td

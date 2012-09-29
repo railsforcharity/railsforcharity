@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120923062555) do
+ActiveRecord::Schema.define(:version => 20120928001805) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -164,12 +164,12 @@ ActiveRecord::Schema.define(:version => 20120923062555) do
     t.text     "description"
     t.string   "task_type"
     t.integer  "status"
-    t.integer  "hours"
+    t.integer  "estimated_time"
     t.integer  "project_id"
     t.integer  "created_by"
     t.integer  "assigned_to"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "users", :force => true do |t|

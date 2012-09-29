@@ -6,7 +6,7 @@ FactoryGirl.define do
     description { words(40) }
     task_type { ['chore', 'feature', 'bug', 'release'].sample }
     status { Task::STATUSES[:open] }
-    hours 4
+    estimated_time { 40 }
     project_id 1
   end
 end
