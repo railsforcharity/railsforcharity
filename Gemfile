@@ -23,6 +23,8 @@ gem 'bootstrap-sass', "~> 2.0.4.2"
 gem 'compass-rails'
 gem 'simple_form'
 gem 'ckeditor', '3.7.2'
+gem 'jquery-datatables-rails'
+gem 'jquery-ui-rails'
 
 # Other
 gem 'friendly_id'
@@ -42,8 +44,6 @@ gem 'will_paginate'
 group :assets do
   gem 'sass-rails',   '~> 3.2.5'
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'jquery-datatables-rails'
-  gem 'jquery-ui-rails'
 
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
