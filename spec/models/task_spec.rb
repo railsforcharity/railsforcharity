@@ -19,24 +19,65 @@ require 'spec_helper'
 
 describe Task do
 
-  describe "Validations" do
-    subject { create(:task) }
+  # subject { create(:task) }
+  # Subject blocks allow you to control the initialization of the subject under test.
+  # If you don't have any custom initialization required, then you're given a default `subject` method already.
+  # All it does is call `new` on the class you're testing.
 
-    it { should allow_mass_assignment_of(:name) }
-    it { should validate_presence_of(:name) }
-    it { should ensure_length_of(:name).is_at_least(2).is_at_most(255) }
+  # let(:task) { task }
+  # Let blocks allow you to provide some input to the subject block that change in various contexts.
+  # This way you can simply provide an alternative `let` block for a given value and not have to duplicate the setup code for the subject over again.
+  # Let blocks also work inside of `before :each` blocks if you need them.
+  # https://www.relishapp.com/rspec/rspec-core/docs/helper-methods/let-and-let
 
-    it { should allow_mass_assignment_of(:description) }
-    it { should validate_presence_of(:description) }
-    it { should ensure_length_of(:description).is_at_least(20) }
+  # Its blocks allow you to test methods on the subject that return a simple value.
+  # The benefit of using this over the more wordy version above is that it can actually format the test output for you.
 
-    it { should allow_mass_assignment_of(:task_type) }
-    it { should validate_presence_of(:task_type) }
+  describe 'validations' do
+    context 'for name' do
+      it { should allow_mass_assignment_of(:name) }
+      it { should validate_presence_of(:name) }
+      it { should ensure_length_of(:name).is_at_least(2).is_at_most(255) }
+    end
 
-    it { should allow_mass_assignment_of(:estimated_hours) }
-    it { should allow_mass_assignment_of(:estimated_minutes) }
+    context 'for description' do
+      it { should allow_mass_assignment_of(:description) }
+      it { should validate_presence_of(:description) }
+      it { should ensure_length_of(:description).is_at_least(20) }
+    end
 
-    it { should_not allow_mass_assignment_of(:status) }
+    context 'for category' do
+      it { should allow_mass_assignment_of(:category) }
+      it { should validate_presence_of(:category) }
+    end
 
+    context 'for task type' do
+      it { should allow_mass_assignment_of(:task_type) }
+
+      context 'when category is programming' do
+        subject { create(:task, :category => Task::CATEGORIES[:programming]) }
+        it { should validate_presence_of(:task_type) }
+      end
+
+      context 'when category is not programming' do
+        subject { create(:task, :category => Task::CATEGORIES[:management]) }
+        it { should_not validate_presence_of(:task_type) }
+      end
+    end
+
+    context 'for estimated hours' do
+      it { should allow_mass_assignment_of(:estimated_hours) }
+    end
+
+    context 'for estimated minutes' do
+      it { should allow_mass_assignment_of(:estimated_minutes) }
+    end
+
+    context 'for status' do
+      it { should_not allow_mass_assignment_of(:status) }
+    end
   end
 end
+
+# subject { create(:task, :category => Task::CATEGORIES[:management]) }
+# let(:category) { Task::CATEGORIES[:management] }

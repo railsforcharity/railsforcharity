@@ -24,6 +24,17 @@ class Task < ActiveRecord::Base
     closed: 3
   }
 
+  CATEGORIES = {
+    programming: 1,
+    designing: 2,
+    testing: 3,
+    art: 4,
+    management: 5,
+    marketing: 6,
+    finance: 7,
+    legal: 8
+  }
+
   TYPES = {
     feature: 1,
     bug: 2,
@@ -32,7 +43,7 @@ class Task < ActiveRecord::Base
   }
 
   # Attributes
-  attr_accessible :description, :estimated_hours, :estimated_minutes, :name, :project_id, :task_type, :tag_names, :content
+  attr_accessible :description, :estimated_hours, :estimated_minutes, :name, :project_id, :category, :task_type, :tag_names
   attr_accessor :tag_names, :estimated_hours, :estimated_minutes
 
   # Relations
@@ -46,7 +57,8 @@ class Task < ActiveRecord::Base
   # Validations
   validates :name, :presence => true, :length => { :in => 2..255 }
   validates :description, :presence => true, :length => { :minimum => 20 }
-  validates :task_type, :presence => true
+  validates :category, :presence => true
+  validates :task_type, :presence => true, :if => :programming_task?
 
   accepts_nested_attributes_for :tags
 
@@ -79,6 +91,10 @@ class Task < ActiveRecord::Base
         Tag.find_or_create_by_name(name)
       end
     end
+  end
+
+  def programming_task?
+    self.category == CATEGORIES[:programming]
   end
 
 end

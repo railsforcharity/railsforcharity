@@ -7,7 +7,8 @@ describe TasksController do
       description: 'To build open source web based applications which help in improving the society.',
       estimated_hours: 2,
       estimated_minutes: 40,
-      task_type: "chore",
+      category: Task::CATEGORIES[:programming],
+      task_type: Task::TYPES[:feature],
       project_id: 1
     }
   end

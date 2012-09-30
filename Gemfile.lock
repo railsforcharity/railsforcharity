@@ -155,6 +155,10 @@ GEM
       addressable (~> 2.3)
     libwebsocket (0.1.5)
       addressable
+    lol_dba (1.3.0)
+      actionpack (>= 3.0)
+      activerecord (>= 3.0)
+      railties (>= 3.0)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -318,6 +322,7 @@ DEPENDENCIES
   jquery-rails
   jquery-tokeninput-rails
   launchy
+  lol_dba
   mini_magick
   mocha
   newrelic_rpm

@@ -5,6 +5,7 @@ FactoryGirl.define do
     name { words(2) }
     description { words(40) }
     task_type { ['chore', 'feature', 'bug', 'release'].sample }
+    category { Task::CATEGORIES[:programming] }
     status { Task::STATUSES[:open] }
     estimated_time { 40 }
     project_id 1

@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.7'
 gem 'pg'
 gem 'heroku'
+gem 'lol_dba'
 
 # Authentication
 gem 'devise'
@@ -34,7 +35,6 @@ gem 'activerecord-reputation-system', require: 'reputation_system'
 gem 'ancestry'
 gem 'taps'
 gem 'hirb'
-
 
 # Gems used only for assets and not required
 # in production environments by default.

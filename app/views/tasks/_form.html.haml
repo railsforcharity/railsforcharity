@@ -31,6 +31,7 @@
     * Estimated Time
     = f.input :estimated_hours, :label => false, :collection => 0..8, :prompt => 'Hours'
     = f.input :estimated_minutes, :label => false, :collection => (0..59).step(15), :prompt => 'Minutes'
+    = f.input :category, :collection => Task::CATEGORIES, :include_blank => false
     = f.input :task_type, :collection => ['Feature', 'Bug', 'Chore'], :include_blank => false
 
   .form-actions
