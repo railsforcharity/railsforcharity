@@ -88,7 +88,7 @@
                     %td= link_to task.creator.name, user_path(task.creator)
                     %td
                       = simple_form_for [@project, task], :url => assign_me_task_path(task), :method => :post do |f|
-                        = f.button :submit, 'Assign to me', class: 'btn-small btn-table'
+                        = f.button :submit, 'Assign to me', class: 'btn-small btn-table btn-assign'
           .pull-right
             = link_to "more ..."
         #tab2.tab-pane
@@ -109,17 +109,16 @@
                     %td= link_to task.name, project_task_path(@project, task)
                     %td= truncate(task.description, length: 30).html_safe
                     %td= task.task_type
-                    = task.estimated_time
                     %td= taskp.estimated_time
                     %td= link_to task.creator.name, user_path(task.created_by)
                     %td= link_to task.assignee.name, user_path(task.assigned_to)
                     %td
                       = simple_form_for [@project, task], :url => finish_task_path(task), :method => :post do |f|
-                        = f.button :submit, 'Deliver', class: 'btn-small'
+                        = f.button :submit, 'Deliver', class: 'btn-small btn-deliver'
                         %br
                         %br
                       = simple_form_for [@project, task], :url => unassigned_task_path(task), :method => :post do |f|
-                        = f.button :submit, 'I can\'t do it', class: 'btn-small'
+                        = f.button :submit, 'I can\'t do it', class: 'btn-small btn-unassign'
 
           .pull-right
             = link_to "more ..."
@@ -146,7 +145,7 @@
                     %td= link_to task.assignee.name, user_path(task.assigned_to)
                     %td
                       = simple_form_for [@project, task], :url => finish_task_path(task), :method => :post do |f|
-                        = f.button :submit, 'Accept', class: 'btn-small btn-success'
+                        = f.button :submit, 'Accept', class: 'btn-small btn-lima'
                       = simple_form_for [@project, task], :url => finish_task_path(task), :method => :post do |f|
                         = f.button :submit, 'Reject', class: 'btn-small btn-warning'
           .pull-right
