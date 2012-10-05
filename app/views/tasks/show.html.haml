@@ -20,5 +20,5 @@
     %br
     %br
     = simple_form_for [@task.project, @task], :url => assign_me_task_path(@task), :method => :post do |f|
-      = f.button :submit, 'Assign to me', class: 'btn-small btn-table'
+      = f.button :submit, 'Assign to me', class: 'btn-small btn-table btn-assign'
     = link_to 'Edit', edit_task_path(@task)
