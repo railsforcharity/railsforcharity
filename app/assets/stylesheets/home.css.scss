@@ -1,10 +1,33 @@
-.hero-unit {
+.hero-unit-color {
   p {
     color: #e36b23;
   }
   h1 {
     color: white;
+    font-size: 40px;
   }
+  border-radius:0px;
   margin: 0 auto;
   float: none;
+}
+
+.hero-unit-color {
+  color:white;
+  /* IE10 Consumer Preview */
+  background-image: -ms-radial-gradient(center, circle farthest-corner, #7E1928 0%, #072500 100%);
+
+  /* Mozilla Firefox */
+  background-image: -moz-radial-gradient(center, circle farthest-corner, #7E1928 0%, #072500 100%);
+
+  /* Opera */
+  background-image: -o-radial-gradient(center, circle farthest-corner, #7E1928 0%, #072500 100%);
+
+  /* Webkit (Safari/Chrome 10) */
+  background-image: -webkit-gradient(radial, center center, 0, center center, 497, color-stop(0, #7E1928), color-stop(1, #072500));
+
+  /* Webkit (Chrome 11+) */
+  background-image: -webkit-radial-gradient(center, circle farthest-corner, #7E1928 0%, #072500 100%);
+
+  /* W3C Markup, IE10 Release Preview */
+  background-image: radial-gradient(circle farthest-corner at center, #7E1928 0%, #072500 100%);
 }

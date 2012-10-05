@@ -13,7 +13,7 @@
           edit_profile: 'Edit Profile',
           submit_project: 'Submit Project',
           projects: 'Projects',
-          sign_up: 'Sign Up',
+          sign_up: 'Join',
           log_in: 'Log In',
           sign_in: 'Sign In',
           log_out: 'Log Out',
