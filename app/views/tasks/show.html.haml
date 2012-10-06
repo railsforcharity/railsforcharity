@@ -15,20 +15,21 @@
 
   .span2
     = render :partial => 'info', :locals => { :show => true }
-    %h4 Estimated time:
-    #{taskp.estimated_time}
     %br
     %br
     -if @task.status == 'open'
       = simple_form_for [@task.project, @task], :url => assign_me_task_path(@task), :method => :post do |f|
         = f.button :submit, 'Assign to me', class: 'btn-small btn-table btn-assign'
     -elsif @task.status == 'ongoing'
-      = simple_form_for [@task.project, @task], :url => finish_task_path(@task), :method => :post do |f|
+      = simple_form_for [@task.project, @task], :url => deliver_task_path(@task), :method => :post do |f|
         = f.button :submit, 'Deliver', class: 'btn-small btn-table btn-deliver'
+      = simple_form_for [@task.project, @task], :url => unassigned_task_path(@task), :method => :post do |f|
         = f.button :submit, "I can't do it.", class: 'btn-small btn-table btn-unassign'
-    -else @task.status == 'done'
-      = simple_form_for [@task.project, @task], :url => finish_task_path(@task), :method => :post do |f|
+    -elsif @task.status == 'delivered'
+      = simple_form_for [@task.project, @task], :url => accept_task_path(@task), :method => :post do |f|
         = f.button :submit, 'Accept', class: 'btn-small btn-table btn-lima'
+      = simple_form_for [@task.project, @task], :url => reject_task_path(@task), :method => :post do |f|
         = f.button :submit, 'Reject', class: 'btn-small btn-table btn-warning'
+
 
     = link_to 'Edit', edit_task_path(@task)

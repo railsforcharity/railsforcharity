@@ -9,8 +9,16 @@
 %h4 Requester
 %p= taskp.creator_name
 - if @task.status == Task::STATUSES[:ongoing]
-  %h4 Assigned to
+  %h4 Task assigned to
+  = taskp.assignee_name
+  %h4 Estimated time:
+  #{taskp.estimated_time}
+- if @task.status == Task::STATUSES[:delivered]
+  %h4 Task deivered by
   = taskp.assignee_name
 - if @task.status == Task::STATUSES[:done]
-  %h4 Accomplished by
+  %h4 Task accomplished by
   = taskp.assignee_name
+- if @task.status == Task::STATUSES[:open]
+  %h4 Estimated time:
+  #{taskp.estimated_time}

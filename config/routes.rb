@@ -13,8 +13,11 @@ Railsforcharity::Application.routes.draw do
     post :create
     resources :comments
     member { post :assign_me }
-    member { post :finish }
+    member { post :deliver }
     member { post :unassigned }
+    member { post :accept }
+    member { post :reject }
+
   end
 
   resources :projects do

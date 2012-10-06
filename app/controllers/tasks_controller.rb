@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_filter :authenticate_user!, :except => [:show, :index]
-  before_filter :find_task, :only => [:edit, :show, :assign_me, :finish, :unassigned, :update]
+  before_filter :find_task, :only => [:edit, :show, :assign_me, :deliver, :unassigned, :accept, :reject, :update]
   before_filter :find_user, :only => [:new, :edit, :create, :update]
 
   def new
@@ -43,6 +43,7 @@ class TasksController < ApplicationController
   end
 
   def index
+    @tasks = Task
   end
 
   def destroy
@@ -69,12 +70,12 @@ class TasksController < ApplicationController
     end
   end
 
-  def finish
-    @task.status = Task::STATUSES[:closed]
+  def deliver
+    @task.status = Task::STATUSES[:delivered]
     if @task.save!
-      redirect_to :back, notice: t('controllers.tasks.finish.success')
+      redirect_to :back, notice: t('controllers.tasks.deliver.success')
     else
-      redirect_to :back, notice: t('controllers.tasks.finish.failure')
+      redirect_to :back, notice: t('controllers.tasks.deliver.failure')
     end
   end
 
@@ -88,12 +89,23 @@ class TasksController < ApplicationController
     end
   end
 
+
   def accept
-    #@task.status = Task::STATUSES
+    @task.status = Task::STATUSES[:done]
+    if @task.save!
+      redirect_to :back, notice: t('controllers.tasks.accept.success')
+    else
+      redirect_to :back, notice: t('controllers.tasks.accept.failure')
+    end
   end
 
   def reject
-
+    @task.status = Task::STATUSES[:ongoing]
+    if @task.save!
+      redirect_to :back, notice: t('controllers.tasks.reject.success')
+    else
+      redirect_to :back, notice: t('controllers.tasks.reject.failure')
+    end
   end
 
   private

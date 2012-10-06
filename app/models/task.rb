@@ -69,8 +69,9 @@ class Task < ActiveRecord::Base
 
   # Named Scopes
   scope :open_tasks, where(status: STATUSES[:open])
-  scope :done, where(status: STATUSES[:done])
   scope :ongoing, where(status: STATUSES[:ongoing])
+  scope :delivered, where(status: STATUSES[:delivered])
+  scope :done, where(status: STATUSES[:done])
 
   def set_estimated_time
     self.estimated_time = @estimated_hours.to_i * 60 + @estimated_minutes.to_i
