@@ -133,9 +133,9 @@
               %th Task Accomplished by
               %th Actions
             %tbody
-              - @project.tasks.closed.each do |task|
+              - @project.tasks.done.each do |task|
                 - taskp = TaskPresenter.new(task, self)
-                - if task.status == Task::STATUSES[:closed]
+                - if task.status == Task::STATUSES[:done]
                   %tr
                     %td= link_to task.name, project_task_path(@project, task)
                     %td= truncate(task.description, length: 30).html_safe

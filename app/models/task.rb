@@ -21,7 +21,8 @@ class Task < ActiveRecord::Base
   STATUSES = {
     open: 1,
     ongoing: 2,
-    closed: 3
+    delivered: 3,
+    done: 4
   }
 
   CATEGORIES = {
@@ -68,7 +69,7 @@ class Task < ActiveRecord::Base
 
   # Named Scopes
   scope :open_tasks, where(status: STATUSES[:open])
-  scope :closed, where(status: STATUSES[:closed])
+  scope :done, where(status: STATUSES[:done])
   scope :ongoing, where(status: STATUSES[:ongoing])
 
   def set_estimated_time

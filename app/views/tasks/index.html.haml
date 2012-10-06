@@ -87,7 +87,7 @@
               %th Task Accomplished by
               %th Actions
             %tbody
-              - Task.closed.each do |task|
+              - Task.done.each do |task|
                 - taskp = TaskPresenter.new(task, self)
                 %tr
                   %td= link_to task.name, task_path(task)

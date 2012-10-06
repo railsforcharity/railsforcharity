@@ -88,6 +88,14 @@ class TasksController < ApplicationController
     end
   end
 
+  def accept
+    #@task.status = Task::STATUSES
+  end
+
+  def reject
+
+  end
+
   private
 
   def find_user

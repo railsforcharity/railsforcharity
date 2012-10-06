@@ -19,6 +19,16 @@
     #{taskp.estimated_time}
     %br
     %br
-    = simple_form_for [@task.project, @task], :url => assign_me_task_path(@task), :method => :post do |f|
-      = f.button :submit, 'Assign to me', class: 'btn-small btn-table btn-assign'
+    -if @task.status == 'open'
+      = simple_form_for [@task.project, @task], :url => assign_me_task_path(@task), :method => :post do |f|
+        = f.button :submit, 'Assign to me', class: 'btn-small btn-table btn-assign'
+    -elsif @task.status == 'ongoing'
+      = simple_form_for [@task.project, @task], :url => finish_task_path(@task), :method => :post do |f|
+        = f.button :submit, 'Deliver', class: 'btn-small btn-table btn-deliver'
+        = f.button :submit, "I can't do it.", class: 'btn-small btn-table btn-unassign'
+    -else @task.status == 'done'
+      = simple_form_for [@task.project, @task], :url => finish_task_path(@task), :method => :post do |f|
+        = f.button :submit, 'Accept', class: 'btn-small btn-table btn-lima'
+        = f.button :submit, 'Reject', class: 'btn-small btn-table btn-warning'
+
     = link_to 'Edit', edit_task_path(@task)

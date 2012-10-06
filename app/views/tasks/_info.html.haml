@@ -11,6 +11,6 @@
 - if @task.status == Task::STATUSES[:ongoing]
   %h4 Assigned to
   = taskp.assignee_name
-- if @task.status == Task::STATUSES[:closed]
+- if @task.status == Task::STATUSES[:done]
   %h4 Accomplished by
   = taskp.assignee_name
