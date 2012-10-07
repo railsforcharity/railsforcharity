@@ -100,14 +100,14 @@ describe ProjectsController do
     describe "with invalid params" do
       it "assigns a newly created but unsaved project as @project" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Project.any_instance.stub(:save).and_return(false)
+        Project.any_instance.stubs(:save).returns(false)
         post :create, {:project => {}}
         assigns(:project).should be_a_new(Project)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Project.any_instance.stub(:save).and_return(false)
+        Project.any_instance.stubs(:save).returns(false)
         post :create, {:project => {}}
         response.should render_template("new")
       end
@@ -125,7 +125,7 @@ describe ProjectsController do
         # specifies that the Project created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Project.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+        Project.any_instance.expects(:update_attributes).with({'these' => 'params'})
         put :update, {:id => project.to_param, :project => {'these' => 'params'}}
       end
 
@@ -154,7 +154,7 @@ describe ProjectsController do
       it "assigns the project as @project" do
         project = Project.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Project.any_instance.stub(:save).and_return(false)
+        Project.any_instance.stubs(:save).returns(false)
         put :update, {:id => project.to_param, :project => {}}
         assigns(:project).should eq(project)
       end
@@ -162,7 +162,7 @@ describe ProjectsController do
       it "re-renders the 'edit' template" do
         project = Project.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Project.any_instance.stub(:save).and_return(false)
+        Project.any_instance.stubs(:save).returns(false)
         put :update, {:id => project.to_param, :project => {}}
         response.should render_template("edit")
       end

@@ -6,11 +6,12 @@ gem 'pg'
 gem 'heroku'
 gem 'lol_dba'
 
-# Authentication
+# Authentication & Authorization
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
+gem 'cancan'
 
 # Javascript
 gem 'jquery-rails'
@@ -58,7 +59,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'mocha'
+  gem 'rspec-rails-mocha'
   gem 'spork'
   gem 'faker'
   gem 'populator'
@@ -70,7 +71,7 @@ end
 
 group :test do
   gem 'email_spec'
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', require: false
   gem 'capybara'
   gem 'database_cleaner'
   gem 'launchy'

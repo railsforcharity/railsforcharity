@@ -45,14 +45,14 @@ describe TasksController do
     describe "with invalid params" do
       it "assigns a newly created but unsaved task as @task" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Task.any_instance.stub(:save).and_return(false)
+        Task.any_instance.stubs(:save).returns(false)
         post :create, {:task => {}}
         assigns(:task).should be_a_new(Task)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Task.any_instance.stub(:save).and_return(false)
+        Task.any_instance.stubs(:save).returns(false)
         post :create, {:task => {}}
         response.should render_template("new")
       end

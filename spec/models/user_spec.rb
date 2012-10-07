@@ -29,6 +29,15 @@ require 'spec_helper'
 
 describe User do
 
+  describe 'validations' do
+  end
+
+  describe 'associations' do
+    it { should have_many(:authentications).dependent(:destroy) }
+    it { should have_one(:location).dependent(:destroy) }
+    it { should have_one(:avatar).dependent(:destroy) }
+  end
+
   describe '#is_collaborator?' do
     before :each do
       @user1 = create(:user)

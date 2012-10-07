@@ -2,17 +2,18 @@
 #
 # Table name: tasks
 #
-#  id          :integer          not null, primary key
-#  name        :string(255)
-#  description :text
-#  task_type   :string(255)
-#  status      :integer
-#  hours       :integer
-#  project_id  :integer
-#  created_by  :integer
-#  assigned_to :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id             :integer          not null, primary key
+#  name           :string(255)
+#  description    :text
+#  task_type      :string(255)
+#  status         :integer
+#  estimated_time :integer
+#  project_id     :integer
+#  created_by     :integer
+#  assigned_to    :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  category       :integer
 #
 
 class Task < ActiveRecord::Base

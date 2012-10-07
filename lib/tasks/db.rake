@@ -2,8 +2,12 @@ namespace :db do
   desc "Refresh database, drop, create and migrate"
   task :refresh => [:development_environment_only, :drop, :create, :migrate, :import_skills]
 
-  desc "Refresh database and prepare test database"
-  task :test_refresh => [:drop, :create, :migrate, :import_skills, Rake::Task['test:prepare']]
+  desc "Prepare test database"
+  task :test_prep => :environment do
+    Rake::Task['db:migrate'].invoke
+    Rake::Task['test:prepare'].invoke
+    run_command("bundle exec ruby script/one-off/20121006_create_roles.rb")
+  end
 
   desc "Raise an error unless the Rails.env is development"
   task :development_environment_only do
@@ -13,5 +17,10 @@ namespace :db do
   desc "Importing skills data"
   task :import_skills do
     Rake::Task["data:import_skills"].execute
+  end
+
+  def run_command(command)
+    puts command
+    system(command)
   end
 end

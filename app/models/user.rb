@@ -37,8 +37,9 @@ class User < ActiveRecord::Base
   has_many :projects, :through => :collaborators
   has_one :location, :as => :locatable, :dependent => :destroy
   has_one :avatar, :as => :avatarable, :dependent => :destroy
-  has_reputation :votes, source: {reputation: :votes, of: :projects}, aggregated_by: :sum
   has_many :evaluations, class_name: "RSEvaluation", as: :source
+
+  has_reputation :votes, source: {reputation: :votes, of: :projects}, aggregated_by: :sum
 
   accepts_nested_attributes_for :avatar, :location
 
