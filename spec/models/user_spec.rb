@@ -38,21 +38,23 @@ describe User do
     it { should have_one(:avatar).dependent(:destroy) }
   end
 
-  describe '#is_collaborator?' do
-    before :each do
-      @user1 = create(:user)
-      @user2 = create(:user)
-      @user3 = create(:user)
-      @project = create(:project)
-      @project.users = [@user1, @user2]
-    end
+  describe 'methods' do
+    describe '#is_collaborator?' do
+      before :each do
+        @user1 = create(:user)
+        @user2 = create(:user)
+        @user3 = create(:user)
+        @project = create(:project)
+        @project.users = [@user1, @user2]
+      end
 
-    it "returns true if collaborator?" do
-      @user1.is_collaborator?(@project).should be_true
-    end
+      it "returns true if collaborator?" do
+        @user1.is_collaborator?(@project).should be_true
+      end
 
-    it "returns false if not a collaborator?" do
-      @user3.is_collaborator?(@project).should be_false
+      it "returns false if not a collaborator?" do
+        @user3.is_collaborator?(@project).should be_false
+      end
     end
   end
 end

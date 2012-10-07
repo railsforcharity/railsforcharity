@@ -21,11 +21,10 @@ class Project < ActiveRecord::Base
   attr_accessible :description, :name, :title, :collaborator_tokens, :avatar_attributes, :task_attributes, :tag_names, :website, :profile_url, :video, :terms, :status
   attr_reader :collaborator_tokens
   attr_accessor :tag_names
-  after_save :assign_tags
 
   # Relations
-  has_many :collaborators
-  has_many :users, :through => :collaborators
+  has_many :project_accesses
+  has_many :users, :through => :project_accesses
   has_one :location, :as => :locatable, :dependent => :destroy
   has_one :avatar, :as => :avatarable, :dependent => :destroy
   belongs_to :creator, :class_name => 'User', :foreign_key => "created_by"
@@ -49,9 +48,30 @@ class Project < ActiveRecord::Base
   # Named Scopes
   scope :name_like, lambda { |n| where("name ilike ?", "%#{n}%") } # WARN: Potential DB Change Problem
 
+  # Callbacks
+  after_save lambda { make_admin(creator) }, :assign_tags
+
   # Attr Writers
   def collaborator_tokens=(ids_csv)
     self.user_ids = ids_csv.split(',')
+  end
+
+  def project_access_obj(user)
+    ProjectAccess.find_by_project_id_and_user_id(self, user)
+  end
+
+  def get_role(user)
+    project_access_obj(user).try(:role_id)
+  end
+
+  def make_admin(user)
+    project_access = project_access_obj(user) || self.project_accesses.build(:user => user)
+    project_access.role_id = Role::TYPES[:project_admin]
+    project_access.save
+  end
+
+  def is_admin?(user)
+    self.get_role(user) == Role::TYPES[:project_admin]
   end
 
   private

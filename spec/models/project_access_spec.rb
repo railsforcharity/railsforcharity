@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: collaborators
+# Table name: project_accesses
 #
 #  id         :integer          not null, primary key
 #  user_id    :integer
@@ -13,9 +13,9 @@
 
 require 'spec_helper'
 
-describe Collaborator do
+describe ProjectAccess do
 
-  subject { build(:collaborator) }
+  subject { build(:project_access) }
 
   describe 'validations' do
     context 'for user' do

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: collaborators
+# Table name: project_accesses
 #
 #  id         :integer          not null, primary key
 #  user_id    :integer
@@ -11,8 +11,8 @@
 #  role_id    :integer
 #
 
-class Collaborator < ActiveRecord::Base
-  attr_accessible :project_id, :user_id, :role_id
+class ProjectAccess < ActiveRecord::Base
+  attr_accessible :project, :user, :project_id, :user_id, :role_id
 
   # Relations
   belongs_to :user

@@ -1,12 +1,6 @@
-# == Schema Information
-#
-# Table name: roles
-#
-#  id          :integer          not null, primary key
-#  name        :string(255)
-#  description :string(255)
-#
-
-class Role < ActiveRecord::Base
-  attr_accessible :name, :description
+class Role
+  TYPES = {
+    project_collaborator: 1,
+    project_admin: 2
+  }
 end

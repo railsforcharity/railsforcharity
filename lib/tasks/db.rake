@@ -6,7 +6,6 @@ namespace :db do
   task :test_prep => :environment do
     Rake::Task['db:migrate'].invoke
     Rake::Task['test:prepare'].invoke
-    run_command("bundle exec ruby script/one-off/20121006_create_roles.rb")
   end
 
   desc "Raise an error unless the Rails.env is development"

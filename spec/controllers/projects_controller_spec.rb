@@ -74,12 +74,12 @@ describe ProjectsController do
     describe "with valid params" do
       it "creates a new Project" do
         expect {
-          post :create, {:project => valid_attributes}
+          post :create, { :project => valid_attributes }
         }.to change(Project, :count).by(1)
       end
 
       it "assigns a newly created project as @project" do
-        post :create, {:project => valid_attributes}
+        post :create, { :project => valid_attributes }
         assigns(:project).should be_a(Project)
         assigns(:project).should be_persisted
       end
@@ -92,7 +92,7 @@ describe ProjectsController do
       end
 
       it "redirects to the created project" do
-        post :create, {:project => valid_attributes}
+        post :create, { :project => valid_attributes }
         response.should redirect_to(project_path(assigns(:project)))
       end
     end

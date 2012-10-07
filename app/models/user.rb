@@ -33,8 +33,8 @@ class User < ActiveRecord::Base
 
   # Relations
   has_many :authentications, :dependent => :destroy
-  has_many :collaborators
-  has_many :projects, :through => :collaborators
+  has_many :project_accesses
+  has_many :projects, :through => :project_accesses
   has_one :location, :as => :locatable, :dependent => :destroy
   has_one :avatar, :as => :avatarable, :dependent => :destroy
   has_many :evaluations, class_name: "RSEvaluation", as: :source
