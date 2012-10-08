@@ -41,7 +41,7 @@
           %br
           %br
     .span5
-      -if project.video != ""
+      -if !project.video.blank? && project.video.starts_with?("http")
         %iframe{:allowfullscreen => '', :frameborder => '0', :height => '360', :src => "#{project.video}", :width => '100%'}
       -else
         %div.video
@@ -54,7 +54,8 @@
         %br
           %h3 Pitch
           %br
-          = project.description.html_safe
+          %p
+            = project.description.html_safe
   .span12
     %br
     %h3 Project Tasks

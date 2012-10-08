@@ -31,13 +31,7 @@
             %b Mission: #{project.title}
             %br
             %br
-            -#%h3 Collaborators
             = render :partial => 'projects/collaborators', :locals => { project: project, size: 50}
-            -#- project.users.each do |user|
-            -#  - if user.avatar
-            -#    = image_tag user.avatar.image_url(:thumb).to_s, :height => '50', :width => '50'
-            -#  - else
-            -#    = image_tag 'default.png', :height => '50', :width => '50'
       .span4
         -if project.video != ""
           %iframe{:allowfullscreen => '', :frameborder => '0', :height => '360', :src => "#{project.video}", :width => '100%'}
@@ -45,7 +39,8 @@
           %div.video
             %p.video_text Video is coming soon!
       .span2
-        =truncate(project.description, length: 350 )
-        .pull-right
-          = link_to "more ...", project
+        %p
+          =truncate(project.description, length: 350 )
+          .pull-right
+            = link_to "more ...", project
 

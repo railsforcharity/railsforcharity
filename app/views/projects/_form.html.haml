@@ -53,8 +53,7 @@
     = f.input :website
     = f.input :video, :label => 'Video Pitch'
     %br
-    = f.input :collaborator_tokens, :input_html => { :class => 'typeahead',
-      data: { load: project_presenter.collaborators } }, :label => 'Add Collaborators'
+    = f.input :collaborator_tokens, :input_html => { :class => 'typeahead', data: { load: project_presenter.collaborators } }, :label => 'Add Collaborators'
     - if !edit
       %br
       = f.input :terms, :label => false, :as => :boolean, :inline_label => "By clicking on the check box, you agree with the #{link_to_blank 'Terms and Conditions', terms_path} of RailsforCharity.".html_safe

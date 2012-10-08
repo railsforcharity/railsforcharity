@@ -13,15 +13,15 @@
 .tabbable.box-sizing
   %ul.nav.nav-tabs
     %li.active
-      %a{"data-toggle" => "tab", :href => "#tab1"} Open
+      %a{"data-toggle" => "tab", :href => "#task_open"} Open
     %li
-      %a{"data-toggle" => "tab", :href => "#tab2"} On Going
+      %a{"data-toggle" => "tab", :href => "#task_ongoing"} On Going
     %li
-      %a{"data-toggle" => "tab", :href => "#tab3"} Delivered
+      %a{"data-toggle" => "tab", :href => "#task_delivered"} Delivered
     %li
-      %a{"data-toggle" => "tab", :href => "#tab4"} Done
+      %a{"data-toggle" => "tab", :href => "#task_done"} Done
   .tab-content
-    #tab1.tab-pane.active
+    #task_open.tab-pane.active
       %table.table.table-striped.table-hover.table-bordered.datatable
         %thead
           %th Task
@@ -46,7 +46,7 @@
                   = f.button :submit, 'Assign to me', class: 'btn-small btn-table btn-assign'
       -#.pull-right
       -#  = link_to "more ..."
-    #tab2.tab-pane
+    #task_ongoing.tab-pane
       %table.table.table-striped.table-hover.table-bordered.datatable
         %thead
           %th Title
@@ -75,7 +75,7 @@
                   %br
                 = simple_form_for [task], :url => unassigned_task_path(task), :method => :post do |f|
                   = f.button :submit, 'I can\'t do it', class: 'btn-small btn-unassign'
-    #tab3.tab-pane
+    #task_delivered.tab-pane
       %table.table.table-striped.table-hover.table-bordered.datatable
         %thead
           %th Title
@@ -102,7 +102,7 @@
                   = f.button :submit, 'Accept', class: 'btn-small btn-lima'
                 = simple_form_for [task], :url => reject_task_path(task), :method => :post do |f|
                   = f.button :submit, 'Reject', class: 'btn-small btn-warning'
-    #tab4.tab-pane
+    #task_done.tab-pane
       %table.table.table-striped.table-hover.table-bordered.datatable
         %thead
           %th Title
