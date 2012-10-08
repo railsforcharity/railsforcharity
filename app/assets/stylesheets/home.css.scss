@@ -1,10 +1,61 @@
-.hero-unit {
-  p {
-    color: #e36b23;
-  }
-  h1 {
+#content {
+  .block {
     color: white;
+    background: rgb(0, 120, 153);
   }
-  margin: 0 auto;
-  float: none;
+
+  .block:first-child {
+    box-shadow: 0 -1px 1000px #555;
+  }
+
+  .block:nth-child(4n+2) {
+    border-top: 1px solid #58a6bc; box-shadow: 0 -1px 1000px #555;
+  }
+
+  .glow {
+    padding: 40px 0;
+    background: -moz-radial-gradient(900px bottom, circle cover,  rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 100%); /* FF3.6+ */
+    background: -webkit-gradient(radial, 900px bottom, 0px, center center, 100%, color-stop(0%,rgba(255,255,255,0.35)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(900px bottom, circle cover,  rgba(255,255,255,0.35) 0%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(900px bottom, circle cover,  rgba(255,255,255,0.35) 0%,rgba(255,255,255,0) 100%); /* Opera 12+ */
+    background: -ms-radial-gradient(900px bottom, circle cover,  rgba(255,255,255,0.35) 0%,rgba(255,255,255,0) 100%); /* IE10+ */
+    background: radial-gradient(900px bottom, circle cover,  rgba(255,255,255,0.35) 0%,rgba(255,255,255,0) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#59ffffff', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  }
+
+  /* Colors */
+  $base-color: #008080;
+  .block:nth-child(4n+1) { background: darken($base-color, 0); }
+  .block:nth-child(4n+2) { background: darken($base-color, 7); }
+  .block:nth-child(4n+3) { background: darken($base-color, 9); }
+  .block:nth-child(4n+4) { background: darken($base-color, 11); }
+  .block:nth-child(4n+5) { background: darken($base-color, 13); }
+
+  .thumbnail {
+    background: #313131;
+  }
+
+  margin-top: -20px;
+
+  p, li {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .hero {
+    h1 {
+      font-size: 72px;
+      line-height: 100px;
+    }
+    p {
+      font-size: 24px;
+      line-height: 24px;
+    }
+  }
+
+  #how_it_works {
+    li {
+      line-height: 25px;
+    }
+  }
 }

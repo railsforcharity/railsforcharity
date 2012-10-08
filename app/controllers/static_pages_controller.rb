@@ -1,4 +1,9 @@
 class StaticPagesController < ApplicationController
+
+  def home
+    render :layout => 'home'
+  end
+
   def contact
     @contact_us = ContactUs.new(:id => 1)
   end
