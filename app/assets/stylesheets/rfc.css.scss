@@ -114,13 +114,14 @@ footer {
 
   a {
     color: #fff;
+    padding: 5px;
+
     &:hover {
       background-color: #008080;
       color: #fff;
-      padding: 7px;
       text-decoration: none;
       @include border-radius(4px);
-      @include box-shadow( 1px 1px 1px);
+      @include box-shadow(black 2px 2px 2px 2px);
     }
   }
 
