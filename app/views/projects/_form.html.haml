@@ -60,3 +60,10 @@
 
   .form-actions
     = f.button :submit, :class => 'btn btn-primary'
+    &nbsp;
+    = link_to 'Back', projects_path
+    -if edit
+      &nbsp;
+      \|
+      &nbsp;
+      = link_to 'Show', @project
