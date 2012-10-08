@@ -1,3 +1,20 @@
+:javascript
+  $(document).ready(function () {
+    function goToByScroll(id){
+      $('html, body').animate({scrollTop: $(id).offset().top}, 'slow');
+    }
+
+    $('.how_it_works').click(function () {
+      goToByScroll("#how_it_works");
+      return false;
+    });
+
+    $('.supporters').click(function () {
+      goToByScroll("#supporters");
+      return false;
+    });
+  });
+
 %a.btn.btn-navbar(data-target='.nav-collapse' data-toggle='collapse')
   %span.icon-bar
   %span.icon-bar
@@ -27,9 +44,9 @@
       = link_to t('views.layouts._navigation.log_out'), destroy_user_session_path, :method => 'delete', :class => 'btn btn-danger'
   -else
     %ul.nav.pull-right
-      %li
+      %li.how_it_works
         = link_to 'How it works?', root_path + '#how_it_works'
-      %li
+      %li.supporters
         = link_to 'Supporters', root_path + '#supporters'
       = link_to t('views.layouts._navigation.log_in'), new_user_session_path, :class => 'btn btn-warning'
       = link_to t('views.layouts._navigation.sign_up'), new_user_registration_path, :class => 'btn btn-success'
