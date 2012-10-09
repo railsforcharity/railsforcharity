@@ -4,10 +4,6 @@
     background: rgb(0, 120, 153);
   }
 
-  .block:first-child {
-    box-shadow: 0 -1px 1000px #555;
-  }
-
   .block:nth-child(4n+2) {
     border-top: 1px solid #58a6bc; box-shadow: 0 -1px 1000px #555;
   }
