@@ -2,6 +2,7 @@
 
 
 [![Build Status](https://secure.travis-ci.org/railsforcharity/railsforcharity.png)](http://travis-ci.org/railsforcharity/railsforcharity)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/railsforcharity/railsforcharity)
 
 [Rails for Charity (RFC)](http://railsforcharity.org) 's mission is to build open source web based applications which help in improving the society.
 
