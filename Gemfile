@@ -5,6 +5,7 @@ gem 'rails', '3.2.7'
 gem 'pg'
 gem 'heroku'
 gem 'lol_dba'
+gem 'airbrake'
 
 # Authentication & Authorization
 gem 'devise'
@@ -45,7 +46,6 @@ gem 'will_paginate'
 group :assets do
   gem 'sass-rails',   '~> 3.2.5'
   gem 'coffee-rails', '~> 3.2.1'
-
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
