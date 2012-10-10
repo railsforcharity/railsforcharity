@@ -18,6 +18,12 @@
         %br
         %b About me:
         = @user.try(:bio).try(:html_safe)
+        %br
+        %br
+        %b Collaborating on:
+        %br
+        - @user.projects.map(&:name).each do |project|
+          %p.span3.label= project
 - if current_user == @user
   = link_to 'Edit', edit_user_path(@user)
   \|

@@ -26,6 +26,8 @@ Railsforcharity::Application.routes.draw do
     resources :tasks, :except => [:new, :create]
     member { get :settings }
     member { post :vote }
+    member { post :join}
+    member { post :unjoin}
   end
 
   #STATIC PAGES

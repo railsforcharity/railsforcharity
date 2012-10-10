@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_filter :find_project, :only => [:show, :edit, :update, :destroy, :settings, :vote]
+  before_filter :find_project, :only => [:show, :edit, :update, :destroy, :settings, :vote, :join, :unjoin]
   before_filter :authenticate_user!, :except => [:show, :index]
 
   def index
@@ -85,6 +85,21 @@ class ProjectsController < ApplicationController
     value = params[:type] == "up" ? 1 : -1
     @project.add_or_update_evaluation(:votes, value, current_user)
     redirect_to :back, notice: "Thank you for voting!"
+  end
+
+  def join
+    if !(@project.users.include? current_user)
+      @project.users << current_user
+      redirect_to :back, notice: "Thank you for joining '#{ @project.name }'!"
+    else
+      redirect_to :back
+    end
+  end
+
+  def unjoin
+    @project_access = ProjectAccess.find_by_user_id_and_project_id(current_user.id, @project.id)
+    @project_access.destroy
+    redirect_to :back
   end
 
   private
