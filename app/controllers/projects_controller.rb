@@ -88,18 +88,20 @@ class ProjectsController < ApplicationController
   end
 
   def join
-    if !(@project.users.include? current_user)
-      @project.users << current_user
-      redirect_to :back, notice: "Thank you for joining '#{ @project.name }'!"
+    if @project.make_collaborator(current_user)
+      redirect_to :back, notice: "Thank you for joining us!, You are successfully added in the collaborator list!"
     else
-      redirect_to :back
+      redirect_to :back, notice: "Failed to add, please try again later!"
     end
+
   end
 
   def unjoin
-    @project_access = ProjectAccess.find_by_user_id_and_project_id(current_user.id, @project.id)
-    @project_access.destroy
-    redirect_to :back
+    if @project.project_access_obj(current_user).destroy
+      redirect_to :back, notice: "You are successfully removed from the collaborator list!"
+    else
+      redirect_to :back, notice: "Aww Snap! Failed to unjoin, please try again later!"
+    end
   end
 
   private

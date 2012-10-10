@@ -191,20 +191,48 @@ describe ProjectsController do
     login_user
 
     let!(:project) { create(:project) }
-
-    it "makes the current user a collaborator" do
+    before :each do
       request.env["HTTP_REFERER"] = projects_url
-      expect do
-        post :join, { :id => project }
-      end.to change(project.users, :count).by(1)
     end
 
-    it 'remove the current user from project collaborators list' do
-      project.users << user
-      request.env["HTTP_REFERER"] = projects_url
-      expect do
-        post :unjoin, { :id => project }
-      end.to change(project.users, :count).by(-1)
+    context 'making collaborator' do
+      context 'success' do
+        it "makes the current user a collaborator" do
+          expect do
+            post :join, {:id => project}
+          end.to change(project.users, :count).by(1)
+        end
+
+        it 'sets the flash message' do
+          post :join, {:id => project}
+          should set_the_flash.to("Thank you for joining us!, You are successfully added in the collaborator list!")
+        end
+      end
+
+      context 'failure' do
+        it 'sets the flash message' do
+          Project.any_instance.stubs(:make_collaborator).returns(false)
+          post :join, {:id => project}
+          should set_the_flash.to("Failed to add, please try again later!")
+        end
+      end
+    end
+
+    context 'removing collaborator' do
+      before(:each) do
+        project.users << user
+      end
+
+      it 'remove the current user from project collaborators list' do
+        expect do
+          post :unjoin, {:id => project}
+        end.to change(project.users, :count).by(-1)
+      end
+
+      it 'sets the flash message' do
+        post :unjoin, {:id => project}
+        should set_the_flash.to("You are successfully removed from the collaborator list!")
+      end
     end
   end
 end

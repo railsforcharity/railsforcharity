@@ -111,6 +111,19 @@ describe Project do
         project.is_admin?(user).should be_true
       end
     end
+
+    describe '#make_collaborator(user)' do
+      it 'for existing collaborator' do
+        project.users << user
+        project.make_collaborator(user)
+        project.is_collaborator?(user).should be_true
+      end
+
+      it 'for non-existing collaborator' do
+        project.make_collaborator(user)
+        project.is_collaborator?(user).should be_true
+      end
+    end
   end
 
 end

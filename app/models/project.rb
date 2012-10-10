@@ -64,14 +64,26 @@ class Project < ActiveRecord::Base
     project_access_obj(user).try(:role_id)
   end
 
-  def make_admin(user)
-    project_access = project_access_obj(user) || self.project_accesses.build(:user => user)
-    project_access.role_id = Role::TYPES[:project_admin]
-    project_access.save
-  end
+  # make_admin(user), make_collaborator(user)
+  #
+  # def make_admin(user)
+  #   project_access = project_access_obj(user) || self.project_accesses.build(:user => user)
+  #   project_access.role_id = Role::TYPES[:project_admin]
+  #   project_access.save
+  # end
+  [:admin, :collaborator].each do |role_name|
+    define_method("make_#{role_name}") do |user|
+      project_access = project_access_obj(user) || self.project_accesses.build(:user => user)
+      project_access.role_id = Role::TYPES[:"project_#{role_name}"]
+      project_access.save
+    end
 
-  def is_admin?(user)
-    self.get_role(user) == Role::TYPES[:project_admin]
+    # def is_admin?(user)
+    #   self.get_role(user) == Role::TYPES[:project_admin]
+    # end
+    define_method("is_#{role_name}?") do |user|
+      self.get_role(user) == Role::TYPES[:"project_#{role_name}"]
+    end
   end
 
   private
