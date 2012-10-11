@@ -25,6 +25,6 @@ class Tag < ActiveRecord::Base
   before_create :generate_color
 
   def generate_color
-    self.color = "%06x" % (rand * 0xffffff)
+    self.color ||= "%06x" % (rand * 0xffffff)
   end
 end
