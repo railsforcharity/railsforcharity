@@ -23,7 +23,7 @@ Railsforcharity::Application.routes.draw do
   resources :projects do
     resources :avatars
     resources :locations
-    resources :tasks, :except => [:new, :create]
+    resources :tasks
     member { get :settings }
     member { post :vote }
     member { post :join}

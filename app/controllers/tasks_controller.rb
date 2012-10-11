@@ -2,9 +2,16 @@ class TasksController < ApplicationController
   before_filter :authenticate_user!, :except => [:show, :index]
   before_filter :find_task, :only => [:edit, :show, :assign_me, :deliver, :unassigned, :accept, :reject, :update, :destroy]
   before_filter :find_user, :only => [:new, :edit, :create, :update]
+  before_filter :find_project, :only => [:edit, :update, :show]
 
   def new
-    @task = Task.new
+    if params[:project_id] == nil
+      @task = Task.new
+    else
+      @project = Project.find(params[:project_id])
+      @task = Task.new(:project_id => @project.id)
+    end
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @task }
@@ -12,15 +19,26 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(params[:task])
-    puts @task.inspect
-    @task.status = Task::STATUSES[:open]
-    @task.creator = current_user
+    if params[:project_id] == nil
+      @task = Task.new(params[:task])
+      @task.status = Task::STATUSES[:open]
+      @task.creator = current_user
+    else
+      @project = Project.find(params[:project_id])
+      @task = @project.tasks.build(params[:task])
+      @task.status = Task::STATUSES[:open]
+      @task.creator = current_user
+    end
 
     respond_to do |format|
       if @task.save
-        @task.tags.each {|t| t.update_attributes(:tag_type => 'task')}
-        format.html { redirect_to :back, notice: t('controllers.tasks.create.success') }
+        @task.tags.each { |t| t.update_attributes(:tag_type => 'task') }
+        if @project.nil?
+          format.html { redirect_to :back, notice: t('controllers.tasks.create.success') }
+        else
+          format.html { redirect_to project_path(@project), notice: t('controllers.tasks.create.success') }
+          format.json { render json: project_path(@project), status: :created, location: @task }
+        end
       else
         format.html { render action: "new" }
       end
@@ -49,8 +67,12 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to tasks_url }
-      format.json { head :no_content }
+      if @project.nil?
+        format.html { redirect_to tasks_url }
+      else
+        format.html { redirect_to project_url }
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -116,6 +138,10 @@ class TasksController < ApplicationController
 
   def find_task
     @task = Task.find(params[:id])
+  end
+
+  def find_project
+    @project = Project.find(params[:project_id])
   end
 
 end

@@ -24,7 +24,7 @@
       %br
       %br
       - if project.is_collaborator?
-        = link_to 'Add New Task', new_task_path, :class => 'btn btn-large btn-success'
+        = link_to 'Add New Task', new_project_task_path(project), :class => 'btn btn-large btn-success'
     .span8
       .span5
         #{pluralize project.reputation_value_for(:votes).to_i, "vote"}
