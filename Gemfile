@@ -25,7 +25,7 @@ gem 'bootstrap-sass', "~> 2.0.4.2"
 gem 'compass-rails'
 gem 'simple_form'
 gem 'ckeditor', '3.7.2'
-gem 'jquery-datatables-rails'
+gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 gem 'jquery-ui-rails'
 
 # Other
