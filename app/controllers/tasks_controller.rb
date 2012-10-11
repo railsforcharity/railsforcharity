@@ -2,7 +2,6 @@ class TasksController < ApplicationController
   before_filter :authenticate_user!, :except => [:show, :index]
   before_filter :find_task, :only => [:edit, :show, :assign_me, :deliver, :unassigned, :accept, :reject, :update, :destroy]
   before_filter :find_user, :only => [:new, :edit, :create, :update]
-  before_filter :find_project, :only => [:edit, :update, :show]
 
   def new
     if params[:project_id] == nil
