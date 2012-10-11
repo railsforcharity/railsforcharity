@@ -11,7 +11,7 @@
 
 class Tag < ActiveRecord::Base
   # Attributes
-  attr_accessible :name, :tag_type
+  attr_accessible :name, :tag_type, :color
 
   # Relations
   has_many :taggings, :dependent => :destroy
@@ -22,8 +22,7 @@ class Tag < ActiveRecord::Base
   scope :name_like, lambda { |n| where("name ilike ?", "%#{n}%") } # WARN: Potential DB Change Problem
 
   # Callbacks
-
-  before_save :generate_color
+  before_create :generate_color
 
   def generate_color
     self.color = "%06x" % (rand * 0xffffff)
