@@ -21,4 +21,11 @@ class Tag < ActiveRecord::Base
   #Named scopes
   scope :name_like, lambda { |n| where("name ilike ?", "%#{n}%") } # WARN: Potential DB Change Problem
 
+  # Callbacks
+
+  before_save :generate_color
+
+  def generate_color
+    self.color = "%06x" % (rand * 0xffffff)
+  end
 end
