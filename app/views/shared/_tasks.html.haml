@@ -24,7 +24,7 @@
     #task_open.tab-pane.active
       %table.table.table-striped.table-hover.table-bordered.datatable
         %thead
-          %th Ticket No.
+          %th Task No.
           %th Task
           %th Description
           %th Type
@@ -54,7 +54,7 @@
     #task_ongoing.tab-pane
       %table.table.table-striped.table-hover.table-bordered.datatable
         %thead
-          %th Ticket No.
+          %th Task No.
           %th Title
           %th Description
           %th Type
@@ -86,7 +86,7 @@
     #task_delivered.tab-pane
       %table.table.table-striped.table-hover.table-bordered.datatable
         %thead
-          %th Ticket No.
+          %th Task No.
           %th Title
           %th Description
           %th Type
@@ -108,14 +108,15 @@
               %td= link_to task.project.name, project_path(task.project)
               %td= link_to task.assignee.name, user_path(task.assigned_to)
               %td
-                = simple_form_for [task], :url => accept_task_path(task), :method => :post do |f|
-                  = f.button :submit, 'Accept', class: 'btn-small btn-lima'
-                = simple_form_for [task], :url => reject_task_path(task), :method => :post do |f|
-                  = f.button :submit, 'Reject', class: 'btn-small btn-warning'
+                - if task.creator == current_user
+                  = simple_form_for [task], :url => accept_task_path(task), :method => :post do |f|
+                    = f.button :submit, 'Accept', class: 'btn-small btn-lima'
+                  = simple_form_for [task], :url => reject_task_path(task), :method => :post do |f|
+                    = f.button :submit, 'Reject', class: 'btn-small btn-warning'
     #task_done.tab-pane
       %table.table.table-striped.table-hover.table-bordered.datatable
         %thead
-          %th Ticket No.
+          %th Task No.
           %th Title
           %th Description
           %th Type
