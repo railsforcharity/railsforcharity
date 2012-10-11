@@ -1,16 +1,14 @@
 :javascript
   $(document).ready(function() {
     $('.datatable').dataTable({
-      //"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
-      'sPaginationType': 'bootstrap',
-      "bJQueryUI": true
+      "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span4'i><'span8'p>>"
       //"bProcessing": true,
       //"bServerSide": true,
       //"sAjaxSource": $('.datatable').data('source')
     });
   });
 
-.tabbable.box-sizing
+.tabbable
   %ul.nav.nav-tabs
     %li.active
       %a{"data-toggle" => "tab", :href => "#task_open"} Open

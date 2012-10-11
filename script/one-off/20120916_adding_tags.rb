@@ -13,6 +13,6 @@ project_tags.each do |tag_name|
 end
 
 task_tags.each do |tag_name|
-  p "creating #{tag_name}"
+  p "Creating #{tag_name}"
   Tag.create(name: tag_name, tag_type: 'task')
 end

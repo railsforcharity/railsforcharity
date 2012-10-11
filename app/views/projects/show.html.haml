@@ -58,7 +58,10 @@
             = project.description.html_safe
   .span12
     %br
-    %h3 Project Tasks
+    %br
+    %h3 Tasks
+    %br
     = render :partial => 'shared/tasks'
-    .span12
+  .span12
+    %br
     = render :partial => 'projects/collaborators', :locals => { project: @project, size: 80 }
