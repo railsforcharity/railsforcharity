@@ -33,7 +33,7 @@ Railsforcharity::Application.routes.draw do
   #STATIC PAGES
   root :to => 'static_pages#home'
 
-  ['contact', 'contact_us', 'faq', 'blog', 'supporters', 'contributors', 'how_it_works', 'terms'].each do |route|
+  ['contact', 'contact_us', 'faq', 'blog', 'supporters', 'contributors', 'how_it_works', 'terms', 'tour'].each do |route|
     match route => "static_pages##{route}"
   end
 

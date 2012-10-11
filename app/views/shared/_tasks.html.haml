@@ -69,12 +69,13 @@
               %td= link_to task.project.name, project_path(task.project)
               %td= link_to taskp.assignee_name, user_path(task.assignee)
               %td
-                = simple_form_for [task], :url => deliver_task_path(task), :method => :post do |f|
-                  = f.button :submit, 'Deliver', class: 'btn-small btn-deliver'
-                  %br
-                  %br
-                = simple_form_for [task], :url => unassigned_task_path(task), :method => :post do |f|
-                  = f.button :submit, 'I can\'t do it', class: 'btn-small btn-unassign'
+                - if task.assignee == current_user
+                  = simple_form_for [task], :url => deliver_task_path(task), :method => :post do |f|
+                    = f.button :submit, 'Deliver', class: 'btn-small btn-deliver'
+                    %br
+                    %br
+                  = simple_form_for [task], :url => unassigned_task_path(task), :method => :post do |f|
+                    = f.button :submit, 'I can\'t do it', class: 'btn-small btn-unassign'
     #task_delivered.tab-pane
       %table.table.table-striped.table-hover.table-bordered.datatable
         %thead
@@ -84,7 +85,7 @@
           %th Hours
           %th Requested By
           %th Project Name
-          %th Task Delivered by
+          %th Delivered By
           %th Actions
         %tbody
           - @tasks.delivered.each do |task|
@@ -111,7 +112,7 @@
           %th Hours
           %th Requested By
           %th Project Name
-          %th Task Accomplished by
+          %th Accomplished By
         %tbody
           - @tasks.done.each do |task|
             - taskp = TaskPresenter.new(task, self)

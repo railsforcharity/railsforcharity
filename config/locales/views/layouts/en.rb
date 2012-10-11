@@ -23,6 +23,7 @@
           terms: 'Terms & Conditions',
           blog: 'Blog',
           contact_us: 'Contact Us',
+          tour: 'Take a Tour',
           browse_tasks: 'Browse Tasks',
           new_task: 'Create Task'
         }
