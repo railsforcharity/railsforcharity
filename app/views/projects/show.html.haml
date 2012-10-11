@@ -19,11 +19,12 @@
       %br
       %br
       %h3 Project Categories
-      - project.tags.map(&:name).each do |tag|
-        %p.label= tag
+      - project.tags.each do |tag|
+        %span.label(style="background:##{tag.color}")= tag.name
+      %br
       %br
       - if project.is_collaborator?
-        = link_to 'Add New Task', new_task_path, :class => 'btn-large btn-success'
+        = link_to 'Add New Task', new_task_path, :class => 'btn btn-large btn-success'
     .span8
       .span5
         #{pluralize project.reputation_value_for(:votes).to_i, "vote"}

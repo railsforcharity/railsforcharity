@@ -22,8 +22,10 @@
         %br
         %b Collaborating on:
         %br
-        - @user.projects.map(&:name).each do |project|
-          %p.span3.label= project
+        - @user.projects.each do |project|
+          %span.label= link_to project.name, project_path(project), :class => 'label'
+        %br
+        %br
 - if current_user == @user
   = link_to 'Edit', edit_user_path(@user)
   \|
