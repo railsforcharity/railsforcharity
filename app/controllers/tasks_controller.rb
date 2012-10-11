@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_filter :authenticate_user!, :except => [:show, :index]
-  before_filter :find_task, :only => [:edit, :show, :assign_me, :deliver, :unassigned, :accept, :reject, :update]
+  before_filter :find_task, :only => [:edit, :show, :assign_me, :deliver, :unassigned, :accept, :reject, :update, :destroy]
   before_filter :find_user, :only => [:new, :edit, :create, :update]
 
   def new
