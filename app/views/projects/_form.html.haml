@@ -1,4 +1,5 @@
-- @tags_array = Tag.find_all_by_tag_type('project').map(&:name).sort
+- @category_tags_array = Tag.find_all_by_tag_type('project').map(&:name).sort
+- @tech_tags_array = Tag.find_all_by_tag_type('technology').map(&:name).sort
 - project_presenter = ProjectPresenter.new(@project, self)
 
 :javascript
@@ -14,8 +15,15 @@
       }
     });
 
-    $(".select_tags").select2({
-      tags: #{@tags_array},
+    $(".category_tags").select2({
+      tags: #{@category_tags_array},
+      tokenSeparators: [','],
+      placeholder: "Select existing tags or add new ones...",
+      width: '70%'
+    });
+
+    $(".technology_tags").select2({
+      tags: #{@tech_tags_array},
       tokenSeparators: [','],
       placeholder: "Select existing tags or add new ones...",
       width: '70%'
@@ -39,7 +47,8 @@
     %br
     = f.input :title, :label => 'Mission', :input_html => { :style => 'width:90%' }
     = f.input :description, :input_html => { :style => 'width: 100%', :rows => 20 }
-    = f.input :tag_names, :input_html => { :class => 'select_tags', value: @project.tags.map(&:name).join(",") }, :label => 'Add Tags'
+    = f.input :category_names, :input_html => { :class => 'category_tags', value: @project.categories.map(&:name).join(",") }, :label => 'Add Tags'
+    = f.input :technology_names, :input_html => { :class => 'technology_tags', value: @project.technologies.map(&:name).join(",") }, :label => 'Add technologies used'
     %br
     = '* Public Profile Url'
     .input-prepend
