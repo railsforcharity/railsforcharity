@@ -90,7 +90,7 @@
           %th Title
           %th Description
           %th Type
-          %th Hours
+          %th Estimated Time
           %th Requested By
           %th Project Name
           %th Delivered By
@@ -122,10 +122,10 @@
           %th Title
           %th Description
           %th Type
-          %th Hours
           %th Requested By
           %th Project Name
           %th Accomplished By
+          %th Hours Worked
         %tbody
           - @tasks.done.each do |task|
             - taskp = TaskPresenter.new(task, self)
@@ -134,7 +134,7 @@
               %td= link_to task.name, task_path(task)
               %td= truncate(task.description, length: 30)
               %td= task.task_type
-              %td= taskp.estimated_time
               %td= link_to task.creator.name, user_path(task.created_by)
               %td= link_to task.project.name, project_path(task.project)
               %td= link_to task.assignee.name, user_path(task.assigned_to)
+              %td= taskp.estimated_time

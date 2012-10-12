@@ -65,7 +65,6 @@ class Task < ActiveRecord::Base
   accepts_nested_attributes_for :tags
 
   # Callbacks
-  before_save :set_estimated_time
   after_save :assign_tags
 
   # Named Scopes

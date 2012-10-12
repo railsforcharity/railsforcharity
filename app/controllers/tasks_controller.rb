@@ -20,14 +20,13 @@ class TasksController < ApplicationController
   def create
     if params[:project_id] == nil
       @task = Task.new(params[:task])
-      @task.status = Task::STATUSES[:open]
-      @task.creator = current_user
     else
       @project = Project.find(params[:project_id])
       @task = @project.tasks.build(params[:task])
-      @task.status = Task::STATUSES[:open]
-      @task.creator = current_user
     end
+    @task.status = Task::STATUSES[:open]
+    @task.creator = current_user
+    @task.set_estimated_time
 
     respond_to do |format|
       if @task.save
