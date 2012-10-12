@@ -13,11 +13,7 @@ describe TasksController do
     }
   end
 
-  let(:user) { create(:user) }
-
-  before(:each) do
-    @project = create(:project)
-  end
+  let(:project) { create(:project) }
 
   describe "POST create" do
     login_user
@@ -59,16 +55,18 @@ describe TasksController do
     end
   end
 
-  describe "assign to self" do
+  describe "assign_me" do
     login_user
 
-    pending "assigns the task to the current user" do
+    it "assigns the task to the current user" do
+      @request.env['HTTP_REFERER'] = project_path(project)
       task = create(:task)
-      @request.env['HTTP_REFERER'] = project_path(@project)
-      post :assign_me, { :id => task.to_param }
-      puts task.inspect
+
+      put :assign_me, { :id => task.to_param }
+
+      task.reload
       task.assigned_to.should_not be_nil
-      task.assigned_to.should == @user.id
+      task.assigned_to.should == user.id
     end
   end
 end

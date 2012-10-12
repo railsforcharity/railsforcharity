@@ -24,6 +24,7 @@ class TasksController < ApplicationController
       @project = Project.find(params[:project_id])
       @task = @project.tasks.build(params[:task])
     end
+
     @task.status = Task::STATUSES[:open]
     @task.creator = current_user
     @task.set_estimated_time
@@ -83,6 +84,7 @@ class TasksController < ApplicationController
   def assign_me
     @task.assigned_to = current_user.id
     @task.status = Task::STATUSES[:ongoing]
+
     if @task.save!
       redirect_to :back, notice: t('controllers.tasks.assign_me.success')
     else
@@ -92,6 +94,7 @@ class TasksController < ApplicationController
 
   def deliver
     @task.status = Task::STATUSES[:delivered]
+
     if @task.save!
       redirect_to :back, notice: t('controllers.tasks.deliver.success')
     else
@@ -100,8 +103,9 @@ class TasksController < ApplicationController
   end
 
   def unassigned
+    @task.assigned_to = nil
     @task.status = Task::STATUSES[:open]
-    @task.assigned_to= nil
+
     if @task.save!
       redirect_to :back, notice: t('controllers.tasks.unassign.success')
     else
@@ -109,9 +113,9 @@ class TasksController < ApplicationController
     end
   end
 
-
   def accept
     @task.status = Task::STATUSES[:done]
+
     if @task.save!
       redirect_to :back, notice: t('controllers.tasks.accept.success')
     else
@@ -121,6 +125,7 @@ class TasksController < ApplicationController
 
   def reject
     @task.status = Task::STATUSES[:ongoing]
+
     if @task.save!
       redirect_to :back, notice: t('controllers.tasks.reject.success')
     else
@@ -141,5 +146,4 @@ class TasksController < ApplicationController
   def find_project
     @project = Project.find(params[:project_id])
   end
-
 end

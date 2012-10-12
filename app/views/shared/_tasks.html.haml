@@ -13,13 +13,13 @@
 .tabbable
   %ul.nav.nav-tabs
     %li.active
-      %a{"data-toggle" => "tab", :href => "#task_open"} Open
+      %a(data-toggle="tab" href="#task_open") Open
     %li
-      %a{"data-toggle" => "tab", :href => "#task_ongoing"} On Going
+      %a(data-toggle="tab" href="#task_ongoing") On Going
     %li
-      %a{"data-toggle" => "tab", :href => "#task_delivered"} Delivered
+      %a(data-toggle="tab" href="#task_delivered") Delivered
     %li
-      %a{"data-toggle" => "tab", :href => "#task_done"} Done
+      %a(data-toggle="tab" href="#task_done") Done
   .tab-content
     #task_open.tab-pane.active
       %table.table.table-striped.table-hover.table-bordered.datatable
@@ -49,8 +49,7 @@
                 - if task.creator == current_user
                   = simple_form_for [@project, task], :method => :delete do |f|
                     = f.button :submit, 'Delete', :confirm => 'Are you sure?', class: 'btn-small btn-table'
-      -#.pull-right
-      -#  = link_to "more ..."
+
     #task_ongoing.tab-pane
       %table.table.table-striped.table-hover.table-bordered.datatable
         %thead
@@ -82,7 +81,8 @@
                   = simple_form_for [task], :url => deliver_task_path(task), :method => :post do |f|
                     = f.button :submit, 'Deliver', class: 'btn-small btn-deliver'
                   = simple_form_for [task], :url => unassigned_task_path(task), :method => :post do |f|
-                    = f.button :submit, 'I can\'t do it', class: 'btn-small btn-unassign'
+                    = f.button :submit, "I can't do it", class: 'btn-small btn-unassign'
+
     #task_delivered.tab-pane
       %table.table.table-striped.table-hover.table-bordered.datatable
         %thead

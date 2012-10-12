@@ -7,6 +7,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  tag_type   :string(255)
+#  color      :string(255)
 #
 
 class Tag < ActiveRecord::Base
