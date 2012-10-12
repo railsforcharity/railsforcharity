@@ -66,6 +66,7 @@ class Task < ActiveRecord::Base
 
   # Callbacks
   after_save :assign_tags
+  before_create :set_estimated_time
 
   # Named Scopes
   scope :open_tasks, where(status: STATUSES[:open])

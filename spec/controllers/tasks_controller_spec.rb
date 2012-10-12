@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe TasksController do
+  let(:project) { create(:project) }
+
   def valid_attributes
     {
       name: Faker.name,
@@ -9,11 +11,9 @@ describe TasksController do
       estimated_minutes: 40,
       category: Task::CATEGORIES[:programming],
       task_type: Task::TYPES[:feature],
-      project_id: 1
+      project_id: project.id
     }
   end
-
-  let(:project) { create(:project) }
 
   describe "POST create" do
     login_user
@@ -31,6 +31,7 @@ describe TasksController do
 
       it "assigns a newly created task as @task" do
         post :create, { :task => valid_attributes }
+
         assigns(:task).should be_a(Task)
         assigns(:task).should be_persisted
         assigns(:task).estimated_time.should_not be_nil

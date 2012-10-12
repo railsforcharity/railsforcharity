@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_filter :authenticate_user!, :except => [:show, :index]
+
   before_filter :find_task, :only => [:edit, :show, :assign_me, :deliver, :unassigned, :accept, :reject, :update, :destroy]
   before_filter :find_user, :only => [:new, :edit, :create, :update]
 
@@ -27,7 +28,6 @@ class TasksController < ApplicationController
 
     @task.status = Task::STATUSES[:open]
     @task.creator = current_user
-    @task.set_estimated_time
 
     respond_to do |format|
       if @task.save
@@ -82,7 +82,7 @@ class TasksController < ApplicationController
   end
 
   def assign_me
-    @task.assigned_to = current_user.id
+    @task.assignee = current_user
     @task.status = Task::STATUSES[:ongoing]
 
     if @task.save!
