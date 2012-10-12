@@ -78,8 +78,13 @@ describe Project do
 
   describe 'tagging' do
     it 'assigns tags' do
-      p = create(:project, :tag_names => 'abc, cde')
+      p = create(:project, :category_names => 'abc, cde')
       p.tags.size.should == 2
+    end
+
+    it 'assigns technology tags' do
+      p = create(:project, :technology_names => 'ruby, javascript')
+      p.technologies.size.should == 2
     end
   end
 

@@ -19,7 +19,12 @@
       %br
       %br
       %h3 Project Categories
-      - project.tags.each do |tag|
+      - project.categories.each do |tag|
+        %span.label(style="background:##{tag.color}")= tag.name
+      %br
+      %br
+      %h3 Tech Stack
+      - project.technologies.each do |tag|
         %span.label(style="background:##{tag.color}")= tag.name
       %br
       %br
