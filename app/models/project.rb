@@ -18,9 +18,9 @@
 class Project < ActiveRecord::Base
 
   # Attributes
-  attr_accessible :description, :name, :title, :collaborator_tokens, :avatar_attributes, :task_attributes, :tag_names, :website, :profile_url, :video, :terms, :status
+  attr_accessible :description, :name, :title, :collaborator_tokens, :avatar_attributes, :task_attributes, :category_names, :technology_names, :website, :profile_url, :video, :terms, :status
   attr_reader :collaborator_tokens
-  attr_accessor :tag_names
+  attr_accessor :category_names, :technology_names
 
   # Relations
   has_many :project_accesses
@@ -86,13 +86,33 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def categories
+    self.tags.where(:tag_type => 'project')
+  end
+
+  def technologies
+    self.tags.where(:tag_type => 'technology')
+  end
+
   private
 
   def assign_tags
-    if @tag_names
-      self.tags = @tag_names.split(',').map do |name|
-        Tag.find_or_create_by_name(name, :tag_type => 'project')
+    new_tags = []
+
+    if @category_names
+      @category_names.split(',').map do |name|
+        new_tags << ['project', name]
       end
+    end
+
+    if @technology_names
+      @technology_names.split(',').map do |name|
+        new_tags << ['technology', name]
+      end
+    end
+
+    self.tags = new_tags.map do |tag|
+      Tag.find_or_create_by_name(tag[1], :tag_type => tag[0])
     end
   end
 
