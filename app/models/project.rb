@@ -97,6 +97,14 @@ class Project < ActiveRecord::Base
     self.tags.where(:tag_type => 'technology')
   end
 
+  def hours_worked
+    total_time = 0
+    self.tasks.done.each do |t|
+      total_time += t.estimated_time/60
+    end
+    x(total_time.round, 'hour')
+  end
+
   private
 
   def assign_tags

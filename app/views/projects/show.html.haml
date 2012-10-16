@@ -56,6 +56,10 @@
         %p=link_to 'Edit project details', edit_project_path(project)
     %br
     .span4
+      %sub Hours worked on this project:
+      %b.hours_worked #{@project.hours_worked}
+      %br
+      %br
       .sidebar
         %br
           %h3 Pitch
