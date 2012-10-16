@@ -21,11 +21,11 @@ class ProjectPresenter < ApplicationPresenter
   end
 
   def github_url
-    "https://github.com/railsforcharity/" + self.profile_url
+    "https://github.com/railsforcharity/" + project.profile_url
   end
 
   def travis_url
-    "http://travis-ci.org/railsforcharity/" + self.profile_url + '.png'
+    "http://travis-ci.org/railsforcharity/" + project.profile_url + '.png'
   end
 
   def is_collaborator?
