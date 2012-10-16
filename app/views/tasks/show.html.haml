@@ -7,11 +7,11 @@
     %br
     %br
     %h4 Task Description
-    = @task.description
+    = auto_link(@task.description)
     %br
     %br
     = render :partial => 'comments/form'
-    = nested_comments @comments.arrange(:order => :created_at)
+    = auto_link(nested_comments @comments.arrange(:order => :created_at))
 
   .span2
     = render :partial => 'info', :locals => { :show => true }
@@ -32,4 +32,4 @@
         = f.button :submit, 'Reject', class: 'btn-small btn-table btn-warning'
 
 
-    = link_to 'Edit', edit_task_path(@task)
+    = link_to 'Edit', edit_task_path(@task), class: 'btn btn-primary'

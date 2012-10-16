@@ -40,6 +40,7 @@ gem 'ancestry'
 gem 'taps'
 gem 'hirb'
 gem 'will_paginate'
+gem 'rails_autolink'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -67,6 +68,7 @@ group :development, :test do
   gem 'shoulda-matchers' # shoulda-context causes the error http://stackoverflow.com/q/9523931/238880
   gem 'factory_girl_rails'  # Used for seeding data also
   gem 'autotest-rails'
+  gem 'capybara'
 end
 
 group :test do
