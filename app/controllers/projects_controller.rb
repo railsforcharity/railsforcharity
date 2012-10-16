@@ -97,7 +97,7 @@ class ProjectsController < ApplicationController
   end
 
   def unjoin
-    if @project.project_access_obj(current_user).destroy
+    if @project.user_permissions_obj(current_user).destroy
       redirect_to :back, notice: "You are successfully removed from the collaborator list!"
     else
       redirect_to :back, notice: "Aww Snap! Failed to unjoin, please try again later!"

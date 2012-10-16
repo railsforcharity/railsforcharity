@@ -45,7 +45,7 @@ describe User do
         @user2 = create(:user)
         @user3 = create(:user)
         @project = create(:project)
-        @project.users = [@user1, @user2]
+        create(:user_permission, user: @user1, entity: @project, role_id: Role::TYPES[:project_collaborator])
       end
 
       it "returns true if collaborator?" do

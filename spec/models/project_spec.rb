@@ -94,9 +94,9 @@ describe Project do
         u1 = create(:user)
         u2 = create(:user)
         u3 = create(:user)
-        c1 = ProjectAccess.create(user: u1, project: project, role_id: Role::TYPES[:project_collaborator])
-        c2 = ProjectAccess.create(user: u2, project: project, role_id: Role::TYPES[:project_admin])
-        c3 = ProjectAccess.create(user: u3, project: project, role_id: Role::TYPES[:project_collaborator])
+        c1 = UserPermission.create(user: u1, entity: project, role_id: Role::TYPES[:project_collaborator])
+        c2 = UserPermission.create(user: u2, entity: project, role_id: Role::TYPES[:project_admin])
+        c3 = UserPermission.create(user: u3, entity: project, role_id: Role::TYPES[:project_collaborator])
         project.get_role(u1).should_not be_nil
         project.get_role(u1).should == Role::TYPES[:project_collaborator]
         project.get_role(u2).should_not be_nil

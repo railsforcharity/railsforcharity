@@ -23,14 +23,16 @@ class Project < ActiveRecord::Base
   attr_accessor :category_names, :technology_names
 
   # Relations
-  has_many :project_accesses
-  has_many :users, :through => :project_accesses
-  has_one :location, :as => :locatable, :dependent => :destroy
-  has_one :avatar, :as => :avatarable, :dependent => :destroy
-  belongs_to :creator, :class_name => 'User', :foreign_key => "created_by"
-  has_many :taggings, :as => :taggable, :dependent => :destroy
-  has_many :tags, :through => :taggings
   has_many :tasks
+  has_one :location, as: :locatable, dependent: :destroy
+  has_one :avatar, as: :avatarable, dependent: :destroy
+  has_many :taggings, as: :taggable, dependent: :destroy
+  has_many :tags, through: :taggings
+  has_many :user_permissions, as: :entity, dependent: :destroy
+  has_many :users, through: :user_permissions
+  #has_many :admins, through: :user_permissions, source: :entity, source_type: 'Project', conditions: "user_permissions.role_id = #{Role::TYPES[:project_admin]}"
+
+  belongs_to :creator, class_name: 'User', foreign_key: "created_by"
 
   has_reputation :votes, source: :user, aggregated_by: :sum
 
@@ -43,7 +45,8 @@ class Project < ActiveRecord::Base
   validates :profile_url, :presence => true, :uniqueness => true, :length => { :in => 2..25 }
   validates_acceptance_of :terms, :on => :create
 
-  accepts_nested_attributes_for :users, :avatar, :location
+  #accepts_nested_attributes_for :users, :avatar, :location
+  accepts_nested_attributes_for :avatar, :location
 
   # Named Scopes
   scope :name_like, lambda { |n| where("name ilike ?", "%#{n}%") } # WARN: Potential DB Change Problem
@@ -56,26 +59,26 @@ class Project < ActiveRecord::Base
     self.user_ids = ids_csv.split(',')
   end
 
-  def project_access_obj(user)
-    ProjectAccess.find_by_project_id_and_user_id(self, user)
+  def user_permissions_obj(user)
+    UserPermission.find_by_entity_type_and_entity_id_and_user_id('Project', self, user)
   end
 
   def get_role(user)
-    project_access_obj(user).try(:role_id)
+    user_permissions_obj(user).try(:role_id)
   end
 
   # make_admin(user), make_collaborator(user)
   #
   # def make_admin(user)
-  #   project_access = project_access_obj(user) || self.project_accesses.build(:user => user)
-  #   project_access.role_id = Role::TYPES[:project_admin]
-  #   project_access.save
+  #   user_permission = user_permissions_obj(user) || self.user_permissions.build(:user => user)
+  #   user_permission.role_id = Role::TYPES[:project_admin]
+  #   user_permission.save
   # end
   [:admin, :collaborator].each do |role_name|
     define_method("make_#{role_name}") do |user|
-      project_access = project_access_obj(user) || self.project_accesses.build(:user => user)
-      project_access.role_id = Role::TYPES[:"project_#{role_name}"]
-      project_access.save
+      user_permission = user_permissions_obj(user) || self.user_permissions.build(:user => user)
+      user_permission.role_id = Role::TYPES[:"project_#{role_name}"]
+      user_permission.save
     end
 
     # def is_admin?(user)

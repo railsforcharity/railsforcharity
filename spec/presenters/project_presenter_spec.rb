@@ -3,6 +3,8 @@ require 'spec_helper'
 describe ProjectPresenter do
   include Devise::TestHelpers
 
+  let(:project) { create(:project) }
+
   def login_user(user)
     @request.env["devise.mapping"] = Devise.mappings[:user]
     sign_in user
@@ -10,12 +12,11 @@ describe ProjectPresenter do
 
   describe '#is_collaborator?' do
     before(:each) do
-      project = create(:project)
-      @project = ProjectPresenter.new(project, view)
+      @project_presenter = ProjectPresenter.new(project, view)
     end
 
     it 'returns nil if user is not logged in' do
-      @project.is_collaborator?.should be_nil
+      @project_presenter.is_collaborator?.should be_nil
     end
 
     describe 'user is logged in' do
@@ -24,14 +25,14 @@ describe ProjectPresenter do
       end
 
       it 'returns false if the user is not a collaborator of that project' do
-        @project.is_collaborator?.should be_false
+        @project_presenter.is_collaborator?.should be_false
       end
 
       it 'returns true if the user is a collaborator of that project' do
-        @project.users << @user
+        create(:user_permission, user: @user, entity: project, role_id: Role::TYPES[:project_collaborator])
         login_user(@user)
 
-        @project.is_collaborator?.should be_true
+        @project_presenter.is_collaborator?.should be_true
       end
     end
   end

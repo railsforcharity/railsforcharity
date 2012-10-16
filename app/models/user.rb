@@ -32,12 +32,25 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me , :website, :bio, :avatar_attributes, :location_attributes
 
   # Relations
-  has_many :authentications, :dependent => :destroy
-  has_many :project_accesses
-  has_many :projects, :through => :project_accesses
-  has_one :location, :as => :locatable, :dependent => :destroy
-  has_one :avatar, :as => :avatarable, :dependent => :destroy
+  has_many :authentications, dependent: :destroy
+  has_many :user_permissions, dependent: :destroy
+  has_one :location, :as => :locatable, dependent: :destroy
+  has_one :avatar, :as => :avatarable, dependent: :destroy
   has_many :evaluations, class_name: "RSEvaluation", as: :source
+
+  has_many :projects, through: :user_permissions, source: :entity, source_type: 'Project'
+
+  has_many :admin_projects,
+    through: :user_permissions,
+    source: :entity,
+    source_type: 'Project',
+    conditions: "user_permissions.role_id=#{Role::TYPES[:project_admin]}"
+
+  has_many :collaborator_projects,
+    through: :user_permissions,
+    source: :entity,
+    source_type: 'Project',
+    conditions: "user_permissions.role_id=#{Role::TYPES[:project_collaborator]}"
 
   has_reputation :votes, source: {reputation: :votes, of: :projects}, aggregated_by: :sum
 
@@ -84,6 +97,6 @@ class User < ActiveRecord::Base
   end
 
   def is_collaborator?(project)
-    self.project_ids.include? project.id
+    collaborator_projects.include? project
   end
 end

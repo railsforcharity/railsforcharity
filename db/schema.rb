@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121011080031) do
+ActiveRecord::Schema.define(:version => 20121016070546) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -68,15 +68,6 @@ ActiveRecord::Schema.define(:version => 20121011080031) do
     t.integer  "locatable_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
-  end
-
-  create_table "project_accesses", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "project_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.string   "status"
-    t.integer  "role_id"
   end
 
   create_table "projects", :force => true do |t|
@@ -173,6 +164,16 @@ ActiveRecord::Schema.define(:version => 20121011080031) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.integer  "category"
+  end
+
+  create_table "user_permissions", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "status"
+    t.integer  "role_id"
+    t.string   "entity_type"
+    t.integer  "entity_id"
   end
 
   create_table "users", :force => true do |t|
