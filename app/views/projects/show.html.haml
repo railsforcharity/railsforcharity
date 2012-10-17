@@ -40,7 +40,9 @@
         %h3 Technology Stack
         - project.technologies.each do |tag|
           %span.label(style="background:##{tag.color}")= tag.name
-      - if project.is_collaborator?
+      - if project.is_member?
+        %br
+        %br
         = link_to 'New Task', new_project_task_path(project), :class => 'btn btn-large btn-success'
 
     .span5

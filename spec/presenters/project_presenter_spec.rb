@@ -10,13 +10,11 @@ describe ProjectPresenter do
     sign_in user
   end
 
-  describe '#is_collaborator?' do
-    before(:each) do
-      @project_presenter = ProjectPresenter.new(project, view)
-    end
+  describe '#is_member?' do
+    let(:project_presenter) { ProjectPresenter.new(project, view) }
 
     it 'returns nil if user is not logged in' do
-      @project_presenter.is_collaborator?.should be_nil
+      project_presenter.is_member?.should be_nil
     end
 
     describe 'user is logged in' do
@@ -25,14 +23,14 @@ describe ProjectPresenter do
       end
 
       it 'returns false if the user is not a collaborator of that project' do
-        @project_presenter.is_collaborator?.should be_false
+        project_presenter.is_member?.should be_false
       end
 
       it 'returns true if the user is a collaborator of that project' do
         create(:user_permission, user: @user, entity: project, role_id: Role::TYPES[:project_collaborator])
         login_user(@user)
 
-        @project_presenter.is_collaborator?.should be_true
+        project_presenter.is_member?.should be_true
       end
     end
   end

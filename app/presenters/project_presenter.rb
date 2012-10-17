@@ -28,10 +28,6 @@ class ProjectPresenter < ApplicationPresenter
     "http://travis-ci.org/railsforcharity/" + project.profile_url + '.png'
   end
 
-  def is_collaborator?
-    h.current_user && h.current_user.is_collaborator?(project)
-  end
-
   def can_edit?(project)
     User.find(project.created_by) == current_user
   end
@@ -42,6 +38,10 @@ class ProjectPresenter < ApplicationPresenter
     else
       project.users
     end
+  end
+
+  def is_member?
+    h.current_user && project.users.include?(h.current_user)
   end
 
   #def method_missing(method_name, *args, &block)
