@@ -48,7 +48,7 @@
     = f.input :title, :label => 'Mission', :input_html => { :style => 'width:90%' }
     = f.input :description, :input_html => { :style => 'width: 100%', :rows => 20 }
     = f.input :category_names, :input_html => { :class => 'category_tags', value: @project.categories.map(&:name).join(",") }, :label => 'Add Tags'
-    = f.input :technology_names, :input_html => { :class => 'technology_tags', value: @project.technologies.map(&:name).join(",") }, :label => 'Add technologies used'
+    = f.input :technology_names, :input_html => { :class => 'technology_tags', value: @project.technologies.map(&:name).join(",") }, :label => 'Technologies Used'
     %br
     = '* Public Profile Url'
     .input-prepend

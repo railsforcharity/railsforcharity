@@ -28,36 +28,38 @@
         =link_to "", vote_project_path(project, type: "down"), method: "post", class: 'icon-black icon-hand-down'
       =pluralize project.reputation_value_for(:votes).to_i, "vote"
 
-      %br
-      %br
-      %h3 Project Categories
-      - project.categories.each do |tag|
-        %span.label(style="background:##{tag.color}")= tag.name
-      %br
-      %br
-      %h3 Technology Stack
-      - project.technologies.each do |tag|
-        %span.label(style="background:##{tag.color}")= tag.name
-      %br
-      %br
+      - if !project.categories.empty?
+        %br
+        %br
+        %h3 Project Categories
+        - project.categories.each do |tag|
+          %span.label(style="background:##{tag.color}")= tag.name
+      - if !project.technologies.empty?
+        %br
+        %br
+        %h3 Technology Stack
+        - project.technologies.each do |tag|
+          %span.label(style="background:##{tag.color}")= tag.name
       - if project.is_collaborator?
-        = link_to 'Add New Task', new_project_task_path(project), :class => 'btn btn-large btn-success'
+        = link_to 'New Task', new_project_task_path(project), :class => 'btn btn-large btn-success'
+
     .span5
       -if !project.video.blank? && project.video.starts_with?("http")
-        %iframe{:allowfullscreen => '', :frameborder => '0', :height => '360', :src => "#{project.video}", :width => '100%'}
+        %iframe(allowfullscreen='' frameborder='0' height='360' src="#{project.video}" width='100%')
       -else
         %div.video
           %p.video_text Video is coming soon!
       -if can_edit?(project)
         %p=link_to 'Edit project details', edit_project_path(project)
+
     .span4
       .sidebar
         %h3 Pitch
         %br
         %p
           = auto_link(project.description.html_safe)
+
   .span12
-    %br
     %br
     %h3 Tasks
     %br

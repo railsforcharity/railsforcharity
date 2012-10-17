@@ -27,6 +27,8 @@ gem 'simple_form'
 gem 'ckeditor', '3.7.2'
 gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 gem 'jquery-ui-rails'
+gem 'will_paginate'
+gem 'rails_autolink'
 
 # Other
 gem 'friendly_id'
@@ -39,8 +41,6 @@ gem 'activerecord-reputation-system', require: 'reputation_system'
 gem 'ancestry'
 gem 'taps'
 gem 'hirb'
-gem 'will_paginate'
-gem 'rails_autolink'
 
 # Gems used only for assets and not required
 # in production environments by default.

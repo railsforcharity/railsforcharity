@@ -42,6 +42,7 @@
   display: inline-block;
   font-weight: bold;
   border: 1px solid yellow;
+  text-align: center;
 
   @include box-shadow(#ccc 3px 3px 3px);
 

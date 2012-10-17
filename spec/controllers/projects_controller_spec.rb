@@ -19,23 +19,9 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe ProjectsController do
-
-  # This should return the minimal set of attributes required to create a valid
-  # Project. As you add validations to Project, be sure to
-  # update the return value of this method accordingly.
-
-  def valid_attributes
-    {
-        name: Faker.name,
-        title: 'Open Source Web based App',
-        description: 'To build open source web based applications which help in improving the society.',
-        profile_url: 'mobflair'
-    }
-  end
-
   describe "GET index" do
     it "assigns all projects as @projects" do
-      project = Project.create! valid_attributes
+      project = Project.create! attributes_for(:project)
       get :index, {}
       assigns(:projects).should eq([project])
     end
@@ -43,14 +29,13 @@ describe ProjectsController do
 
   describe "GET show" do
     it "assigns the requested project as @project" do
-      project = Project.create! valid_attributes
+      project = Project.create! attributes_for(:project)
       get :show, {:id => project.to_param}
       assigns(:project).should eq(project)
     end
   end
 
   describe "GET new" do
-
     login_user
 
     it "assigns a new project as @project" do
@@ -61,38 +46,50 @@ describe ProjectsController do
 
   describe "GET edit" do
     it "assigns the requested project as @project" do
-      project = Project.create! valid_attributes
+      project = Project.create! attributes_for(:project)
       get :edit, {:id => project.to_param}
       assigns(:project).should eq(project)
     end
   end
 
   describe "POST create" do
-
     login_user
 
     describe "with valid params" do
       it "creates a new Project" do
         expect {
-          post :create, {:project => valid_attributes}
+          post :create, {:project => attributes_for(:project)}
         }.to change(Project, :count).by(1)
       end
 
       it "assigns a newly created project as @project" do
-        post :create, {:project => valid_attributes}
+        post :create, {:project => attributes_for(:project)}
         assigns(:project).should be_a(Project)
         assigns(:project).should be_persisted
       end
 
       it "assigns collaborators" do
         users_csv = [create(:user).id, create(:user).id].join(",")
-        project = Project.create!(valid_attributes.merge({:collaborator_tokens => users_csv}))
-        post :create, {:project => valid_attributes}
+        project = Project.create!(attributes_for(:project).merge({:collaborator_tokens => users_csv}))
+        post :create, {:project => attributes_for(:project)}
         project.users.size.should == 2
       end
 
+      it "creates the requisite tags for categories" do
+        post :create, {:project => attributes_for(:project)}
+        Tag.find_all_by_tag_type('project').size.should == 2
+        Tagging.find_all_by_taggable_type_and_taggable_id('Project', assigns(:project).id).size.should == 4
+      end
+
+      #it "creates the requisite tags for categories and technologies correctly even when they are same" do
+      #  post :create, {:project => attributes_for(:project_same_category_and_technology)}
+      #  puts Tagging.all.inspect
+      #  Tag.find_all_by_tag_type('project').size.should == 1
+      #  Tagging.find_all_by_taggable_type_and_taggable_id('Project', assigns(:project).id).size.should == 1
+      #end
+
       it "redirects to the created project" do
-        post :create, {:project => valid_attributes}
+        post :create, {:project => attributes_for(:project)}
         response.should redirect_to(project_path(assigns(:project)))
       end
     end
@@ -120,7 +117,7 @@ describe ProjectsController do
 
     describe "with valid params" do
       it "updates the requested project" do
-        project = Project.create! valid_attributes
+        project = Project.create! attributes_for(:project)
         # Assuming there are no other projects in the database, this
         # specifies that the Project created on the previous line
         # receives the :update_attributes message with whatever params are
@@ -130,29 +127,29 @@ describe ProjectsController do
       end
 
       it "assigns the requested project as @project" do
-        project = Project.create! valid_attributes
-        put :update, {:id => project.to_param, :project => valid_attributes}
+        project = Project.create! attributes_for(:project)
+        put :update, {:id => project.to_param, :project => attributes_for(:project)}
         assigns(:project).should eq(project)
       end
 
       it "assigns collaborators" do
         users_csv = [create(:user).id, create(:user).id].join(",")
-        project = Project.create! valid_attributes.merge({:collaborator_tokens => users_csv})
-        put :update, {:id => project.to_param, :project => valid_attributes}
+        project = Project.create! attributes_for(:project).merge({:collaborator_tokens => users_csv})
+        put :update, {:id => project.to_param, :project => attributes_for(:project)}
         assigns(:project).should eq(project)
         assigns(:project).users.size.should == 2
       end
 
       it "redirects to the project" do
-        project = Project.create! valid_attributes
-        put :update, {:id => project.to_param, :project => valid_attributes}
+        project = Project.create! attributes_for(:project)
+        put :update, {:id => project.to_param, :project => attributes_for(:project)}
         response.should redirect_to(project)
       end
     end
 
     describe "with invalid params" do
       it "assigns the project as @project" do
-        project = Project.create! valid_attributes
+        project = Project.create! attributes_for(:project)
         # Trigger the behavior that occurs when invalid params are submitted
         Project.any_instance.stubs(:save).returns(false)
         put :update, {:id => project.to_param, :project => {}}
@@ -160,7 +157,7 @@ describe ProjectsController do
       end
 
       it "re-renders the 'edit' template" do
-        project = Project.create! valid_attributes
+        project = Project.create! attributes_for(:project)
         # Trigger the behavior that occurs when invalid params are submitted
         Project.any_instance.stubs(:save).returns(false)
         put :update, {:id => project.to_param, :project => {}}
@@ -174,14 +171,14 @@ describe ProjectsController do
     login_user
 
     it "destroys the requested project" do
-      project = Project.create! valid_attributes
+      project = Project.create! attributes_for(:project)
       expect {
         delete :destroy, {:id => project.to_param}
       }.to change(Project, :count).by(-1)
     end
 
     it "redirects to the projects list" do
-      project = Project.create! valid_attributes
+      project = Project.create! attributes_for(:project)
       delete :destroy, {:id => project.to_param}
       response.should redirect_to(projects_url)
     end

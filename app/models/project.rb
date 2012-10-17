@@ -119,7 +119,7 @@ class Project < ActiveRecord::Base
     end
 
     self.tags = new_tags.map do |type, tag_name|
-      Tag.find_or_create_by_name(tag_name, :tag_type => type)
+      Tag.find_or_create_by_name(tag_name, tag_type: type)
     end
   end
 end

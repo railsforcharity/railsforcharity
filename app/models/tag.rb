@@ -16,7 +16,8 @@ class Tag < ActiveRecord::Base
 
   # Relations
   has_many :taggings, :dependent => :destroy
-  has_many :projects, :through => :taggings, :source => :taggable, :source_type => 'Project'
+  has_many :project_tags, :through => :taggings, :source => :taggable, :source_type => 'Project', :conditions => { :tag_type => 'project' }
+  has_many :project_technology_tags, :through => :taggings, :source => :taggable, :source_type => 'Project', :conditions => { :tag_type => 'technology' }
   has_many :tasks, :through => :taggings, :source => :taggable, :source_type => 'Task'
 
   #Named scopes
