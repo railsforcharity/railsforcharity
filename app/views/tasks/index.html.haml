@@ -26,7 +26,6 @@
         %thead
           %th #
           %th Task
-          %th Description
           %th Type
           %th Estimated Time
           %th Requested By
@@ -38,7 +37,6 @@
             %tr
               %td= task.id
               %td= link_to task.name, task_path(task)
-              %td= truncate(task.description, length: 30).html_safe
               %td= task.task_type
               %td= taskp.estimated_time
               %td= link_to task.creator.name, user_path(task.creator)
@@ -55,7 +53,6 @@
         %thead
           %th #
           %th Title
-          %th Description
           %th Type
           %th Estimated Time
           %th Requested By
@@ -68,7 +65,6 @@
             %tr
               %td= task.id
               %td= link_to task.name, task_path(task)
-              %td= truncate(task.description, length: 30)
               %td= task.task_type
               %td= taskp.estimated_time
               %td= link_to task.creator.name, user_path(task.created_by)
@@ -88,7 +84,6 @@
         %thead
           %th #
           %th Title
-          %th Description
           %th Type
           %th Estimated Time
           %th Requested By
@@ -101,7 +96,6 @@
             %tr
               %td= task.id
               %td= link_to task.name, task_path(task)
-              %td= truncate(task.description, length: 30)
               %td= task.task_type
               %td= taskp.estimated_time
               %td= link_to task.creator.name, user_path(task.created_by)
@@ -120,7 +114,6 @@
         %thead
           %th #
           %th Title
-          %th Description
           %th Type
           %th Requested By
           %th Project Name
@@ -132,7 +125,6 @@
             %tr
               %td= task.id
               %td= link_to task.name, task_path(task)
-              %td= truncate(task.description, length: 30)
               %td= task.task_type
               %td= link_to task.creator.name, user_path(task.created_by)
               %td= link_to task.project.name, project_path(task.project)
