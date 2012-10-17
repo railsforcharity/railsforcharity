@@ -75,22 +75,24 @@ describe ProjectsController do
         project.users.size.should == 2
       end
 
-      it "creates the requisite tags for categories" do
-        post :create, {:project => attributes_for(:project)}
-        Tag.find_all_by_tag_type('project').size.should == 2
-        Tagging.find_all_by_taggable_type_and_taggable_id('Project', assigns(:project).id).size.should == 4
-      end
-
-      #it "creates the requisite tags for categories and technologies correctly even when they are same" do
-      #  post :create, {:project => attributes_for(:project_same_category_and_technology)}
-      #  puts Tagging.all.inspect
-      #  Tag.find_all_by_tag_type('project').size.should == 1
-      #  Tagging.find_all_by_taggable_type_and_taggable_id('Project', assigns(:project).id).size.should == 1
-      #end
-
       it "redirects to the created project" do
         post :create, {:project => attributes_for(:project)}
         response.should redirect_to(project_path(assigns(:project)))
+      end
+
+      context 'with tags' do
+        it "creates the requisite tags for categories" do
+          post :create, {:project => attributes_for(:project_with_tags)}
+          Tag.find_all_by_tag_type('project').size.should == 2
+          Tagging.find_all_by_taggable_type_and_taggable_id('Project', assigns(:project).id).size.should == 4
+        end
+
+        #it "creates the requisite tags for categories and technologies correctly even when they are same" do
+        #  post :create, {:project => attributes_for(:project_same_category_and_technology)}
+        #  puts Tagging.all.inspect
+        #  Tag.find_all_by_tag_type('project').size.should == 1
+        #  Tagging.find_all_by_taggable_type_and_taggable_id('Project', assigns(:project).id).size.should == 1
+        #end
       end
     end
 
