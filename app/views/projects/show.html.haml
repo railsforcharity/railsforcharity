@@ -3,19 +3,31 @@
     .span3
       = project.avatar_name
       %br
-      %br
-      %h2{style:"color:#880000"}
+      %h2(style="color:#880000")
         = project.name
       = project.title
-      %br
       %br
       = project.website
       %br
         -if project.status == "confirm"
-          %a{:href => "#{project.github_url}", :target => "_blank"}
+          %a(href="#{project.github_url}" target="_blank")
             %p Browse Github Source Code
-          %a{:href => "#{project.travis_url}"}
-            %img{:alt => "Build Status", :src => "#{project.travis_url}", :height => "20px"}
+          %a(href="#{project.travis_url}")
+            %img(alt="Build Status" src="#{project.travis_url}" height="20px")
+      %span
+        .hours_worked
+          =@project.hours_worked
+          %br
+          %sub Hours Worked
+
+      %br
+      %br
+      .btn.btn-inverse
+        =link_to "", vote_project_path(project, type: "up"), method: "post", class: 'icon-hand-up icon-white'
+      .btn
+        =link_to "", vote_project_path(project, type: "down"), method: "post", class: 'icon-black icon-hand-down'
+      =pluralize project.reputation_value_for(:votes).to_i, "vote"
+
       %br
       %br
       %h3 Project Categories
@@ -30,22 +42,6 @@
       %br
       - if project.is_collaborator?
         = link_to 'Add New Task', new_project_task_path(project), :class => 'btn btn-large btn-success'
-    .span8
-      .span5
-        #{pluralize project.reputation_value_for(:votes).to_i, "vote"}
-        .btn.btn-inverse
-          = link_to "", vote_project_path(project, type: "up"), method: "post", class: 'icon-hand-up icon-white'
-        .btn
-          = link_to "", vote_project_path(project, type: "down"), method: "post", class: 'icon-black icon-hand-down'
-      .span2
-        .pull-right
-          .span1
-            -#.btn.btn.btn-small Donate
-          .span1
-          - if !project.is_collaborator?
-            -#.btn.btn-success.btn-large Join
-          %br
-          %br
     .span5
       -if !project.video.blank? && project.video.starts_with?("http")
         %iframe{:allowfullscreen => '', :frameborder => '0', :height => '360', :src => "#{project.video}", :width => '100%'}
@@ -54,18 +50,12 @@
           %p.video_text Video is coming soon!
       -if can_edit?(project)
         %p=link_to 'Edit project details', edit_project_path(project)
-    %br
     .span4
-      %sub Hours worked on this project:
-      %b.hours_worked #{@project.hours_worked}
-      %br
-      %br
       .sidebar
+        %h3 Pitch
         %br
-          %h3 Pitch
-          %br
-          %p
-            = auto_link(project.description.html_safe)
+        %p
+          = auto_link(project.description.html_safe)
   .span12
     %br
     %br

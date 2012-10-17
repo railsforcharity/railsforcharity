@@ -35,6 +35,17 @@
 }
 
 .hours_worked {
-  font-size: 20px;
+  font-size: 30px;
   color: green;
+  padding: 10px;
+  background-color: #F4F397;
+  display: inline-block;
+  font-weight: bold;
+  border: 1px solid yellow;
+
+  @include box-shadow(#ccc 3px 3px 3px);
+
+  sub {
+    font-size: 10px;
+  }
 }

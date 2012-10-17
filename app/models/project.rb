@@ -98,11 +98,7 @@ class Project < ActiveRecord::Base
   end
 
   def hours_worked
-    total_time = 0
-    self.tasks.done.each do |t|
-      total_time += t.estimated_time/60
-    end
-    x(total_time.round, 'hour')
+    self.tasks.done.reduce(0.0) { |sum, t| sum + t.estimated_time } / 60
   end
 
   private
