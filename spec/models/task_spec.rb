@@ -78,6 +78,23 @@ describe Task do
       it { should_not allow_mass_assignment_of(:status) }
     end
   end
+
+  describe 'for setting estimated time' do
+    let(:task) { create(:task, estimated_minutes: 560) }
+
+    context 'setting estimated time' do
+      it 'should set estimated_time after update' do
+        task.update_attributes(estimated_hours: 5, estimated_minutes: 45)
+        task.estimated_hours.should == 5
+      end
+
+      it 'should set same estimated time on change of task\'s status' do
+        task.status = Task::STATUSES[:done]
+        p task.status
+        task.estimated_hours.should == 9
+      end
+    end
+  end
 end
 
 # subject { create(:task, :category => Task::CATEGORIES[:management]) }

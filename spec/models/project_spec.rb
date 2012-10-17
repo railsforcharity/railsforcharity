@@ -132,8 +132,9 @@ describe Project do
 
     describe '#hours_worked' do
       it 'returns numbers of hours worked' do
-        task1 = create(:task, estimated_hours: 9, estimated_minutes: 30, :status => Task::STATUSES[:done])
-        task2 = create(:task, estimated_minutes: 15, :status => Task::STATUSES[:done])
+        task1 = create(:task, estimated_hours: 9, estimated_minutes: 30)
+        task2 = create(:task, estimated_minutes: 15)
+        [task1, task2].map { |t| t.status = Task::STATUSES[:done]  }
         project.tasks = [task1, task2]
         project.hours_worked.should == 9.75
       end

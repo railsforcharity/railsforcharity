@@ -26,7 +26,6 @@ class TasksController < ApplicationController
       @task = @project.tasks.build(params[:task])
     end
 
-    @task.status = Task::STATUSES[:open]
     @task.creator = current_user
 
     respond_to do |format|

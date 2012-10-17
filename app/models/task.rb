@@ -66,7 +66,8 @@ class Task < ActiveRecord::Base
 
   # Callbacks
   after_save :assign_tags
-  before_create :set_estimated_time
+  before_create :make_open, :set_estimated_time
+  before_save :set_estimated_time, :unless => Proc.new { |task| task.status_changed? }
 
   # Named Scopes
   scope :open_tasks, where(status: STATUSES[:open])
@@ -84,6 +85,10 @@ class Task < ActiveRecord::Base
 
   def estimated_minutes
     self.estimated_time.to_i % 60 if self.estimated_time
+  end
+
+  def make_open
+    self.status = Task::STATUSES[:open]
   end
 
   private

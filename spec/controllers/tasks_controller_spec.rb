@@ -56,18 +56,41 @@ describe TasksController do
     end
   end
 
+  def update
+    respond_to do |format|
+      if @task.update_attributes(params[:task])
+        format.html { redirect_to @task, notice: t('controllers.tasks.update.success') }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @project.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /projects/1
+  # DELETE /projects/1.json
+  def destroy
+    @task.destroy
+
+    respond_to do |format|
+      format.html { redirect_to projects_url }
+      format.json { head :no_content }
+    end
+  end
+
   describe "assign_me" do
     login_user
 
     it "assigns the task to the current user" do
       @request.env['HTTP_REFERER'] = project_path(project)
-      task = create(:task)
+      task = create(:task, :estimated_hours => 4)
 
       put :assign_me, { :id => task.to_param }
-
       task.reload
       task.assigned_to.should_not be_nil
       task.assigned_to.should == user.id
+      task.estimated_hours.should == 4
     end
   end
 end
