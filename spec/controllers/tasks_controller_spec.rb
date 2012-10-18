@@ -38,26 +38,23 @@ describe TasksController do
         assigns(:task).estimated_time.should == 160
       end
 
-      pending 'emails the collaborators' do
-        expect {
-          post :create, { :task => valid_attributes }
-        }.to change(ActionMailer::Base.deliveries, :count).by(1)
-
-        Emailer.should_receive(:send_email).with(user, :new_task, assigns(:task).project)
+      it 'emails the collaborators' do
+        Emailer.should_receive(:send_email).with(user, :new_task, project).and_return(double('mailer', :deliver => true))
+        post :create, { :task => valid_attributes }
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved task as @task" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Task.any_instance.stubs(:save).returns(false)
+        Task.any_instance.stub(:save).and_return(false)
         post :create, {:task => {}}
         assigns(:task).should be_a_new(Task)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Task.any_instance.stubs(:save).returns(false)
+        Task.any_instance.stub(:save).and_return(false)
         post :create, {:task => {}}
         response.should render_template("new")
       end

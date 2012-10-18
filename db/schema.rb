@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121016070546) do
+ActiveRecord::Schema.define(:version => 20121018032248) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -56,6 +56,20 @@ ActiveRecord::Schema.define(:version => 20121016070546) do
   end
 
   add_index "comments", ["ancestry"], :name => "index_comments_on_ancestry"
+
+  create_table "email_preferences", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "email_type"
+    t.integer  "entity_id"
+    t.string   "entity_type"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "email_templates", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "locations", :force => true do |t|
     t.string   "address_line1"

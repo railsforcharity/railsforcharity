@@ -13,7 +13,7 @@ require 'spec_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 #
 # Compared to earlier versions of this generator, there is very limited use of
-# stubs and message expectations in this spec.  Stubs are only used when there
+# stub and message expectations in this spec.  Stubs are only used when there
 # is no simpler way to get a handle on the object needed for the example.
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
@@ -99,14 +99,14 @@ describe ProjectsController do
     describe "with invalid params" do
       it "assigns a newly created but unsaved project as @project" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Project.any_instance.stubs(:save).returns(false)
+        Project.any_instance.stub(:save).and_return(false)
         post :create, {:project => {}}
         assigns(:project).should be_a_new(Project)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Project.any_instance.stubs(:save).returns(false)
+        Project.any_instance.stub(:save).and_return(false)
         post :create, {:project => {}}
         response.should render_template("new")
       end
@@ -124,7 +124,7 @@ describe ProjectsController do
         # specifies that the Project created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Project.any_instance.expects(:update_attributes).with({'these' => 'params'})
+        Project.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
         put :update, {:id => project.to_param, :project => {'these' => 'params'}}
       end
 
@@ -153,7 +153,7 @@ describe ProjectsController do
       it "assigns the project as @project" do
         project = Project.create! attributes_for(:project)
         # Trigger the behavior that occurs when invalid params are submitted
-        Project.any_instance.stubs(:save).returns(false)
+        Project.any_instance.stub(:save).and_return(false)
         put :update, {:id => project.to_param, :project => {}}
         assigns(:project).should eq(project)
       end
@@ -161,7 +161,7 @@ describe ProjectsController do
       it "re-renders the 'edit' template" do
         project = Project.create! attributes_for(:project)
         # Trigger the behavior that occurs when invalid params are submitted
-        Project.any_instance.stubs(:save).returns(false)
+        Project.any_instance.stub(:save).and_return(false)
         put :update, {:id => project.to_param, :project => {}}
         response.should render_template("edit")
       end
@@ -210,7 +210,7 @@ describe ProjectsController do
 
       context 'failure' do
         it 'sets the flash message' do
-          Project.any_instance.stubs(:make_collaborator).returns(false)
+          Project.any_instance.stub(:make_collaborator).and_return(false)
           post :join, {:id => project}
           should set_the_flash.to("Failed to add, please try again later!")
         end

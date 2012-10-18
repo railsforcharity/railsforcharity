@@ -60,7 +60,6 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'rspec-rails-mocha'
   gem 'spork'
   gem 'faker'
   gem 'populator'
