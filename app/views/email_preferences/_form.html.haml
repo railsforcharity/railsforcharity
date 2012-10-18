@@ -1,0 +1,11 @@
+= simple_form_for(@email_preference) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :user_id
+    = f.input :email_type
+    = f.input :entity_id
+    = f.input :entity_type
+
+  .form-actions
+    = f.button :submit

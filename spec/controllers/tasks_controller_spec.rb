@@ -37,6 +37,14 @@ describe TasksController do
         assigns(:task).estimated_time.should_not be_nil
         assigns(:task).estimated_time.should == 160
       end
+
+      pending 'emails the collaborators' do
+        expect {
+          post :create, { :task => valid_attributes }
+        }.to change(ActionMailer::Base.deliveries, :count).by(1)
+
+        Emailer.should_receive(:send_email).with(user, :new_task, assigns(:task).project)
+      end
     end
 
     describe "with invalid params" do

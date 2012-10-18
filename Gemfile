@@ -72,7 +72,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'email_spec'
+  gem 'email_spec', "~> 1.2.1"
   gem 'cucumber-rails', require: false
   gem 'capybara'
   gem 'database_cleaner'

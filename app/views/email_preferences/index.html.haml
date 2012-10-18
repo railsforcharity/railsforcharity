@@ -1,0 +1,25 @@
+%h1 Listing email_preferences
+
+%table
+  %tr
+    %th User
+    %th Email type
+    %th Entity
+    %th Entity type
+    %th
+    %th
+    %th
+
+  - @email_preferences.each do |email_preference|
+    %tr
+      %td= email_preference.user_id
+      %td= email_preference.email_type
+      %td= email_preference.entity_id
+      %td= email_preference.entity_type
+      %td= link_to 'Show', email_preference
+      %td= link_to 'Edit', edit_email_preference_path(email_preference)
+      %td= link_to 'Destroy', email_preference, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Email preference', new_email_preference_path

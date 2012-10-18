@@ -21,7 +21,7 @@ class ContactUs
 
   def save
     if self.valid?
-      Emails.contact_us(self).deliver
+      Emailer.contact_us(self).deliver
       return true
     end
     return false
