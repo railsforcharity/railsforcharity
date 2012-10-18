@@ -20,7 +20,7 @@ class Emailer < ActionMailer::Base
 
     mail(
       :to => user.email,
-      :subject => "[RailsforCharity]: #{subject}"
+      :subject => "[RailsforCharity] #{subject}"
     )
   end
 
