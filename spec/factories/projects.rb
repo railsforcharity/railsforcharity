@@ -16,5 +16,9 @@ FactoryGirl.define do
       category_names 'Citizen Activism, Affordable Transportation'
       technology_names 'Ruby on Rails, jQuery'
     end
+
+    factory :project_with_creator do
+      creator
+    end
   end
 end

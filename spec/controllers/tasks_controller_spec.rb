@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe TasksController do
-  let(:project) { create(:project) }
+  let(:project) { create(:project_with_creator) }
 
   def valid_attributes
     {
@@ -39,7 +39,7 @@ describe TasksController do
       end
 
       it 'emails the collaborators' do
-        Emailer.should_receive(:send_email).with(user, :new_task, project).and_return(double('mailer', :deliver => true))
+        Emailer.should_receive(:send_email).with(project.users, :new_task, project).and_return(double('mailer', :deliver => true))
         post :create, { :task => valid_attributes }
       end
     end
@@ -89,7 +89,7 @@ describe TasksController do
 
     it "assigns the task to the current user" do
       @request.env['HTTP_REFERER'] = project_path(project)
-      task = create(:task, :estimated_hours => 4)
+      task = create(:task, :creator => user, :estimated_hours => 4, project: project)
 
       put :assign_me, { :id => task.to_param }
       task.reload

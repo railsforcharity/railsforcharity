@@ -14,14 +14,17 @@ class Emailer < ActionMailer::Base
     )
   end
 
-  def send_email(user, email_type, entity)
+  def send_email(recipients, email_type, entity)
     subject_template = ERB.new(EmailTemplate::TYPES[email_type][:subject])
     subject = subject_template.result(binding)
+    @user = recipients.first
 
     mail(
-      :to => user.email,
+      :to => recipients.map(&:email).join(","),
       :subject => "[RailsforCharity] #{subject}"
-    )
+    ) do |format|
+      format.html { render "emailer/email_templates/#{email_type}" }
+    end
   end
 
 end

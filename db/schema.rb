@@ -182,12 +182,12 @@ ActiveRecord::Schema.define(:version => 20121018032248) do
 
   create_table "user_permissions", :force => true do |t|
     t.integer  "user_id"
+    t.integer  "entity_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.string   "status"
     t.integer  "role_id"
     t.string   "entity_type"
-    t.integer  "entity_id"
   end
 
   create_table "users", :force => true do |t|
