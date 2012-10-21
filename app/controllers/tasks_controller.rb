@@ -31,7 +31,6 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.save
         @task.tags.each { |t| t.update_attributes(:tag_type => 'task') }
-        p "sending email...."
         Emailer.send_email(@task.project.users, :new_task, @task.project).deliver
 
         if @project.nil?

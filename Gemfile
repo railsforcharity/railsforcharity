@@ -39,6 +39,8 @@ gem 'rmagick', '2.13.1'
 gem 'fog'
 gem 'activerecord-reputation-system', require: 'reputation_system'
 gem 'ancestry'
+gem 'premailer-rails3'
+gem 'hpricot'
 gem 'taps'
 gem 'hirb'
 

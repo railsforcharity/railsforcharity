@@ -3,6 +3,7 @@ require 'erb'
 class Emailer < ActionMailer::Base
 
   default :from => "donotreply@railsforcharity.org"
+  layout 'email'
 
   def contact_us(sender)
     @sender = sender
