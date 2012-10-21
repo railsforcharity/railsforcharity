@@ -51,6 +51,8 @@ GEM
     bcrypt-ruby (3.0.1)
     bootstrap-sass (2.0.4.2)
     builder (3.0.4)
+    bullet (4.2.0)
+      uniform_notifier
     cancan (1.6.8)
     capybara (1.1.2)
       mime-types (>= 1.16)
@@ -304,6 +306,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    uniform_notifier (1.1.0)
     warden (1.2.1)
       rack (>= 1.0)
     will_paginate (3.0.3)
@@ -320,6 +323,7 @@ DEPENDENCIES
   annotate
   autotest-rails
   bootstrap-sass (~> 2.0.4.2)
+  bullet
   cancan
   capybara
   carmen-rails (~> 1.0.0.beta3)

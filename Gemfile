@@ -56,6 +56,7 @@ end
 
 group :development do
   gem "travis-lint", "~> 1.4.0"
+  gem 'bullet'
 end
 
 group :development, :test do

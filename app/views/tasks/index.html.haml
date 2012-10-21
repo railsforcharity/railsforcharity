@@ -32,7 +32,7 @@
           %th Project Name
           %th Actions
         %tbody
-          - @tasks.open_tasks.each do |task|
+          - @open_tasks.each do |task|
             - taskp = TaskPresenter.new(task, self)
             %tr
               %td= task.id
@@ -60,7 +60,7 @@
           %th Assigned to
           %th Actions
         %tbody
-          - @tasks.ongoing.each do |task, i|
+          - @ongoing_tasks.each do |task, i|
             - taskp = TaskPresenter.new(task, self)
             %tr
               %td= task.id
@@ -91,7 +91,7 @@
           %th Delivered By
           %th Actions
         %tbody
-          - @tasks.delivered.each do |task|
+          - @delivered_tasks.each do |task|
             - taskp = TaskPresenter.new(task, self)
             %tr
               %td= task.id
@@ -120,7 +120,7 @@
           %th Accomplished By
           %th Hours Worked
         %tbody
-          - @tasks.done.each do |task|
+          - @done_tasks.each do |task|
             - taskp = TaskPresenter.new(task, self)
             %tr
               %td= task.id

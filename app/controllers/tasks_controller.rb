@@ -61,7 +61,10 @@ class TasksController < ApplicationController
   end
 
   def index
-    @tasks = Task
+    @open_tasks = Task.open_tasks.includes([:creator, :project])
+    @ongoing_tasks = Task.ongoing.includes([:creator, :assignee, :project])
+    @delivered_tasks = Task.delivered.includes([:creator, :assignee, :project])
+    @done_tasks = Task.done.includes([:creator, :assignee, :project])
   end
 
   def destroy

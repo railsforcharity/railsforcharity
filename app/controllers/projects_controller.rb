@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   before_filter :authenticate_user!, :except => [:show, :index]
 
   def index
-    @projects = Project.find_with_reputation(:votes, :all, order: 'votes desc')
+    @projects = Project.find_with_reputation(:votes, :all, order: 'votes desc', :include => [:creator, :avatar, :users])
 
     respond_to do |format|
       format.html # index.html.erb
