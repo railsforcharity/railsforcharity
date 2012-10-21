@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @tasks = @project.tasks
+    @tasks = @project.tasks.includes([:creator])
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @project }
