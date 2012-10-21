@@ -10,7 +10,7 @@ describe Emailer do
     it { should deliver_to users.map(&:email).join(",") }
     it { should deliver_from 'donotreply@railsforcharity.org' }
     it { should have_subject "[RailsforCharity] (#{project.name}) New task created" }
-    it { should have_body_text "A new task is created." }
+    it { should have_body_text "A new task has been created." }
   end
 
   describe 'task_assigned email' do
