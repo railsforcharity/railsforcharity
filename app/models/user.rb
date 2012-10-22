@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
   has_many :user_permissions, dependent: :destroy
   has_one :location, :as => :locatable, dependent: :destroy
   has_one :avatar, :as => :avatarable, dependent: :destroy
+  has_many :email_preferences, :as => :preferencable, dependent: :destroy
   has_many :evaluations, class_name: "RSEvaluation", as: :source
 
   has_many :projects, through: :user_permissions, source: :entity, source_type: 'Project'

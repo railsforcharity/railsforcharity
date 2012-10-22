@@ -9,8 +9,8 @@
         _navigation: {
           app_name: 'Rails for Charity',
           home: 'Home',
-          user_settings: 'User Settings',
           edit_profile: 'Edit Profile',
+          email_preferences: 'Email Preferences',
           submit_project: 'Submit Project',
           projects: 'Projects',
           sign_up: 'Sign Up',

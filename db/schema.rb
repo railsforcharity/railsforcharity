@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121018032248) do
+ActiveRecord::Schema.define(:version => 20121022145507) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -62,13 +62,9 @@ ActiveRecord::Schema.define(:version => 20121018032248) do
     t.integer  "email_type"
     t.integer  "entity_id"
     t.string   "entity_type"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  create_table "email_templates", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.boolean  "setting_value"
   end
 
   create_table "locations", :force => true do |t|
@@ -182,12 +178,12 @@ ActiveRecord::Schema.define(:version => 20121018032248) do
 
   create_table "user_permissions", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "entity_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.string   "status"
     t.integer  "role_id"
     t.string   "entity_type"
+    t.integer  "entity_id"
   end
 
   create_table "users", :force => true do |t|

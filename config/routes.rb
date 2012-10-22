@@ -1,7 +1,5 @@
 Railsforcharity::Application.routes.draw do
 
-  resources :email_preferences
-
   devise_for :users, path_names: { sign_in: "login", sign_out: "logout" },
                      controllers: { omniauth_callbacks: "omniauth_callbacks" }
 
@@ -30,6 +28,8 @@ Railsforcharity::Application.routes.draw do
     member { post :join}
     member { post :unjoin}
   end
+
+  resources :email_preferences, only: [:edit, :update]
 
   #STATIC PAGES
   root :to => 'static_pages#home'

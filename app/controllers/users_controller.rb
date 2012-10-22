@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_filter :find_user, :only => [:edit, :update, :show]
+  before_filter :authenticate_user!, :only => [:edit, :update]
 
   def edit
     redirect_to edit_user_path(current_user) if current_user != @user

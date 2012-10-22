@@ -1,7 +1,9 @@
-%h1 Editing email_preference
+%h1 Email Preferences
+%br
 
-= render 'form'
+= form_tag url: { controller: :email_preferences, action: :update } do
+  - EmailTemplate::TYPES.each do |name, details|
+    %p
+      =check_box_tag "preference_checkbox_#{name}"
+      %label(for="preference_checkbox_#{name}")=details[:description]
 
-= link_to 'Show', @email_preference
-\|
-= link_to 'Back', email_preferences_path

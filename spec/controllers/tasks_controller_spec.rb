@@ -39,7 +39,7 @@ describe TasksController do
       end
 
       it 'emails the collaborators' do
-        Emailer.should_receive(:send_email).with(project.users, :new_task, project).and_return(double('mailer', :deliver => true))
+        Emailer.should_receive(:send_task_email).with(project.users, :new_task, project, assigns(:task)).and_return(double('mailer', :deliver => true))
         post :create, { :task => valid_attributes }
       end
     end

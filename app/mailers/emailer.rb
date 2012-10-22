@@ -3,7 +3,7 @@ require 'erb'
 class Emailer < ActionMailer::Base
 
   default :from => "donotreply@railsforcharity.org"
-  layout 'email'
+  layout 'email/email'
 
   def contact_us(sender)
     @sender = sender
@@ -15,7 +15,7 @@ class Emailer < ActionMailer::Base
     )
   end
 
-  def send_email(recipients, email_type, entity)
+  def send_email(recipients, email_type, project)
     subject_template = ERB.new(EmailTemplate::TYPES[email_type][:subject])
     subject = subject_template.result(binding)
     @user = recipients.first
@@ -28,4 +28,17 @@ class Emailer < ActionMailer::Base
     end
   end
 
+  def send_task_email(recipients, email_type, project, task)
+    subject_template = ERB.new(EmailTemplate::TYPES[email_type][:subject])
+    subject = subject_template.result(binding)
+    @task = task
+    @user = recipients.first
+
+    mail(
+      :to => recipients.map(&:email).join(","),
+      :subject => "[RailsforCharity] #{subject}"
+    ) do |format|
+      format.html { render "emailer/email_templates/#{email_type}" }
+    end
+  end
 end
