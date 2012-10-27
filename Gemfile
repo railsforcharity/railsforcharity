@@ -63,7 +63,6 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'spork'
   gem 'faker'
   gem 'populator'
   gem 'annotate'
@@ -71,6 +70,11 @@ group :development, :test do
   gem 'factory_girl_rails'  # Used for seeding data also
   gem 'autotest-rails'
   gem 'capybara'
+
+  gem 'rb-fsevent', require: false
+  gem 'guard-rspec'
+  gem 'guard-spork'
+  gem 'guard-livereload'
 end
 
 group :test do
@@ -79,6 +83,7 @@ group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'launchy'
+  gem 'spork-rails'
 end
 
 group :production do
