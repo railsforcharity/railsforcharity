@@ -74,7 +74,8 @@ group :development, :test do
   gem 'rb-fsevent', require: false
   gem 'guard-rspec'
   gem 'guard-spork'
-  gem 'guard-livereload'
+  gem 'guard-annotate'
+  gem 'guard-bundler'
 end
 
 group :test do
