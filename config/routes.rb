@@ -37,6 +37,7 @@ Railsforcharity::Application.routes.draw do
   ['contact', 'contact_us', 'faq', 'blog', 'supporters', 'contributors', 'how_it_works', 'terms', 'tour'].each do |route|
     match route => "static_pages##{route}"
   end
+  post 'static_pages/preview', controller: :static_pages, action: :preview
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

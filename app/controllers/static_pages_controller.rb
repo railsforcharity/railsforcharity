@@ -18,4 +18,8 @@ class StaticPagesController < ApplicationController
       render 'contact'
     end
   end
+
+  def preview
+    render partial: 'preview'
+  end
 end

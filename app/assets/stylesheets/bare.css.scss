@@ -1,0 +1,19 @@
+@import "compass";
+
+html, body {
+  font: 13px/18px 'Open Sans';
+  height: 100%;
+}
+.sidebar {
+  padding: 15px;
+  background: #EEE;
+  @include border-radius(5px);
+}
+
+.slash {
+  color: #677E30;
+}
+
+.shadow {
+  @include box-shadow(skyblue 2px 2px 10px);
+}
