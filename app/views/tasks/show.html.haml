@@ -7,11 +7,11 @@
     %br
     %br
     %h4 Task Description
-    = auto_link(@task.description)
+    = raw syntax_highlighter(markdown.render(@task.description))
     %br
     %br
     = render :partial => 'comments/form'
-    = auto_link(nested_comments @comments.arrange(:order => :created_at))
+    = nested_comments (@comments).arrange(:order => :created_at)
 
   .span2
     = render :partial => 'info', :locals => { :show => true }

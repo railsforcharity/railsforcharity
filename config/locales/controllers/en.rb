@@ -67,6 +67,9 @@
         },
         update: {
           success: 'Comment was successfully updated.'
+        },
+        delete: {
+          success: 'Comment was successfully deleted.'
         }
       }
     }

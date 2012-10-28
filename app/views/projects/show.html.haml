@@ -1,3 +1,4 @@
+
 .row
   - present @project do |project|
     .span3
@@ -59,7 +60,7 @@
         %h3 Pitch
         %br
         %p
-          = auto_link(project.description.html_safe)
+          = raw markdown.render(project.description)
 
   .span12
     %br

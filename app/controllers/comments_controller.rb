@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-
+  before_filter :authenticate_user!, :except => [:show, :index]
   before_filter :find_commentable
   before_filter :find_comment, :only => [:destroy, :update, :edit]
 
@@ -16,7 +16,7 @@ class CommentsController < ApplicationController
     @comment = @commentable.comments.new(params[:comment])
     @comment.created_by = current_user
     if @comment.save
-      redirect_to :back, notice: t("controllers.comments.create.success")
+      redirect_to task_path(@commentable), notice: t("controllers.comments.create.success")
     else
       redirect_to :back
     end
@@ -36,7 +36,7 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to :back }
+      format.html { redirect_to :back, :notice => t("controllers.comments.delete.success") }
       format.json { head :no_content }
     end
   end
@@ -45,6 +45,8 @@ private
 
   def find_commentable
     resource, id = request.path.split('/')[1, 2]
+    #resource = 'task' if resource_char == 't'
+    #resource = 'project' if resource_char == 'p'
     @commentable = resource.singularize.classify.constantize.find(id)
   end
 

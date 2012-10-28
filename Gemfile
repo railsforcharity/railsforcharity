@@ -29,6 +29,9 @@ gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 gem 'jquery-ui-rails'
 gem 'will_paginate'
 gem 'rails_autolink'
+gem 'redcarpet'
+gem 'albino'
+gem 'nokogiri'
 
 # Other
 gem 'friendly_id'

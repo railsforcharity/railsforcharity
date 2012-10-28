@@ -2,11 +2,13 @@
   .span12
     .span8.comments
       .created_at= comment.created_at.strftime("%B %d, %Y")
-      = simple_format comment.content
-      - if can_edit?(comment)
-        .span1
-          = link_to 'Destroy', task_comment_path(@task, comment), :confirm => 'Are you sure?', :method => 'delete'
-        .span1
-          = link_to 'Edit', edit_task_comment_path(@commentable, comment)
-      .span1
-        = link_to 'Reply', new_task_comment_path(@task, :parent_id => comment.id)
+      = raw syntax_highlighter(markdown.render(comment.content))
+      %ul
+        - if can_edit?(comment)
+          %li
+            = simple_form_for [@commentable, comment], :url => task_comment_path(@commentable, comment), :method => :delete do |f|
+              = f.submit :confirm => 'Are you sure?', :type => :image, class: 'icon-trash', value: '' # value: '' to workaround a display issue in firefox where it tries to display the value 'Update Comment'
+          %li
+            = link_to '', edit_task_comment_path(@commentable, comment), class: 'icon-edit'
+        %li
+          = link_to '', new_task_comment_path(@task, :parent_id => comment.id), class: 'icon-comment'

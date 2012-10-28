@@ -8,7 +8,6 @@
   %div{:style => "font-size: 15px;"}
     %i.icon-comment
     %span Comments
-    = f.input :content, :label => false, :as => 'text', :input_html => {:style => 'width: 84%', :rows => 5}
+    = f.input :content, :label => false, :as => 'text', :input_html => { :style => 'width:84%', :rows => 5 }
   .form_actions
-    .icon-comment-alt
-      = f.submit :class => 'btn btn-primary'
+    = f.submit 'Comment', :class => 'btn btn-primary'
