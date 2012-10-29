@@ -109,44 +109,6 @@ ALTER SEQUENCE avatars_id_seq OWNED BY avatars.id;
 
 
 --
--- Name: ckeditor_assets; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE ckeditor_assets (
-    id integer NOT NULL,
-    data_file_name character varying(255) NOT NULL,
-    data_content_type character varying(255),
-    data_file_size integer,
-    assetable_id integer,
-    assetable_type character varying(30),
-    type character varying(30),
-    width integer,
-    height integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: ckeditor_assets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE ckeditor_assets_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: ckeditor_assets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE ckeditor_assets_id_seq OWNED BY ckeditor_assets.id;
-
-
---
 -- Name: comments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -646,13 +608,6 @@ ALTER TABLE ONLY avatars ALTER COLUMN id SET DEFAULT nextval('avatars_id_seq'::r
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY ckeditor_assets ALTER COLUMN id SET DEFAULT nextval('ckeditor_assets_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY comments ALTER COLUMN id SET DEFAULT nextval('comments_id_seq'::regclass);
 
 
@@ -757,14 +712,6 @@ ALTER TABLE ONLY avatars
 
 
 --
--- Name: ckeditor_assets_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY ckeditor_assets
-    ADD CONSTRAINT ckeditor_assets_pkey PRIMARY KEY (id);
-
-
---
 -- Name: collaborators_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -866,20 +813,6 @@ ALTER TABLE ONLY tasks
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-
-
---
--- Name: idx_ckeditor_assetable; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX idx_ckeditor_assetable ON ckeditor_assets USING btree (assetable_type, assetable_id);
-
-
---
--- Name: idx_ckeditor_assetable_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX idx_ckeditor_assetable_type ON ckeditor_assets USING btree (assetable_type, type, assetable_id);
 
 
 --
@@ -1071,3 +1004,5 @@ INSERT INTO schema_migrations (version) VALUES ('20121018032248');
 INSERT INTO schema_migrations (version) VALUES ('20121022145507');
 
 INSERT INTO schema_migrations (version) VALUES ('20121027191731');
+
+INSERT INTO schema_migrations (version) VALUES ('20121029074448');
