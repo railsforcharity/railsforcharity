@@ -6,6 +6,8 @@ Railsforcharity::Application.routes.draw do
   resources :users do  # Important note: The devise_for :users route must be placed above :users
     resources :avatars
     resources :locations
+    resources :preferences, only: :index
+    collection { post :save_preferences }
   end
 
   resources :tasks do
@@ -25,11 +27,9 @@ Railsforcharity::Application.routes.draw do
     resources :tasks
     member { get :settings }
     member { post :vote }
-    member { post :join}
-    member { post :unjoin}
+    member { post :join }
+    member { post :unjoin }
   end
-
-  resources :email_preferences, only: [:edit, :update]
 
   #STATIC PAGES
   root :to => 'static_pages#home'

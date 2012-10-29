@@ -20,6 +20,10 @@
       users: {
         update: {
           success: 'User was successfully updated.'
+        },
+        save_preferences: {
+          success: 'Saved your preferences for the selected project.',
+          failure: 'Failed to save preferences.'
         }
       },
 

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
+  before_filter :authenticate_user!, :except => [:show, :index]
   before_filter :find_user, :only => [:edit, :update, :show]
-  before_filter :authenticate_user!, :only => [:edit, :update]
 
   def edit
     redirect_to edit_user_path(current_user) if current_user != @user
@@ -29,6 +29,18 @@ class UsersController < ApplicationController
         format.html { render action: "edit" }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def save_preferences
+    project = Project.find(params[:project_id])
+    preference = project.preferences.where(user_id: current_user.id).first || project.preferences.build(user: current_user)
+    preference.properties = params[:preferences].reject{ |key, value| value == "0" }
+
+    if preference.save
+      redirect_to user_preferences_path(current_user, project_id: project), notice: t('controllers.users.save_preferences.success')
+    else
+      redirect_to :back, notice: t('controllers.users.save_preferences.failure')
     end
   end
 

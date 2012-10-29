@@ -10,7 +10,7 @@
           app_name: 'Rails for Charity',
           home: 'Home',
           edit_profile: 'Edit Profile',
-          email_preferences: 'Email Preferences',
+          preferences: 'Preferences',
           submit_project: 'Submit Project',
           projects: 'Projects',
           sign_up: 'Sign Up',

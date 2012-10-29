@@ -4,32 +4,32 @@ class EmailTemplate
   TYPES = {
     new_task: {
       id: 1,
-      description: 'Email me whenever a new task is created in this project.',
+      description: 'A new task is created.',
       subject: "(<%= project.name %>) New task created"
     },
     task_assigned: {
       id: 2,
-      description: 'Email me whenever a task status changes to "assigned".',
+      description: "A task is assigned to someone.",
       subject: "(<%= project.name %>) task assigned"
     },
     task_unassigned: {
       id: 3,
-      description: 'Email me whenever a task status changes to "Unassigned".',
+      description: 'A task is unassigned from someone.',
       subject: "(<%= project.name %>) task unassigned"
     },
     task_delivered: {
       id: 4,
-      description: 'Email me whenever a task status changes to "delivered".',
+      description: 'A task is delivered.',
       subject: "(<%= project.name %>) task delivered"
     },
     task_accepted: {
       id: 5,
-      description: 'Email me whenever a task status changes to "accepted".',
+      description: 'A task is accepted.',
       subject: "(<%= project.name %>) task accepted"
     },
     task_rejected: {
       id: 6,
-      description: 'Email me whenever a task status changes to "rejected".',
+      description: 'A task is rejected.',
       subject: "(<%= project.name %>) task rejected"
     },
   }

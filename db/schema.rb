@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121022145507) do
+ActiveRecord::Schema.define(:version => 20121027191731) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -57,16 +57,6 @@ ActiveRecord::Schema.define(:version => 20121022145507) do
 
   add_index "comments", ["ancestry"], :name => "index_comments_on_ancestry"
 
-  create_table "email_preferences", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "email_type"
-    t.integer  "entity_id"
-    t.string   "entity_type"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-    t.boolean  "setting_value"
-  end
-
   create_table "locations", :force => true do |t|
     t.string   "address_line1"
     t.string   "address_line2"
@@ -79,6 +69,17 @@ ActiveRecord::Schema.define(:version => 20121022145507) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end
+
+  create_table "preferences", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "entity_id"
+    t.string   "entity_type"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.hstore   "properties"
+  end
+
+  add_index "preferences", ["properties"], :name => "preferences_properties"
 
   create_table "projects", :force => true do |t|
     t.string   "name"

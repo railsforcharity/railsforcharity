@@ -28,6 +28,7 @@ class Project < ActiveRecord::Base
   has_one :avatar, as: :avatarable, dependent: :destroy
   has_many :taggings, as: :taggable, dependent: :destroy
   has_many :tags, through: :taggings
+  has_many :preferences, as: :entity, dependent: :destroy
   has_many :user_permissions, as: :entity, dependent: :destroy
   has_many :users, through: :user_permissions
   #has_many :admins, through: :user_permissions, source: :entity, source_type: 'Project', conditions: "user_permissions.role_id = #{Role::TYPES[:project_admin]}"

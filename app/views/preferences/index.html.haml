@@ -1,0 +1,29 @@
+:javascript
+  $(document).ready(function () {
+    $('#project_id').on('change', function () {
+      var projectId = $(this).val();
+      $.ajax({
+        url: "/users/#{current_user.slug}/preferences",
+        data: { project_id: projectId },
+        success: function (data) {
+          $('#part').html(data);
+        }
+      });
+    });
+  });
+
+.row
+  .span8
+    %h2 Set your email preferences per project
+    %br
+
+    = form_for current_user, url: save_preferences_users_path, method: :post do |u|
+      = select_tag :project_id, options_from_collection_for_select(current_user.projects, :id, :name, params[:project_id])
+      %br
+      #part
+        = render partial: 'preferences/settings'
+      %br
+      = u.submit 'Save', class: 'btn btn-primary'
+
+  .span4
+    = render :partial => 'preferences/help'

@@ -1,0 +1,5 @@
+- EmailTemplate::TYPES.each do |name, details|
+  = fields_for :preferences, @preference do |p|
+    %br
+    = p.check_box name, { checked: @preference.properties && @preference.properties[name.to_s] == "1" }
+    = label_tag "preferences[#{name}]", details[:description], class: 'inline_label'

@@ -29,16 +29,19 @@ class User < ActiveRecord::Base
   # Devise modules. Others available are: :token_authenticatable, :lockable, :timeoutable
   devise :database_authenticatable, :registerable, :omniauthable, :confirmable, :recoverable, :rememberable, :trackable, :validatable
 
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me , :website, :bio, :avatar_attributes, :location_attributes
+  attr_accessible :name, :email, :password, :password_confirmation, :remember_me , :website, :bio,
+    # singular
+    :avatar_attributes, :location_attributes,
+    # plural
+    :preferences_attributes
 
   # Relations
   has_many :authentications, dependent: :destroy
   has_many :user_permissions, dependent: :destroy
   has_one :location, :as => :locatable, dependent: :destroy
   has_one :avatar, :as => :avatarable, dependent: :destroy
-  has_many :email_preferences, :as => :preferencable, dependent: :destroy
+  has_many :preferences, dependent: :destroy
   has_many :evaluations, class_name: "RSEvaluation", as: :source
-
   has_many :projects, through: :user_permissions, source: :entity, source_type: 'Project'
 
   has_many :admin_projects,
@@ -55,7 +58,7 @@ class User < ActiveRecord::Base
 
   has_reputation :votes, source: {reputation: :votes, of: :projects}, aggregated_by: :sum
 
-  accepts_nested_attributes_for :avatar, :location
+  accepts_nested_attributes_for :avatar, :location, :preferences
 
   # Friendly Id
   extend FriendlyId

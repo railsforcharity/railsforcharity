@@ -44,9 +44,9 @@
             %a(href="#{edit_user_path(current_user)}")
               %i(class="icon-edit")
               =t('views.layouts._navigation.edit_profile')
-            %a(href="#{edit_email_preference_path(current_user)}")
-              %i(class="icon-envelope")
-              =t('views.layouts._navigation.email_preferences')
+            %a(href="#{user_preferences_path(current_user)}")
+              %i(class="icon-adjust")
+              =t('views.layouts._navigation.preferences')
       = link_to t('views.layouts._navigation.log_out'), destroy_user_session_path, :method => 'delete', :class => 'btn btn-danger'
   -else
     %ul.nav.pull-right
