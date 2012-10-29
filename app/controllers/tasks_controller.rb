@@ -31,7 +31,7 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.save
         @task.tags.each { |t| t.update_attributes(:tag_type => 'task') }
-        Emailer.send_task_email(@task.project.users, :new_task, @task.project, @task).deliver
+        Emailer.send_task_email(@task.project.preferences.new_task_users, :new_task, @task.project, @task).deliver
 
         if @project.nil?
           format.html { redirect_to :back, notice: t('controllers.tasks.create.success') }
