@@ -1,13 +1,47 @@
-%p
-  Task #{@task.name}
-  -#Description:
-  -#Project:
-  -#Creator:
-  -#Type:
-  -#Estimated Time:
-  -#Category:
-
-  A new task has been created.
-  %br
-  %br
-  %input(type='button' class='btn-small btn-table btn-assign') Let me do it!
+- taskp = TaskPresenter.new(@task, self)
+%table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+  %tbody
+    %tr
+      %td{:align => "center", :bgcolor => "#CDD7DC"}
+        %div{:style => "max-width:540px; font-family:arial,verdana,sans-serif;"}
+          %table{:cellpadding => "0", :cellspacing => "0", :style => 'border-bottom: 3px solid #CDD7DC'}
+            %tbody
+              %tr
+                %td{:align => "left", :bgcolor => "#FFFFFF"}
+                  = render :partial => 'emailer/email_templates/top'
+                  %table
+                    %tbody
+                      %tr
+                        %td
+                          %div{:style => "font-family:arial,verdana,sans-serif;font-size:12px; margin: 5px;"}
+                            %p Hello #{@user.name},
+                            %br
+                            %h4 A new task has been created.
+                            %br
+                            %table.table.table-striped.table-hover
+                              %tbody
+                                %tr
+                                  %th Task
+                                  %td= @task.name
+                                %tr
+                                  %th Description
+                                  %td= @task.description
+                                %tr
+                                  %th Project
+                                  %td= @task.project.name
+                                %tr
+                                  %th Creator:
+                                  %td=@task.creator.name
+                                %tr
+                                  %th Type:
+                                  %td= @task.task_type
+                                %tr
+                                  %th Estimated Time:
+                                  %td= taskp.estimated_time
+                                %tr
+                                  %th Category:
+                                  %td= Task::CATEGORIES.key(@task.category)
+                            %a{:href => "http://railsforcharity.org", :target => "_blank"}
+                              %button.btn.btn-large.btn-primary
+                                %p Let me do it!
+                    = render :partial => 'emailer/email_templates/base_footer'
