@@ -6,6 +6,6 @@ module CommentsHelper
   end
 
   def can_edit?(comment)
-    User.find(comment.created_by) == current_user
+    #User.find(comment.created_by) == current_user
   end
 end
