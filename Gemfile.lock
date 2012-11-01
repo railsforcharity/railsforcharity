@@ -376,7 +376,7 @@ DEPENDENCIES
   annotate
   autotest-rails
   bootstrap-sass (~> 2.0.4.2)
-  bullet
+  bullet (~> 4.2.0)
   cancan
   capybara
   carmen-rails (~> 1.0.0.beta3)

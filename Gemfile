@@ -47,6 +47,8 @@ gem 'premailer-rails3'
 gem 'hpricot'
 gem 'taps'
 gem 'hirb'
+gem "bullet", "~> 4.2.0"
+
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -62,7 +64,6 @@ end
 
 group :development do
   gem "travis-lint", "~> 1.4.0"
-  gem 'bullet'
 end
 
 group :development, :test do
