@@ -44,10 +44,9 @@
             %a(href="#{edit_user_path(current_user)}")
               %i(class="icon-edit")
               =t('views.layouts._navigation.edit_profile')
-            - if Rails.env.development?
-              %a(href="#{user_preferences_path(current_user)}")
-                %i(class="icon-adjust")
-                =t('views.layouts._navigation.preferences')
+            %a(href="#{user_preferences_path(current_user)}")
+              %i(class="icon-adjust")
+              =t('views.layouts._navigation.preferences')
       = link_to t('views.layouts._navigation.log_out'), destroy_user_session_path, :method => 'delete', :class => 'btn btn-danger'
   -else
     %ul.nav.pull-right
