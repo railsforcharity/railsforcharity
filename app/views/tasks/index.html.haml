@@ -46,7 +46,7 @@
                   = f.button :submit, 'Let me do it!', class: 'btn-small btn-table btn-assign'
                 - if task.creator == current_user
                   = simple_form_for [@project, task], :method => :delete do |f|
-                    = f.button :submit, 'Delete', :confirm => 'Are you sure?', class: 'btn-small btn-table'
+                    = f.button :submit, 'Delete', :data => { :confirm => 'Are you sure?' }, class: 'btn-small btn-table'
 
     #task_ongoing.tab-pane
       %table.table.table-striped.table-hover.table-bordered.datatable
