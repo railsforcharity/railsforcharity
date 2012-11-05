@@ -41,7 +41,7 @@
                                 %tr
                                   %th Category:
                                   %td= Task::CATEGORIES.key(@task.category)
-                            %a{:href => "http://railsforcharity.org", :target => "_blank"}
+                            %a{:href => "http://railsforcharity.org/tasks/" + @task.id.to_s, :target => "_blank"}
                               %button.btn.btn-large.btn-primary
                                 %p Let me do it!
                     = render :partial => 'emailer/email_templates/base_footer'
