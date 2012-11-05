@@ -31,9 +31,6 @@
                                   %th Description
                                   %td= @task.description
                                 %tr
-                                  %th Project
-                                  %td= @task.project.name
-                                %tr
                                   %th Creator:
                                   %td=@task.creator.name
                                 %tr
@@ -48,4 +45,4 @@
                             %a{:href => "http://railsforcharity.org/tasks/" + @task.id.to_s, :target => "_blank"}
                               %button.btn.btn-large.btn-primary
                                 %p Let me do it!
-                    = render :partial => 'emailer/email_templates/base_footer'
+                    = render :partial => 'emailer/email_templates/footer'

@@ -20,7 +20,7 @@
     });
   });
 
--if @task.project_id != nil
+-if @task.project_id
   = simple_form_for [@project, @task] do |f|
     = f.error_notification
 
@@ -38,13 +38,12 @@
     .form-actions
       = f.button :submit, :class => 'btn btn-primary'
 
-
 - else
   = simple_form_for [@task] do |f|
     = f.error_notification
 
     .form-inputs
-      = f.input :project_id, :collection => @user.projects, :label_method => :name, :include_blank => false
+      = f.input :project_id, :collection => @user.projects, :label_method => :name, :include_blank => true
       = f.input :name, :label => 'Story Title', :input_html => { :style => 'width:50%' }
       = f.input :description, :label => 'Story Description', :input_html => { :style => 'width: 100%', :rows => 10 }
       = f.input :tag_names, :input_html => { :class => 'select_tags', data: { load: @task.tags } }, :label => 'Add Tags'

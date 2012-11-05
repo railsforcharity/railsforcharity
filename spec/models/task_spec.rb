@@ -52,6 +52,11 @@ describe Task do
       it { should validate_presence_of(:category) }
     end
 
+    context 'for project' do
+      it { should allow_mass_assignment_of(:project_id) }
+      it { should validate_presence_of(:project_id) }
+    end
+
     context 'for task type' do
       it { should allow_mass_assignment_of(:task_type) }
 

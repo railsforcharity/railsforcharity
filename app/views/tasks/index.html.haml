@@ -39,7 +39,7 @@
               %td= link_to task.name, task_path(task)
               %td= task.task_type
               %td= taskp.estimated_time
-              %td= link_to User.find(task.created_by).name, user_path(task.creator)
+              %td= link_to task.creator.name, user_path(task.creator)
               %td= link_to task.project.name, project_path(task.project)
               %td
                 = simple_form_for [task], :url => assign_me_task_path(task), :method => :post do |f|
