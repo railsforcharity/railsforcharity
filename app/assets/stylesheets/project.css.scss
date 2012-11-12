@@ -8,6 +8,7 @@
   min-height: 300px;
   min-width: 300px;
   @include box-shadow(#696969 2px 2px 10px);
+  position:relative;
 }
 
 .search_box {
@@ -49,4 +50,12 @@
   sub {
     font-size: 10px;
   }
+}
+
+.github_fork {
+  position: absolute;
+  opacity:0.8;
+  top: 0;
+  right: 0;
+  border: 0;
 }

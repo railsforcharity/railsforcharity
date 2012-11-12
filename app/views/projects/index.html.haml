@@ -2,6 +2,8 @@
   - @projects.each do |project|
     - project_presenter = ProjectPresenter.new(project, self)
     .project_content
+      %a(href="#{project_presenter.github_url}" target="_blank")
+        %img.github_fork(alt="Fork me on GitHub" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png")
       .span5
         .row
           .span3
