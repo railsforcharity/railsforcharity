@@ -9,6 +9,8 @@
             = render 'layouts/navigation'
     .container
       = render 'layouts/messages'
+      %a{:href => "https://github.com/railsforcharity/railsforcharity"}
+        %img{:alt => "Fork me on GitHub", :src => "https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png", :style => "position: absolute; top: 40px; right: 0; border: 0;"}/
     = yield
     = render 'layouts/footer'
 
