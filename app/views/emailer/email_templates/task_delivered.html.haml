@@ -17,12 +17,11 @@
                             %p Hello #{@user.name},
                             %br
                             %p
-                              The story you have requested,
+                              The task you have requested,
                               %a{:href => "http://railsforcharity.org/tasks/" + @task.id.to_s, :target => "_blank"}
                                 %span.thick=@task.name
                               has been delivered.
-                            %br
-                            %p You can now choose to accept or reject the story.
+                            %p You can now choose to accept or reject the task.
                             %br
                             %table.table.table-striped.table-hover
                               %tbody
