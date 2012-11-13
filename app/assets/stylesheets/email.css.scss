@@ -4,7 +4,7 @@
 //= require bare
 @import "compass";
 
-tr, td, th, tbody, table, h1, h2, h3, h4, h5, p, a, button {
+tr, td, th, tbody, table, h1, h2, h3, h4, h5, p, a, button, p span {
   color: black !important;
 }
 
@@ -19,4 +19,16 @@ a {
 
 button p {
   color: #ffffff !important;
+}
+
+p a span {
+  color: blue !important;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.thick {
+  font-weight: bold;
 }
