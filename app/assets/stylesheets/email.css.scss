@@ -22,7 +22,7 @@ button p {
 }
 
 p a span {
-  color: blue !important;
+  color: #1155cc !important;
 }
 
 a {
@@ -31,4 +31,8 @@ a {
 
 .thick {
   font-weight: bold;
+}
+
+a.url {
+  text-decoration: underline !important;
 }
