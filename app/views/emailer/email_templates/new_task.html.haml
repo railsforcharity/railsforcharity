@@ -16,7 +16,10 @@
                           %div{:style => "font-family:arial,verdana,sans-serif;font-size:12px; margin: 5px;"}
                             %p Hello #{@user.name},
                             %br
-                            %h4 A new task has been created.
+                            %p
+                              A new task has been created. Please check it out.
+                              %a{:href => "http://railsforcharity.org/tasks/" + @task.id.to_s, :target => "_blank"}
+                                %span.thick=@task.name
                             %br
                             %table.table.table-striped.table-hover
                               %tbody
