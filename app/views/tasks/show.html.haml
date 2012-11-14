@@ -31,4 +31,6 @@
         = f.button :submit, 'Accept', class: 'btn-small btn-lima'
       = simple_form_for [@task], :url => reject_task_path(@task), :method => :post do |f|
         = f.button :submit, 'Reject', class: 'btn-small btn-warning'
-    = link_to 'Edit', edit_task_path(@task), class: 'btn btn-primary'
+
+    - if @task.status != Task::STATUSES[:done]  && (@task.creator == current_user) && @task.status != Task::STATUSES[:delivered]
+      = link_to 'Edit', edit_task_path(@task), class: 'btn btn-primary'
