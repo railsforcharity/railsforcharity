@@ -90,7 +90,8 @@ class TasksController < ApplicationController
     @task.status = Task::STATUSES[:ongoing]
 
     if @task.save!
-      Emailer.send_task_email(@task.creator, :task_assigned, @task.project, @task).deliver
+      @task.project.preferences.task_assigned_users.each { |user| Emailer.send_task_email(@task.creator, :task_assigned, @task.project, @task).deliver }
+
       redirect_to :back, notice: t('controllers.tasks.assign_me.success')
     else
       redirect_to :back, notice: t('controllers.tasks.assign_me.failure')
@@ -101,7 +102,7 @@ class TasksController < ApplicationController
     @task.status = Task::STATUSES[:delivered]
 
     if @task.save!
-      Emailer.send_task_email(@task.creator, :task_delivered, @task.project, @task).deliver
+      @task.project.preferences.task_delivered_users.each { |user| Emailer.send_task_email(@task.creator, :task_delivered, @task.project, @task).deliver }
       redirect_to :back, notice: t('controllers.tasks.deliver.success')
     else
       redirect_to :back, notice: t('controllers.tasks.deliver.failure')
@@ -113,7 +114,7 @@ class TasksController < ApplicationController
     @task.status = Task::STATUSES[:open]
 
     if @task.save!
-      Emailer.send_task_email(@task.creator, :task_unassigned, @task.project, @task).deliver
+      @task.project.preferences.task_unassigned_users.each { |user| Emailer.send_task_email(@task.creator, :task_unassigned, @task.project, @task).deliver }
       redirect_to :back, notice: t('controllers.tasks.unassign.success')
     else
       redirect_to :back, notice: t('controllers.tasks.unassign.failure')
@@ -124,7 +125,7 @@ class TasksController < ApplicationController
     @task.status = Task::STATUSES[:done]
 
     if @task.save!
-      Emailer.send_task_email(@task.assignee, :task_accepted, @task.project, @task).deliver
+      @task.project.preferences.task_accepted_users.each { |user| Emailer.send_task_email(@task.assignee, :task_accepted, @task.project, @task).deliver }
       redirect_to :back, notice: t('controllers.tasks.accept.success')
     else
       redirect_to :back, notice: t('controllers.tasks.accept.failure')
@@ -135,7 +136,7 @@ class TasksController < ApplicationController
     @task.status = Task::STATUSES[:ongoing]
 
     if @task.save!
-      Emailer.send_task_email(@task.assignee, :task_rejected, @task.project, @task).deliver
+      @task.project.preferences.task_rejected_users.each { |user| Emailer.send_task_email(@task.assignee, :task_rejected, @task.project, @task).deliver }
       redirect_to :back, notice: t('controllers.tasks.reject.success')
     else
       redirect_to :back, notice: t('controllers.tasks.reject.failure')
