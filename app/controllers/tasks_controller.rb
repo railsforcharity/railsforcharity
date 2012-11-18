@@ -90,7 +90,9 @@ class TasksController < ApplicationController
     @task.status = Task::STATUSES[:ongoing]
 
     if @task.save!
-      @task.project.preferences.task_assigned_users.each { |user| Emailer.send_task_email(@task.creator, :task_assigned, @task.project, @task).deliver }
+      if @task.creator != current_user && @task.project.preferences.task_assigned_users.include?(@task.creator)
+        Emailer.send_task_email(@task.creator, :task_assigned, @task.project, @task).deliver
+      end
 
       redirect_to :back, notice: t('controllers.tasks.assign_me.success')
     else

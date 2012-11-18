@@ -23,19 +23,24 @@ class Preference < ActiveRecord::Base
   # Accessor Methods
 
   EmailTemplate::TYPES.each do |name, _|
-    attr_accessible name
-    scope "has_#{name}", lambda { where("properties @> (? => ?)", name, "1") }
+    attr_accessible name    # attr_accessible :new_task, :task_assigned, ...
 
-    define_singleton_method "#{name}_users" do
-      (self.send "has_#{name}").map(&:user)
-    end
+    scope "has_#{name}", lambda { where("properties @> (? => ?)", name, "1") }  # scope :has_new_task, lambda { where("properties @> (? => ?)", :new_task, "1") }
 
-    define_method name do
-      properties && properties[name]
-    end
+    define_singleton_method "#{name}_users" do                    # def new_task_users
+      (self.send "has_#{name}").map(&:user)                       #   self.has_new_task.map(&:user)
+    end                                                           # end
 
-    define_method "#{name}=" do |value|
-      self.properties = (properties || {}).merge(name => value)
-    end
+    define_method name do                                         # def new_task
+      properties && properties[name]                              #   properties && properties[:new_task]
+    end                                                           # end
+
+    define_method "#{name}=" do |value|                           # def new_task=
+      self.properties = (properties || {}).merge(name => value)   #   self.properties = (properties || {}).merge(:new_task => value)
+    end                                                           # end
+  end
+
+  def self.user_project_preference(user, project)
+    find_by_user_id_and_entity_type_and_entity_id(user.id, 'Project', project.id)
   end
 end

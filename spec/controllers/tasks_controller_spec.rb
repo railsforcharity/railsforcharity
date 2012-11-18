@@ -87,15 +87,50 @@ describe TasksController do
   describe "assign_me" do
     login_user
 
-    it "assigns the task to the current user" do
+    before :each do
       @request.env['HTTP_REFERER'] = project_path(project)
+    end
+
+    it "assigns the task to the current user" do
       task = create(:task, :creator => user, :estimated_hours => 4, project: project)
 
       put :assign_me, { :id => task.to_param }
+
       task.reload
       task.assigned_to.should_not be_nil
       task.assigned_to.should == user.id
       task.estimated_hours.should == 4
+    end
+
+    context 'creator is assignee' do
+      it 'does not email the creator' do
+        task = create(:task, :creator => user, :estimated_hours => 4, project: project)
+
+        put :assign_me, { :id => task.to_param }
+
+        last_email.should be_nil
+      end
+
+    end
+
+    context 'creator is not assignee' do
+      context 'creator has email preference for task_assigned' do
+        it 'emails the creator' do
+          john = build(:user)
+          task = create(:task, :creator => john, :estimated_hours => 4, project: project)
+          project.preferences.create(user: john, task_assigned: "1")
+
+          put :assign_me, { :id => task.to_param }
+
+          #Emailer.should_receive(:send_task_email).with(task.creator, :task_assigned, task.project, task)
+        end
+      end
+
+      context 'creator does not have email preference for task_assigned' do
+        it 'does not email the creator' do
+
+        end
+      end
     end
   end
 end

@@ -4,34 +4,39 @@ class EmailTemplate
   TYPES = {
     new_task: {
       id: 1,
-      description: 'A new task is created.',
-      subject: "(<%= project.name %>) New task created"
+      description: 'Any new task is created in this project.',
+      subject: "(<%= project.name %>) New task"
     },
+
     task_assigned: {
       id: 2,
-      description: "A task is assigned to someone.",
-      subject: "(<%= project.name %>) task assigned"
+      description: "A task you created is assigned to someone.",
+      subject: "(<%= project.name %>) Task assigned"
     },
+
     task_unassigned: {
       id: 3,
-      description: 'A task is unassigned from someone.',
-      subject: "(<%= project.name %>) task unassigned"
+      description: 'A task you created is no longer assigned to someone.',
+      subject: "(<%= project.name %>) Task unassigned"
     },
+
     task_delivered: {
       id: 4,
-      description: 'A task is delivered.',
-      subject: "(<%= project.name %>) task delivered"
+      description: 'A task you created is delivered by someone.',
+      subject: "(<%= project.name %>) Task delivered"
     },
+
     task_accepted: {
       id: 5,
-      description: 'A task is accepted.',
-      subject: "(<%= project.name %>) task accepted"
+      description: 'A task you delivered is accepted by the task creator.',
+      subject: "(<%= project.name %>) Task accepted"
     },
+
     task_rejected: {
       id: 6,
-      description: 'A task is rejected.',
-      subject: "(<%= project.name %>) task rejected"
-    },
+      description: 'A task you delivered is rejected by the task creator.',
+      subject: "(<%= project.name %>) Task rejected"
+    }
   }
 
 end
