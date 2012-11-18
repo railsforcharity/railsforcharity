@@ -1,51 +1,36 @@
 - taskp = TaskPresenter.new(@task, self)
-%table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
-  %tbody
-    %tr
-      %td{:align => "center", :bgcolor => "#CDD7DC"}
-        %div{:style => "max-width:540px; font-family:arial,verdana,sans-serif;"}
-          %table{:cellpadding => "0", :cellspacing => "0", :style => 'border-bottom: 3px solid #CDD7DC'}
-            %tbody
-              %tr
-                %td{:align => "left", :bgcolor => "#FFFFFF"}
-                  = render :partial => 'emailer/layout/top'
-                  %table
-                    %tbody
-                      %tr
-                        %td
-                          %div{:style => "font-family:arial,verdana,sans-serif;font-size:12px; margin: 5px;"}
-                            %p Hello #{@user.name},
-                            %br
-                            %p
-                              The task you have requested,
-                              %a{:href => "http://railsforcharity.org/tasks/" + @task.id.to_s, :target => "_blank"}
-                                %span.thick=@task.name
-                              has been delivered.
-                            %p You can now choose to accept or reject the task.
-                            %br
-                            %table.table.table-striped.table-hover
-                              %tbody
-                                %tr
-                                  %th Project
-                                  %td
-                                    %h5= @task.project.name
-                                %tr
-                                  %th Task
-                                  %td= @task.name
-                                %tr
-                                  %th Description
-                                  %td= @task.description
-                                %tr
-                                  %th Delivered By
-                                  %td=taskp.assignee_name
-                                %tr
-                                  %th Type
-                                  %td= @task.task_type
-                                %tr
-                                  %th Estimated Time
-                                  %td= taskp.estimated_time
-                                %tr
-                                  %th Category
-                                  %td= Task::CATEGORIES.key(@task.category)
-                    = render :partial => 'emailer/layout/footer'
 
+%div{:style => "font-family:arial,verdana,sans-serif;font-size:12px; margin: 5px;"}
+  %p Hello #{@user.name},
+  %br
+  %p
+    The task you have requested,
+    %a{:href => "http://railsforcharity.org/tasks/" + @task.id.to_s, :target => "_blank"}
+      %span.thick=@task.name
+    has been delivered.
+  %p You can now choose to accept or reject the task.
+  %br
+  %table.table.table-striped.table-hover
+    %tbody
+      %tr
+        %th Project
+        %td
+          %h5= @task.project.name
+      %tr
+        %th Task
+        %td= @task.name
+      %tr
+        %th Description
+        %td= @task.description
+      %tr
+        %th Delivered By
+        %td=taskp.assignee_name
+      %tr
+        %th Type
+        %td= @task.task_type
+      %tr
+        %th Estimated Time
+        %td= taskp.estimated_time
+      %tr
+        %th Category
+        %td= Task::CATEGORIES.key(@task.category)
