@@ -15,6 +15,11 @@ describe Emailer do
   end
 
   describe 'task_assigned email' do
+    before :each do
+      task.assignee = user
+      task.status = Task::STATUSES[:ongoing]
+    end
+
     let(:mail) { Emailer.send_task_email(user, :task_assigned, project, task) }
     subject { mail }
     it { should deliver_to user.email }
@@ -31,6 +36,9 @@ describe Emailer do
   end
 
   describe 'task_delivered email' do
+    before :each do
+      task.assignee = user
+    end
     let(:mail) { Emailer.send_task_email(user, :task_delivered, project, task) }
     subject { mail }
     it { should deliver_to user.email }

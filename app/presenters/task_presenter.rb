@@ -25,5 +25,4 @@ class TaskPresenter < ApplicationPresenter
   def assignee_name
     task.assignee.name
   end
-
 end
