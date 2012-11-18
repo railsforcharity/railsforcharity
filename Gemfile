@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Infrastructure
-gem 'rails', '3.2.7'
+gem 'rails', '3.2.8'
 gem 'pg'
 gem 'heroku'
 gem 'lol_dba'
@@ -74,7 +74,6 @@ group :development, :test do
   gem 'shoulda-matchers' # shoulda-context causes the error http://stackoverflow.com/q/9523931/238880
   gem 'factory_girl_rails'  # Used for seeding data also
   gem 'autotest-rails'
-  gem 'capybara'
 
   gem 'rb-fsevent', require: false
   gem 'guard-rspec'
