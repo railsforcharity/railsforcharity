@@ -8,7 +8,7 @@
             %tbody
               %tr
                 %td{:align => "left", :bgcolor => "#FFFFFF"}
-                  = render :partial => 'emailer/email_templates/top'
+                  = render :partial => 'emailer/layout/top'
                   %table
                     %tbody
                       %tr
@@ -44,5 +44,5 @@
                                 %tr
                                   %th Category
                                   %td= Task::CATEGORIES.key(@task.category)
-                    = render :partial => 'emailer/email_templates/footer'
+                    = render :partial => 'emailer/layout/footer'
 

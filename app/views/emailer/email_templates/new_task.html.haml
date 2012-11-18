@@ -8,7 +8,7 @@
             %tbody
               %tr
                 %td{:align => "left", :bgcolor => "#FFFFFF"}
-                  = render :partial => 'emailer/email_templates/top'
+                  = render :partial => 'emailer/layout/top'
                   %table
                     %tbody
                       %tr
@@ -48,4 +48,4 @@
                             %a{:href => "http://railsforcharity.org/tasks/" + @task.id.to_s, :target => "_blank"}
                               %button.btn.btn-large.btn-primary
                                 %p Let me do it!
-                    = render :partial => 'emailer/email_templates/footer'
+                    = render :partial => 'emailer/layout/footer'
