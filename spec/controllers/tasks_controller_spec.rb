@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe TasksController do
   let(:project) { create(:project_with_creator) }
+  let(:mail) { double("mail", :deliver => true) } # test double
 
   def valid_attributes
     {
@@ -25,12 +26,12 @@ describe TasksController do
 
       it "creates a new Task" do
         expect {
-          post :create, { :task => valid_attributes }
+          post :create, {:task => valid_attributes}
         }.to change(Task, :count).by(1)
       end
 
       it "assigns a newly created task as @task" do
-        post :create, { :task => valid_attributes }
+        post :create, {:task => valid_attributes}
 
         assigns(:task).should be_a(Task)
         assigns(:task).should be_persisted
@@ -38,9 +39,26 @@ describe TasksController do
         assigns(:task).estimated_time.should == 160
       end
 
-      pending 'emails the collaborators' do
-        #Emailer.should_receive(:send_task_email).with(project.users, :new_task, project, assigns(:task)).and_return(double('mailer', :deliver => true))
-        #post :create, { :task => valid_attributes }
+      context 'collaborators do not have email preferences for task created.' do
+        it 'does not email the collaborators' do
+          Emailer.should_not_receive(:send_task_email)
+          Emailer.should_not_receive(:send_task_email)
+
+          post :create, { :task => valid_attributes }
+        end
+      end
+
+      context 'collaborators have email preferences for task created' do
+        it 'emails the collaborators' do
+          john = build(:user)
+          project.preferences.create(user: john, new_task: "1")
+          project.preferences.create(user: user, new_task: "1")
+
+          Emailer.should_receive(:send_task_email).with(john, :new_task, an_instance_of(Task)).and_return(mail)
+          Emailer.should_receive(:send_task_email).with(user, :new_task, an_instance_of(Task)).and_return(mail)
+
+          post :create, { :task => valid_attributes }
+        end
       end
     end
 
@@ -94,7 +112,7 @@ describe TasksController do
     it "assigns the task to the current user" do
       task = create(:task, :creator => user, :estimated_hours => 4, project: project)
 
-      put :assign_me, { :id => task.to_param }
+      put :assign_me, {:id => task.to_param}
 
       task.reload
       task.assigned_to.should_not be_nil
@@ -103,99 +121,100 @@ describe TasksController do
     end
 
     context 'creator is assignee' do
+
       it 'does not email the creator' do
         task = create(:task, :creator => user, :estimated_hours => 4, project: project)
 
-        put :assign_me, { :id => task.to_param }
+        Emailer.should_not_receive(:send_task_email).with(task.creator, :task_unassigned, task).and_return(mail)
 
-        last_email.should be_nil
+        put :assign_me, {:id => task.to_param}
       end
-
     end
 
     context 'creator is not assignee' do
       context 'creator has email preference for task_assigned' do
-        let(:mail) { double("mail", :deliver => true) }
 
         it 'emails the creator' do
-          john = create(:user, email: 'assigned@gmail.com')
+          john = create(:user)
           task = create(:task, :creator => john, :estimated_hours => 4, project: project)
           project.preferences.create(user: john, task_assigned: "1")
 
-          Emailer.should_receive(:send_task_email).with(task.creator, :task_assigned, task.project, task).and_return(mail)
+          Emailer.should_receive(:send_task_email).with(task.creator, :task_assigned, task).and_return(mail)
 
-          put :assign_me, { :id => task.to_param }
+          put :assign_me, {:id => task.to_param}
         end
       end
 
       context 'creator does not have email preference for task_assigned' do
+
         it 'does not email the creator' do
           john = build(:user)
-          john.update_attributes(email:'assigned@gmail.com')
           task = create(:task, :creator => john, :estimated_hours => 4, project: project)
           project.preferences.create(user: john)
 
-          put :assign_me, { :id => task.to_param }
+          Emailer.should_not_receive(:send_task_email).with(task.creator, :task_unassigned, task).and_return(mail)
 
-          last_email.should be_nil
+          put :assign_me, {:id => task.to_param}
+
         end
       end
     end
   end
 
   describe "unassigned" do
-      login_user
+    login_user
 
-      before :each do
-        @request.env['HTTP_REFERER'] = project_path(project)
-      end
+    before :each do
+      @request.env['HTTP_REFERER'] = project_path(project)
+    end
 
-      it "unassigns the task to the current user" do
+    it "unassigns the task to the current user" do
+      task = create(:task, :creator => user, :estimated_hours => 4, project: project)
+
+      put :unassigned, {:id => task.to_param}
+
+      task.reload
+      task.assigned_to.should be_nil
+    end
+
+    context 'creator is current user' do
+
+      it 'does not email the creator' do
         task = create(:task, :creator => user, :estimated_hours => 4, project: project)
 
-        put :unassigned, { :id => task.to_param }
+        Emailer.should_not_receive(:send_task_email).with(task.creator, :task_unassigned, task).and_return(mail)
 
-        task.reload
-        task.assigned_to.should be_nil
+        put :unassigned, {:id => task.to_param}
       end
 
-      context 'creator is current user' do
+    end
+
+    context 'creator is not a current user' do
+
+      context 'creator has email preference for unassigned' do
+        it 'emails the creator' do
+          john = build(:user)
+          task = create(:task, :creator => john, :estimated_hours => 4, project: project)
+          project.preferences.create(user: john, task_unassigned: "1")
+
+          Emailer.should_receive(:send_task_email).with(task.creator, :task_unassigned, task).and_return(mail)
+
+          put :unassigned, {:id => task.to_param}
+        end
+      end
+
+      context 'creator does not have email preference for task_unassigned' do
         it 'does not email the creator' do
-          task = create(:task, :creator => user, :estimated_hours => 4, project: project)
+          john = build(:user)
+          task = create(:task, :creator => john, :estimated_hours => 4, project: project)
+          project.preferences.create(user: john)
 
-          put :unassigned, { :id => task.to_param }
+          Emailer.should_not_receive(:send_task_email).with(task.creator, :task_unassigned, task).and_return(mail)
 
-          last_email.should be_nil
-        end
+          put :unassigned, {:id => task.to_param}
 
-      end
-
-      context 'creator is not a current user' do
-        context 'creator has email preference for unassigned' do
-          it 'emails the creator' do
-            john = build(:user)
-            john.update_attributes(email:'unassigned@gmail.com')
-            task = create(:task, :creator => john, :estimated_hours => 4, project: project)
-            project.preferences.create(user: john, task_unassigned: "1")
-
-            put :unassigned, { :id => task.to_param }
-
-            last_email.should_not be_nil
-          end
-        end
-
-        context 'creator does not have email preference for task_unassigned' do
-          it 'does not email the creator' do
-            john = build(:user)
-            john.update_attributes(email:'unassigned@gmail.com')
-            task = create(:task, :creator => john, :estimated_hours => 4, project: project)
-            project.preferences.create(user: john)
-
-            put :unassigned, { :id => task.to_param }
-
-            #last_email.should_not be_nil
-          end
         end
       end
     end
+  end
 end

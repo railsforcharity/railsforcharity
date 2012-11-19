@@ -6,7 +6,7 @@ describe Emailer do
   let(:task) { build(:task, project: project, creator: user) }
 
   describe 'new_task email' do
-    let(:mail) { Emailer.send_task_email(user, :new_task, project, task) }
+    let(:mail) { Emailer.send_task_email(user, :new_task, task) }
     subject { mail }
     it { should deliver_to user.email }
     it { should deliver_from 'donotreply@railsforcharity.org' }
@@ -20,7 +20,7 @@ describe Emailer do
       task.status = Task::STATUSES[:ongoing]
     end
 
-    let(:mail) { Emailer.send_task_email(user, :task_assigned, project, task) }
+    let(:mail) { Emailer.send_task_email(user, :task_assigned, task) }
     subject { mail }
     it { should deliver_to user.email }
     it { should have_subject "[RailsforCharity] (#{project.name}) Task assigned" }
@@ -28,7 +28,7 @@ describe Emailer do
   end
 
   describe 'task_unassigned email' do
-    let(:mail) { Emailer.send_task_email(user, :task_unassigned, project, task) }
+    let(:mail) { Emailer.send_task_email(user, :task_unassigned, task) }
     subject { mail }
     it { should deliver_to user.email }
     it { should have_subject "[RailsforCharity] (#{project.name}) Task unassigned" }
@@ -39,7 +39,7 @@ describe Emailer do
     before :each do
       task.assignee = user
     end
-    let(:mail) { Emailer.send_task_email(user, :task_delivered, project, task) }
+    let(:mail) { Emailer.send_task_email(user, :task_delivered, task) }
     subject { mail }
     it { should deliver_to user.email }
     it { should have_subject "[RailsforCharity] (#{project.name}) Task delivered" }
@@ -47,7 +47,7 @@ describe Emailer do
   end
 
   describe 'task_accepted email' do
-    let(:mail) { Emailer.send_task_email(user, :task_accepted, project, task) }
+    let(:mail) { Emailer.send_task_email(user, :task_accepted, task) }
     subject { mail }
     it { should deliver_to user.email }
     it { should have_subject "[RailsforCharity] (#{project.name}) Task accepted" }

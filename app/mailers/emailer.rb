@@ -15,8 +15,9 @@ class Emailer < ActionMailer::Base
     )
   end
 
-  def send_task_email(recipient, email_type, project, task)
+  def send_task_email(recipient, email_type, task)
     subject_template = ERB.new(EmailTemplate::TYPES[email_type][:subject])
+    project = task.project
     subject = subject_template.result(binding)
     @task = task
     @user = recipient
