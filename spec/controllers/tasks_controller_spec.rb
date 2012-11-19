@@ -125,7 +125,7 @@ describe TasksController do
       it 'does not email the creator' do
         task = create(:task, :creator => user, :estimated_hours => 4, project: project)
 
-        Emailer.should_not_receive(:send_task_email).with(task.creator, :task_unassigned, task).and_return(mail)
+        Emailer.should_not_receive(:send_task_email)
 
         put :assign_me, {:id => task.to_param}
       end
@@ -152,7 +152,7 @@ describe TasksController do
           task = create(:task, :creator => john, :estimated_hours => 4, project: project)
           project.preferences.create(user: john)
 
-          Emailer.should_not_receive(:send_task_email).with(task.creator, :task_unassigned, task).and_return(mail)
+          Emailer.should_not_receive(:send_task_email)
 
           put :assign_me, {:id => task.to_param}
 
@@ -182,7 +182,7 @@ describe TasksController do
       it 'does not email the creator' do
         task = create(:task, :creator => user, :estimated_hours => 4, project: project)
 
-        Emailer.should_not_receive(:send_task_email).with(task.creator, :task_unassigned, task).and_return(mail)
+        Emailer.should_not_receive(:send_task_email)
 
         put :unassigned, {:id => task.to_param}
       end
@@ -209,9 +209,179 @@ describe TasksController do
           task = create(:task, :creator => john, :estimated_hours => 4, project: project)
           project.preferences.create(user: john)
 
-          Emailer.should_not_receive(:send_task_email).with(task.creator, :task_unassigned, task).and_return(mail)
+          Emailer.should_not_receive(:send_task_email)
 
           put :unassigned, {:id => task.to_param}
+
+        end
+      end
+    end
+  end
+  describe "deliver" do
+    login_user
+
+    before :each do
+      @request.env['HTTP_REFERER'] = project_path(project)
+    end
+
+    it "delivers the task to the current user" do
+      task = create(:task, :creator => user, :estimated_hours => 4, project: project)
+
+      put :deliver, {:id => task.to_param}
+
+      task.reload
+      task.assigned_to.should be_nil
+    end
+
+    context 'task delivered by the task creator' do
+
+      it 'does not email the creator' do
+        task = create(:task, :creator => user, :estimated_hours => 4, project: project)
+
+        Emailer.should_not_receive(:send_task_email)
+
+        put :deliver, {:id => task.to_param}
+      end
+
+    end
+
+    context 'task does not delivered by the task creator' do
+
+      context 'creator has email preference for task_delivered' do
+        it 'emails the creator' do
+          john = build(:user)
+          task = create(:task, :creator => john, :estimated_hours => 4, project: project)
+          project.preferences.create(user: john, task_delivered: "1")
+
+          Emailer.should_receive(:send_task_email).with(task.creator, :task_delivered, task).and_return(mail)
+
+          put :deliver, {:id => task.to_param}
+        end
+      end
+
+      context 'creator does not have email preference for task_delivered' do
+        it 'does not email the creator' do
+          john = build(:user)
+          task = create(:task, :creator => john, :estimated_hours => 4, project: project)
+          project.preferences.create(user: john)
+
+          Emailer.should_not_receive(:send_task_email)
+
+          put :deliver, {:id => task.to_param}
+
+        end
+      end
+    end
+  end
+
+  describe "accept" do
+    login_user
+
+    before :each do
+      @request.env['HTTP_REFERER'] = project_path(project)
+    end
+
+    it "accepts the task" do
+      task = create(:task, :assigned_to => user, :estimated_hours => 4, project: project)
+
+      put :accept, {:id => task.to_param}
+
+      task.reload
+      task.assigned_to.should_not be_nil
+    end
+
+    context 'Task assignee and task creator are same' do
+
+      it 'does not email the assignee' do
+        task = create(:task, :assignee => user, :estimated_hours => 4, project: project)
+
+        Emailer.should_not_receive(:send_task_email)
+
+        put :accept, { :id => task.to_param }
+      end
+
+    end
+
+    context 'task creator and assignee are different' do
+
+      context 'assignee has email preference for task_accepted' do
+        it 'emails the assignee' do
+          john = build(:user)
+          task = create(:task, :assignee => john, :created_by => user, :estimated_hours => 4, project: project)
+          project.preferences.create(user: john, task_accepted: "1")
+
+          Emailer.should_receive(:send_task_email).with(task.assignee, :task_accepted, task).and_return(mail)
+
+          put :accept, { :id => task.to_param }
+        end
+      end
+
+      context 'assignee does not has email preference for task_accepted' do
+        it 'does not email the assignee' do
+          john = build(:user)
+          task = create(:task, :assignee => john, :estimated_hours => 4, project: project)
+          project.preferences.create(user: john)
+
+          Emailer.should_not_receive(:send_task_email)
+
+          put :accept, {:id => task.to_param}
+
+        end
+      end
+    end
+  end
+
+  describe "reject" do
+    login_user
+
+    before :each do
+      @request.env['HTTP_REFERER'] = project_path(project)
+    end
+
+    it "rejects the task" do
+      task = create(:task, :assigned_to => user, :estimated_hours => 4, project: project)
+
+      put :reject, {:id => task.to_param}
+
+      task.reload
+      task.assigned_to.should_not be_nil
+    end
+
+    context 'Task assignee and task creator are same' do
+
+      it 'does not email the assignee' do
+        task = create(:task, :assignee => user, :estimated_hours => 4, project: project)
+
+        Emailer.should_not_receive(:send_task_email)
+
+        put :reject, { :id => task.to_param }
+      end
+
+    end
+
+    context 'task creator and assignee are different' do
+
+      context 'assignee has email preference for task_rejected' do
+        it 'emails the assignee' do
+          john = build(:user)
+          task = create(:task, :assignee => john, :created_by => user, :estimated_hours => 4, project: project)
+          project.preferences.create(user: john, task_rejected: "1")
+
+          Emailer.should_receive(:send_task_email).with(task.assignee, :task_rejected, task).and_return(mail)
+
+          put :reject, { :id => task.to_param }
+        end
+      end
+
+      context 'assignee does not has email preference for task_rejected' do
+        it 'does not email the assignee' do
+          john = build(:user)
+          task = create(:task, :assignee => john, :estimated_hours => 4, project: project)
+          project.preferences.create(user: john)
+
+          Emailer.should_not_receive(:send_task_email)
+
+          put :reject, {:id => task.to_param}
 
         end
       end

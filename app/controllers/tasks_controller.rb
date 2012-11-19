@@ -131,7 +131,7 @@ class TasksController < ApplicationController
     @task.status = Task::STATUSES[:done]
 
     if @task.save!
-      if @task.assignee != current_user && @task.project.preferences.task_accepted_users.include?(@task.assignee)
+      if @task.assignee != @task.creator && @task.project.preferences.task_accepted_users.include?(@task.assignee)
         Emailer.send_task_email(@task.assignee, :task_accepted, @task).deliver
       end
       redirect_to :back, notice: t('controllers.tasks.accept.success')
@@ -144,7 +144,7 @@ class TasksController < ApplicationController
     @task.status = Task::STATUSES[:ongoing]
 
     if @task.save!
-      if @task.assignee != current_user && @task.project.preferences.task_rejected_users.include?(@task.assignee)
+      if @task.assignee != @task.creator && @task.project.preferences.task_rejected_users.include?(@task.assignee)
         Emailer.send_task_email(@task.assignee, :task_rejected, @task).deliver
       end
       redirect_to :back, notice: t('controllers.tasks.reject.success')
