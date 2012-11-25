@@ -43,6 +43,93 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: queue_classic_jobs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE queue_classic_jobs (
+    id integer NOT NULL,
+    q_name character varying(255),
+    method character varying(255),
+    args text,
+    locked_at timestamp with time zone
+);
+
+
+--
+-- Name: lock_head(character varying); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION lock_head(tname character varying) RETURNS SETOF queue_classic_jobs
+    LANGUAGE plpgsql
+    AS $_$
+BEGIN
+  RETURN QUERY EXECUTE 'SELECT * FROM lock_head($1,10)' USING tname;
+END;
+$_$;
+
+
+--
+-- Name: lock_head(character varying, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION lock_head(q_name character varying, top_boundary integer) RETURNS SETOF queue_classic_jobs
+    LANGUAGE plpgsql
+    AS $_$
+DECLARE
+  unlocked integer;
+  relative_top integer;
+  job_count integer;
+BEGIN
+  -- The purpose is to release contention for the first spot in the table.
+  -- The select count(*) is going to slow down dequeue performance but allow
+  -- for more workers. Would love to see some optimization here...
+
+  EXECUTE 'SELECT count(*) FROM '
+    || '(SELECT * FROM queue_classic_jobs WHERE q_name = '
+    || quote_literal(q_name)
+    || ' LIMIT '
+    || quote_literal(top_boundary)
+    || ') limited'
+  INTO job_count;
+
+  SELECT TRUNC(random() * (top_boundary - 1))
+  INTO relative_top;
+
+  IF job_count < top_boundary THEN
+    relative_top = 0;
+  END IF;
+
+  LOOP
+    BEGIN
+      EXECUTE 'SELECT id FROM queue_classic_jobs '
+        || ' WHERE locked_at IS NULL'
+        || ' AND q_name = '
+        || quote_literal(q_name)
+        || ' ORDER BY id ASC'
+        || ' LIMIT 1'
+        || ' OFFSET ' || quote_literal(relative_top)
+        || ' FOR UPDATE NOWAIT'
+      INTO unlocked;
+      EXIT;
+    EXCEPTION
+      WHEN lock_not_available THEN
+        -- do nothing. loop again and hope we get a lock
+    END;
+  END LOOP;
+
+  RETURN QUERY EXECUTE 'UPDATE queue_classic_jobs '
+    || ' SET locked_at = (CURRENT_TIMESTAMP)'
+    || ' WHERE id = $1'
+    || ' AND locked_at is NULL'
+    || ' RETURNING *'
+  USING unlocked;
+
+  RETURN;
+END;
+$_$;
+
+
+--
 -- Name: authentications; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -251,6 +338,25 @@ CREATE SEQUENCE projects_id_seq
 --
 
 ALTER SEQUENCE projects_id_seq OWNED BY projects.id;
+
+
+--
+-- Name: queue_classic_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE queue_classic_jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: queue_classic_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE queue_classic_jobs_id_seq OWNED BY queue_classic_jobs.id;
 
 
 --
@@ -514,12 +620,12 @@ ALTER SEQUENCE tasks_id_seq OWNED BY tasks.id;
 CREATE TABLE user_permissions (
     id integer NOT NULL,
     user_id integer,
+    entity_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     status character varying(255),
     role_id integer,
-    entity_type character varying(255),
-    entity_id integer
+    entity_type character varying(255)
 );
 
 
@@ -594,105 +700,112 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY authentications ALTER COLUMN id SET DEFAULT nextval('authentications_id_seq'::regclass);
+ALTER TABLE authentications ALTER COLUMN id SET DEFAULT nextval('authentications_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY avatars ALTER COLUMN id SET DEFAULT nextval('avatars_id_seq'::regclass);
+ALTER TABLE avatars ALTER COLUMN id SET DEFAULT nextval('avatars_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY comments ALTER COLUMN id SET DEFAULT nextval('comments_id_seq'::regclass);
+ALTER TABLE comments ALTER COLUMN id SET DEFAULT nextval('comments_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY locations ALTER COLUMN id SET DEFAULT nextval('locations_id_seq'::regclass);
+ALTER TABLE locations ALTER COLUMN id SET DEFAULT nextval('locations_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY preferences ALTER COLUMN id SET DEFAULT nextval('preferences_id_seq'::regclass);
+ALTER TABLE preferences ALTER COLUMN id SET DEFAULT nextval('preferences_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY projects ALTER COLUMN id SET DEFAULT nextval('projects_id_seq'::regclass);
+ALTER TABLE projects ALTER COLUMN id SET DEFAULT nextval('projects_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rs_evaluations ALTER COLUMN id SET DEFAULT nextval('rs_evaluations_id_seq'::regclass);
+ALTER TABLE queue_classic_jobs ALTER COLUMN id SET DEFAULT nextval('queue_classic_jobs_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rs_reputation_messages ALTER COLUMN id SET DEFAULT nextval('rs_reputation_messages_id_seq'::regclass);
+ALTER TABLE rs_evaluations ALTER COLUMN id SET DEFAULT nextval('rs_evaluations_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rs_reputations ALTER COLUMN id SET DEFAULT nextval('rs_reputations_id_seq'::regclass);
+ALTER TABLE rs_reputation_messages ALTER COLUMN id SET DEFAULT nextval('rs_reputation_messages_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY skills ALTER COLUMN id SET DEFAULT nextval('skills_id_seq'::regclass);
+ALTER TABLE rs_reputations ALTER COLUMN id SET DEFAULT nextval('rs_reputations_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY taggings ALTER COLUMN id SET DEFAULT nextval('taggings_id_seq'::regclass);
+ALTER TABLE skills ALTER COLUMN id SET DEFAULT nextval('skills_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY tags ALTER COLUMN id SET DEFAULT nextval('tags_id_seq'::regclass);
+ALTER TABLE taggings ALTER COLUMN id SET DEFAULT nextval('taggings_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY tasks ALTER COLUMN id SET DEFAULT nextval('tasks_id_seq'::regclass);
+ALTER TABLE tags ALTER COLUMN id SET DEFAULT nextval('tags_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY user_permissions ALTER COLUMN id SET DEFAULT nextval('user_permissions_id_seq'::regclass);
+ALTER TABLE tasks ALTER COLUMN id SET DEFAULT nextval('tasks_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+ALTER TABLE user_permissions ALTER COLUMN id SET DEFAULT nextval('user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
@@ -749,6 +862,14 @@ ALTER TABLE ONLY locations
 
 ALTER TABLE ONLY projects
     ADD CONSTRAINT projects_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: queue_classic_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY queue_classic_jobs
+    ADD CONSTRAINT queue_classic_jobs_pkey PRIMARY KEY (id);
 
 
 --
@@ -813,6 +934,13 @@ ALTER TABLE ONLY tasks
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: idx_qc_on_name_only_unlocked; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX idx_qc_on_name_only_unlocked ON queue_classic_jobs USING btree (q_name, id) WHERE (locked_at IS NULL);
 
 
 --
@@ -1006,3 +1134,5 @@ INSERT INTO schema_migrations (version) VALUES ('20121022145507');
 INSERT INTO schema_migrations (version) VALUES ('20121027191731');
 
 INSERT INTO schema_migrations (version) VALUES ('20121029074448');
+
+INSERT INTO schema_migrations (version) VALUES ('20121119225226');

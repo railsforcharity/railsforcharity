@@ -41,8 +41,7 @@ describe TasksController do
 
       context 'collaborators do not have email preferences for task created.' do
         it 'does not email the collaborators' do
-          Emailer.should_not_receive(:send_task_email)
-          Emailer.should_not_receive(:send_task_email)
+          QC.should_not_receive(:enqueue)
 
           post :create, { :task => valid_attributes }
         end
@@ -53,9 +52,10 @@ describe TasksController do
           john = build(:user)
           project.preferences.create(user: john, new_task: "1")
           project.preferences.create(user: user, new_task: "1")
+          #task = create(:task, :creator => user, :estimated_hours => 4, project: project)
 
-          Emailer.should_receive(:send_task_email).with(john, :new_task, an_instance_of(Task)).and_return(mail)
-          Emailer.should_receive(:send_task_email).with(user, :new_task, an_instance_of(Task)).and_return(mail)
+          QC.should_receive(:enqueue)#.with("Emailer.send_task_email", john.id, "new_task", task.id)
+          QC.should_receive(:enqueue)#.with("Emailer.send_task_email", user.id, "new_task", task.id)
 
           post :create, { :task => valid_attributes }
         end
@@ -121,41 +121,35 @@ describe TasksController do
     end
 
     context 'creator is assignee' do
-
       it 'does not email the creator' do
         task = create(:task, :creator => user, :estimated_hours => 4, project: project)
-
-        Emailer.should_not_receive(:send_task_email)
-
-        put :assign_me, {:id => task.to_param}
+        QC.should_not_receive(:enqueue)
+        put :assign_me, { :id => task.to_param }
       end
     end
 
     context 'creator is not assignee' do
       context 'creator has email preference for task_assigned' do
-
         it 'emails the creator' do
           john = create(:user)
           task = create(:task, :creator => john, :estimated_hours => 4, project: project)
           project.preferences.create(user: john, task_assigned: "1")
 
-          Emailer.should_receive(:send_task_email).with(task.creator, :task_assigned, task).and_return(mail)
+          QC.should_receive(:enqueue).with("Emailer.send_task_email", task.creator.id, "task_assigned", task.id)
 
           put :assign_me, {:id => task.to_param}
         end
       end
 
       context 'creator does not have email preference for task_assigned' do
-
         it 'does not email the creator' do
           john = build(:user)
           task = create(:task, :creator => john, :estimated_hours => 4, project: project)
           project.preferences.create(user: john)
 
-          Emailer.should_not_receive(:send_task_email)
+          QC.should_not_receive(:enqueue)
 
           put :assign_me, {:id => task.to_param}
-
         end
       end
     end
@@ -171,33 +165,28 @@ describe TasksController do
     it "unassigns the task to the current user" do
       task = create(:task, :creator => user, :estimated_hours => 4, project: project)
 
-      put :unassigned, {:id => task.to_param}
+      put :unassigned, { :id => task.to_param }
 
       task.reload
       task.assigned_to.should be_nil
     end
 
     context 'creator is current user' do
-
       it 'does not email the creator' do
         task = create(:task, :creator => user, :estimated_hours => 4, project: project)
-
-        Emailer.should_not_receive(:send_task_email)
-
+        QC.should_not_receive(:enqueue)
         put :unassigned, {:id => task.to_param}
       end
-
     end
 
-    context 'creator is not a current user' do
-
+    context 'creator is not the current user' do
       context 'creator has email preference for unassigned' do
         it 'emails the creator' do
           john = build(:user)
           task = create(:task, :creator => john, :estimated_hours => 4, project: project)
           project.preferences.create(user: john, task_unassigned: "1")
 
-          Emailer.should_receive(:send_task_email).with(task.creator, :task_unassigned, task).and_return(mail)
+          QC.should_receive(:enqueue).with("Emailer.send_task_email", task.creator.id, "task_unassigned", task.id)
 
           put :unassigned, {:id => task.to_param}
         end
@@ -209,14 +198,14 @@ describe TasksController do
           task = create(:task, :creator => john, :estimated_hours => 4, project: project)
           project.preferences.create(user: john)
 
-          Emailer.should_not_receive(:send_task_email)
+          QC.should_not_receive(:enqueue)
 
           put :unassigned, {:id => task.to_param}
-
         end
       end
     end
   end
+
   describe "deliver" do
     login_user
 
@@ -234,28 +223,23 @@ describe TasksController do
     end
 
     context 'task delivered by the task creator' do
-
       it 'does not email the creator' do
         task = create(:task, :creator => user, :estimated_hours => 4, project: project)
-
-        Emailer.should_not_receive(:send_task_email)
-
+        QC.should_not_receive(:enqueue)
         put :deliver, {:id => task.to_param}
       end
-
     end
 
-    context 'task does not delivered by the task creator' do
-
+    context 'task is not delivered by the task creator' do
       context 'creator has email preference for task_delivered' do
         it 'emails the creator' do
           john = build(:user)
           task = create(:task, :creator => john, :estimated_hours => 4, project: project)
           project.preferences.create(user: john, task_delivered: "1")
 
-          Emailer.should_receive(:send_task_email).with(task.creator, :task_delivered, task).and_return(mail)
+          QC.should_receive(:enqueue).with("Emailer.send_task_email", task.creator.id, "task_delivered", task.id)
 
-          put :deliver, {:id => task.to_param}
+          put :deliver, { :id => task.to_param }
         end
       end
 
@@ -265,10 +249,9 @@ describe TasksController do
           task = create(:task, :creator => john, :estimated_hours => 4, project: project)
           project.preferences.create(user: john)
 
-          Emailer.should_not_receive(:send_task_email)
+          QC.should_not_receive(:enqueue)
 
-          put :deliver, {:id => task.to_param}
-
+          put :deliver, { :id => task.to_param }
         end
       end
     end
@@ -291,26 +274,21 @@ describe TasksController do
     end
 
     context 'Task assignee and task creator are same' do
-
       it 'does not email the assignee' do
         task = create(:task, :assignee => user, :estimated_hours => 4, project: project)
-
-        Emailer.should_not_receive(:send_task_email)
-
+        QC.should_not_receive(:enqueue)
         put :accept, { :id => task.to_param }
       end
-
     end
 
     context 'task creator and assignee are different' do
-
       context 'assignee has email preference for task_accepted' do
         it 'emails the assignee' do
           john = build(:user)
           task = create(:task, :assignee => john, :created_by => user, :estimated_hours => 4, project: project)
           project.preferences.create(user: john, task_accepted: "1")
 
-          Emailer.should_receive(:send_task_email).with(task.assignee, :task_accepted, task).and_return(mail)
+          QC.should_receive(:enqueue).with("Emailer.send_task_email", task.assignee.id, "task_accepted", task.id)
 
           put :accept, { :id => task.to_param }
         end
@@ -322,7 +300,7 @@ describe TasksController do
           task = create(:task, :assignee => john, :estimated_hours => 4, project: project)
           project.preferences.create(user: john)
 
-          Emailer.should_not_receive(:send_task_email)
+          QC.should_not_receive(:enqueue)
 
           put :accept, {:id => task.to_param}
 
@@ -351,23 +329,19 @@ describe TasksController do
 
       it 'does not email the assignee' do
         task = create(:task, :assignee => user, :estimated_hours => 4, project: project)
-
-        Emailer.should_not_receive(:send_task_email)
-
+        QC.should_not_receive(:enqueue)
         put :reject, { :id => task.to_param }
       end
-
     end
 
     context 'task creator and assignee are different' do
-
       context 'assignee has email preference for task_rejected' do
         it 'emails the assignee' do
           john = build(:user)
           task = create(:task, :assignee => john, :created_by => user, :estimated_hours => 4, project: project)
           project.preferences.create(user: john, task_rejected: "1")
 
-          Emailer.should_receive(:send_task_email).with(task.assignee, :task_rejected, task).and_return(mail)
+          QC.should_receive(:enqueue).with("Emailer.send_task_email", task.assignee.id, "task_rejected", task.id)
 
           put :reject, { :id => task.to_param }
         end
@@ -379,10 +353,9 @@ describe TasksController do
           task = create(:task, :assignee => john, :estimated_hours => 4, project: project)
           project.preferences.create(user: john)
 
-          Emailer.should_not_receive(:send_task_email)
+          QC.should_not_receive(:enqueue)
 
           put :reject, {:id => task.to_param}
-
         end
       end
     end

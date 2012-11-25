@@ -15,14 +15,15 @@ class Emailer < ActionMailer::Base
     )
   end
 
-  def send_task_email(recipient, email_type, task)
-    subject_template = ERB.new(EmailTemplate::TYPES[email_type][:subject])
-    project = task.project
+  def send_task_email(recipient_id, email_type, task_id)
+    @task = Task.find(task_id)
+    project = @task.project
+    @user = User.find(recipient_id)
+    subject_template = ERB.new(EmailTemplate::TYPES[email_type.to_sym][:subject])
     subject = subject_template.result(binding)
-    @task = task
-    @user = recipient
     mail(:to => @user.email, :subject => "[RailsforCharity] #{subject}") do |format|
       format.html { render "emailer/email_templates/#{email_type}" }
-    end
+    end.deliver
   end
+
 end

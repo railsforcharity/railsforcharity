@@ -31,7 +31,9 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.save
         @task.tags.each { |t| t.update_attributes(:tag_type => 'task') }
-        @task.project.preferences.new_task_users.each { |user| Emailer.send_task_email(user, :new_task, @task).deliver }
+        @task.project.preferences.new_task_users.each do
+          |user| QC.enqueue("Emailer.send_task_email", user.id, 'new_task', @task.id)
+        end
 
         if @project.nil?
           format.html { redirect_to :back, notice: t('controllers.tasks.create.success') }
@@ -91,7 +93,7 @@ class TasksController < ApplicationController
 
     if @task.save!
       if @task.creator != current_user && @task.project.preferences.task_assigned_users.include?(@task.creator)
-        Emailer.send_task_email(@task.creator, :task_assigned, @task).deliver
+        QC.enqueue("Emailer.send_task_email", @task.creator.id, 'task_assigned', @task.id)
       end
 
       redirect_to :back, notice: t('controllers.tasks.assign_me.success')
@@ -105,7 +107,7 @@ class TasksController < ApplicationController
 
     if @task.save!
       if @task.creator != current_user && @task.project.preferences.task_delivered_users.include?(@task.creator)
-        Emailer.send_task_email(@task.creator, :task_delivered, @task).deliver
+        QC.enqueue("Emailer.send_task_email", @task.creator.id, 'task_delivered', @task.id)
       end
       redirect_to :back, notice: t('controllers.tasks.deliver.success')
     else
@@ -119,7 +121,7 @@ class TasksController < ApplicationController
 
     if @task.save!
       if @task.creator != current_user && @task.project.preferences.task_unassigned_users.include?(@task.creator)
-        Emailer.send_task_email(@task.creator, :task_unassigned, @task).deliver
+        QC.enqueue("Emailer.send_task_email", @task.creator.id, 'task_unassigned', @task.id)
       end
       redirect_to :back, notice: t('controllers.tasks.unassign.success')
     else
@@ -132,7 +134,7 @@ class TasksController < ApplicationController
 
     if @task.save!
       if @task.assignee != @task.creator && @task.project.preferences.task_accepted_users.include?(@task.assignee)
-        Emailer.send_task_email(@task.assignee, :task_accepted, @task).deliver
+        QC.enqueue("Emailer.send_task_email", @task.assignee.id, 'task_accepted', @task.id)
       end
       redirect_to :back, notice: t('controllers.tasks.accept.success')
     else
@@ -145,7 +147,7 @@ class TasksController < ApplicationController
 
     if @task.save!
       if @task.assignee != @task.creator && @task.project.preferences.task_rejected_users.include?(@task.assignee)
-        Emailer.send_task_email(@task.assignee, :task_rejected, @task).deliver
+        QC.enqueue("Emailer.send_task_email", @task.assignee.id, 'task_rejected', @task.id)
       end
       redirect_to :back, notice: t('controllers.tasks.reject.success')
     else

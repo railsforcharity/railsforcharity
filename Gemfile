@@ -36,19 +36,19 @@ gem 'markitup-rails'
 
 # Other
 gem 'friendly_id'
-gem 'carrierwave'
+gem 'carrierwave', '0.7.1'
 gem 'mini_magick'
 gem 'carmen-rails', '~> 1.0.0.beta3'
 gem 'rmagick', '2.13.1'
-gem 'fog'
+gem 'fog', '1.7.0'
 gem 'activerecord-reputation-system', require: 'reputation_system'
 gem 'ancestry'
 gem 'premailer-rails3'
 gem 'hpricot'
 gem 'taps'
 gem 'hirb'
-gem "bullet", "~> 4.2.0"
-
+gem 'bullet', '~> 4.2.0'
+gem "queue_classic", '2.0.3'
 
 # Gems used only for assets and not required
 # in production environments by default.
