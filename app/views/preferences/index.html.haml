@@ -5,9 +5,10 @@
       $.ajax({
         url: "/users/#{current_user.slug}/preferences",
         data: { project_id: projectId },
-        success: function (data) {
-          $('#part').html(data);
-        }
+        success: function (data) { $('#settings').html(data); },
+        error: function (data) { alert('Failed to fetch data.'); },
+        beforeSend: function () { $('.loader').show(); },
+        complete: function () { $('.loader').hide('slow'); }
       });
     });
   });
@@ -19,8 +20,10 @@
 
     = form_for current_user, url: save_preferences_users_path, method: :post do |u|
       = select_tag :project_id, options_from_collection_for_select(current_user.projects, :id, :name, params[:project_id])
+      %span.loader
+        = image_tag 'ajax-loader.gif'
       %br
-      #part
+      #settings
         = render partial: 'preferences/settings'
       %br
       = u.submit 'Save', class: 'btn btn-primary'
