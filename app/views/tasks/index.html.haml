@@ -42,11 +42,12 @@
               %td= link_to task.creator.name, user_path(task.creator)
               %td= link_to task.project.name, project_path(task.project)
               %td
-                = simple_form_for [task], :url => assign_me_task_path(task), :method => :post do |f|
-                  = f.button :submit, 'Let me do it!', class: 'btn-small btn-table btn-assign'
-                - if task.creator == current_user
-                  = simple_form_for [@project, task], :method => :delete do |f|
-                    = f.button :submit, 'Delete', :data => { :confirm => 'Are you sure?' }, class: 'btn-small btn-table'
+                - if task.project.users.include?(current_user)
+                  = simple_form_for [task], :url => assign_me_task_path(task), :method => :post do |f|
+                    = f.button :submit, 'Let me do it!', class: 'btn-small btn-table btn-assign'
+                  - if task.creator == current_user
+                    = simple_form_for [@project, task], :method => :delete do |f|
+                      = f.button :submit, 'Delete', :data => { :confirm => 'Are you sure?' }, class: 'btn-small btn-table'
 
     #task_ongoing.tab-pane
       %table.table.table-striped.table-hover.table-bordered.datatable
