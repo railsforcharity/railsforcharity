@@ -1,6 +1,6 @@
 - taskp = TaskPresenter.new(@task, self)
 .row
-  .span10
+  .span8
     %h4 Task Title
     = @task.name
     %br
@@ -12,25 +12,26 @@
     = render :partial => 'comments/form'
     = nested_comments (@comments).arrange(:order => :created_at)
 
-  .span2
-    = render :partial => 'info', :locals => { :show => true }
-    %br
-    %br
-    - if @task.status == Task::STATUSES[:open]
-      = simple_form_for [@task], :url => assign_me_task_path(@task), :method => :post do |f|
-        = f.button :submit, 'Let me do it!', class: 'btn-small btn-table btn-assign'
+  .span3
+    .pull-right
+      = render :partial => 'info', :locals => { :show => true }
+      %br
+      %br
+      - if @task.status == Task::STATUSES[:open]
+        = simple_form_for [@task], :url => assign_me_task_path(@task), :method => :post do |f|
+          = f.button :submit, 'Let me do it!', class: 'btn-small btn-table btn-assign'
 
-    - if @task.status == Task::STATUSES[:ongoing] && (@task.assignee == current_user)
-      = simple_form_for [@task], :url => deliver_task_path(@task), :method => :post do |f|
-        = f.button :submit, 'Deliver', class: 'btn-small btn-deliver'
-      = simple_form_for [@task], :url => unassigned_task_path(@task), :method => :post do |f|
-        = f.button :submit, "I can't do it", class: 'btn-small btn-unassign'
+      - if @task.status == Task::STATUSES[:ongoing] && (@task.assignee == current_user)
+        = simple_form_for [@task], :url => deliver_task_path(@task), :method => :post do |f|
+          = f.button :submit, 'Deliver', class: 'btn-small btn-deliver'
+        = simple_form_for [@task], :url => unassigned_task_path(@task), :method => :post do |f|
+          = f.button :submit, "I can't do it", class: 'btn-small btn-unassign'
 
-    - if @task.status == Task::STATUSES[:delivered] && (@task.creator == current_user)
-      = simple_form_for [@task], :url => accept_task_path(@task), :method => :post do |f|
-        = f.button :submit, 'Accept', class: 'btn-small btn-lima'
-      = simple_form_for [@task], :url => reject_task_path(@task), :method => :post do |f|
-        = f.button :submit, 'Reject', class: 'btn-small btn-warning'
+      - if @task.status == Task::STATUSES[:delivered] && (@task.creator == current_user)
+        = simple_form_for [@task], :url => accept_task_path(@task), :method => :post do |f|
+          = f.button :submit, 'Accept', class: 'btn-small btn-lima'
+        = simple_form_for [@task], :url => reject_task_path(@task), :method => :post do |f|
+          = f.button :submit, 'Reject', class: 'btn-small btn-warning'
 
-    - if @task.status != Task::STATUSES[:done]  && (@task.creator == current_user) && @task.status != Task::STATUSES[:delivered]
-      = link_to 'Edit', edit_task_path(@task), class: 'btn btn-primary'
+      - if @task.status != Task::STATUSES[:done]  && (@task.creator == current_user) && @task.status != Task::STATUSES[:delivered]
+        = link_to 'Edit', edit_task_path(@task), class: 'btn btn-primary'
