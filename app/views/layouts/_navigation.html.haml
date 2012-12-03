@@ -36,6 +36,8 @@
       = link_to t('views.layouts._navigation.new_task'), new_task_path
   -if user_signed_in?
     %ul.pull-right.nav
+      %li
+        = link_to current_user.name, user_path(current_user)
       %li.dropdown
         %a.dropdown-toggle(href='#' data-toggle='dropdown')
           .icon-wrench.icon-white
