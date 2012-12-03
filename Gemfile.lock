@@ -182,6 +182,7 @@ GEM
       excon (~> 0.16.1)
     hike (1.2.1)
     hirb (0.7.0)
+    hirefireapp (0.0.8)
     hpricot (0.8.6)
     htmlentities (4.3.1)
     httpauth (0.1)
@@ -400,6 +401,7 @@ DEPENDENCIES
   haml-rails
   heroku
   hirb
+  hirefireapp
   hpricot
   jquery-datatables-rails!
   jquery-rails
