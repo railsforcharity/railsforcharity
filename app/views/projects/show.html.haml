@@ -11,11 +11,9 @@
       %br
       = project.website
       %br
-        -if project.status == "confirm"
-          %a(href="#{project.github_url}" target="_blank")
-            %p Browse Github Source Code
-          %a(href="#{project.travis_url}")
-            %img(alt="Build Status" src="#{project.travis_url}" height="20px")
+      -if project.status == "confirm"
+        %a(href="#{project.travis_url}")
+          %img(alt="Build Status" src="#{project.travis_url}" height="20px")
       %span
         .hours_worked
           =@project.hours_worked
@@ -63,11 +61,25 @@
         %p
           = raw markdown.render(project.description)
 
-  .span12
-    %br
-    %h3 Tasks
-    %br
-    = render :partial => 'projects/tasks'
-  .span12
-    %br
-    = render :partial => 'projects/collaborators', :locals => { project: @project, size: 80 }
+    .span12
+      %br
+      %h3 Tasks
+      %br
+      = render :partial => 'projects/tasks'
+    .span12
+      %br
+      = render :partial => 'projects/collaborators', :locals => { project: @project, size: 80 }
+
+    .span12
+      %br
+        %h3 Contacts
+        %br
+        %span Email Address:
+        %u info@railsforcharity.org
+        %br
+        - if project.name == "Spokenvote"
+          %span Google Group Email Address:
+          %u=project.google_group_email
+          %a(href="#{project.google_url}" target="_blank")
+            %p Join #{project.name} Google Group
+

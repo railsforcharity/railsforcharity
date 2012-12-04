@@ -28,6 +28,14 @@ class ProjectPresenter < ApplicationPresenter
     "http://travis-ci.org/railsforcharity/" + project.profile_url + '.png'
   end
 
+  def google_url
+    "https://groups.google.com/forum/#!forum/railsforcharity-" + project.name.downcase
+  end
+
+  def google_group_email
+    "railsforcharity-" + project.name + "@googlegroups.com"
+  end
+
   def can_edit?(project)
     User.find(project.created_by) == current_user
   end
