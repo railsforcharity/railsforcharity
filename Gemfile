@@ -49,7 +49,7 @@ gem 'taps'
 gem 'hirb'
 gem 'bullet', '~> 4.2.0'
 gem "queue_classic", '2.0.3'
-gem 'hirefireapp'
+gem "hirefireapp", git: "git://github.com/meskyanichi/hirefireapp.git", branch: "develop"
 
 # Gems used only for assets and not required
 # in production environments by default.

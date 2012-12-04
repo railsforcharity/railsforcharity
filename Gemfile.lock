@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/meskyanichi/hirefireapp.git
+  revision: cd1acec2b116179aec9d72722259262bc79ff24c
+  branch: develop
+  specs:
+    hirefireapp (0.0.8)
+
+GIT
   remote: git://github.com/rweng/jquery-datatables-rails.git
   revision: 727a8dbe6eacc052431a8222ca3566a87282d912
   specs:
@@ -182,7 +189,6 @@ GEM
       excon (~> 0.16.1)
     hike (1.2.1)
     hirb (0.7.0)
-    hirefireapp (0.0.8)
     hpricot (0.8.6)
     htmlentities (4.3.1)
     httpauth (0.1)
@@ -401,7 +407,7 @@ DEPENDENCIES
   haml-rails
   heroku
   hirb
-  hirefireapp
+  hirefireapp!
   hpricot
   jquery-datatables-rails!
   jquery-rails
