@@ -17,19 +17,19 @@
           =@project.hours_worked
           %br
           %sub Hours Worked
+      %br
+      %br
 
       -if project.status == "confirm"
-        %br
-        %br
         %a(href="#{project.travis_url}" target="_blank")
           %img(alt="Build Status" src="#{project.travis_url}.png" height="16px")
         %br
         %br
 
-      .btn.btn-inverse
-        =link_to "", vote_project_path(project, type: "up"), method: "post", class: 'icon-hand-up icon-white'
       .btn
-        =link_to "", vote_project_path(project, type: "down"), method: "post", class: 'icon-black icon-hand-down'
+        =link_to "", vote_project_path(project, type: "up"), method: "post", class: 'icon-thumbs-up'
+      .btn.btn-danger
+        =link_to "", vote_project_path(project, type: "down"), method: "post", class: 'icon-thumbs-down'
       =pluralize project.reputation_value_for(:votes).to_i, "vote"
 
       - if !project.categories.empty?
