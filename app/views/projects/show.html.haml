@@ -1,6 +1,6 @@
 .row
   - present @project do |project|
-    = link_to_image("https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png", { alt: "Fork me on GitHub", class: 'home_github_fork' }, project.github_url)
+    = link_to_image("https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png", { title: "Fork me on GitHub", class: 'home_github_fork' }, project.github_url)
     .span3
       = project.avatar_name
       %br
@@ -20,7 +20,7 @@
       %br
 
       -if project.status == "confirm"
-        = link_to_image("#{project.travis_url}.png", { alt: 'Build Status', height: '16px'}, project.travis_url)
+        = link_to_image("#{project.travis_url}.png", { title: 'Build Status', height: '16px'}, project.travis_url)
         %br
         %br
 

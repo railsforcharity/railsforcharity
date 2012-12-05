@@ -10,7 +10,7 @@ module ApplicationHelper
   end
 
   def link_to_image(image_url, image_html_options = {}, link_url=name, link_url_html_options = {})
-    link_to image_tag(image_url, image_html_options), link_url, link_url_html_options.merge(:target => '_blank')
+    link_to image_tag(image_url, image_html_options.merge(alt: image_html_options[:title])), link_url, link_url_html_options.merge(:target => '_blank')
   end
 
   def present(object, klass=nil)
