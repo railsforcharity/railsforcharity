@@ -1,6 +1,6 @@
 class ProjectPresenter < ApplicationPresenter
   presents :project
-  delegate :name, :title, :status, :video, :description, :to_param, :created_by,
+  delegate :id, :name, :title, :status, :video, :description, :to_param, :created_by,
            :categories, :technologies, :tasks, :users, :reputation_value_for, to: :project
 
   def website

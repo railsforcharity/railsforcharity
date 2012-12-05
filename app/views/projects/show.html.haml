@@ -1,10 +1,10 @@
-.row
+.row.project_show
   - present @project do |project|
     = link_to_image("https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png", { title: "Fork me on GitHub", class: 'home_github_fork' }, project.github_url)
     .span3
       = project.avatar_name
       %br
-      %h2(style="color:#880000")
+      %h2.project_name
         = project.name
       = project.title
       %br
@@ -24,11 +24,7 @@
         %br
         %br
 
-      .btn
-        =link_to "", vote_project_path(project, type: "up"), method: "post", class: 'icon-thumbs-up'
-      .btn.btn-danger
-        =link_to "", vote_project_path(project, type: "down"), method: "post", class: 'icon-thumbs-down'
-      =pluralize project.reputation_value_for(:votes).to_i, "vote"
+      = render :partial => 'vote', locals: { project: project }
 
       - if !project.categories.empty?
         %br
@@ -62,9 +58,9 @@
     .span12
       %br
       %br
-      %h3(style="display:inline-block") Tasks
+      %h3.tasks_text Tasks
       - if project.is_member?
-        %div(style="float:right")
+        .new_task_button
           = link_to 'New Task', new_project_task_path(project), :class => 'btn btn-large btn-success'
       %br
       %br

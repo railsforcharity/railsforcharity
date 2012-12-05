@@ -1,24 +1,30 @@
 @import "compass";
 
-.project_content {
-  padding: 5px;
-  float: left;
-  margin: 20px;
-  margin-left: 60px;
-  min-height: 300px;
-  min-width: 300px;
-  @include box-shadow(#696969 2px 2px 10px);
-  position:relative;
+.project_show {
+  .project_name {
+    color: #880000;
+  }
+
+  .tasks_text {
+    display: inline-block;
+  }
+
+  .new_task_button {
+    float: right;
+  }
 }
 
-.search_box {
-  text-align: center;
-  @include border-radius(5px);
-  margin-left: 3%;
-}
-
-.tasks {
-  @include box-shadow(#ccc 2px 2px 10px);
+.project_index {
+  .project_content {
+    padding: 5px;
+    float: left;
+    margin: 20px;
+    margin-left: 60px;
+    min-height: 300px;
+    min-width: 300px;
+    @include box-shadow(#696969 2px 2px 10px);
+    position:relative;
+  }
 }
 
 .video {

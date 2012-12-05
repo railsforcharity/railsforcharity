@@ -1,4 +1,4 @@
-.row
+.row.project_index
   - @projects.each do |project|
     - project_presenter = ProjectPresenter.new(project, self)
     .project_content
@@ -25,12 +25,7 @@
                 %br
               %li
                 %em
-                  #{pluralize project.reputation_value_for(:votes).to_i, "vote"}
-                  - if current_user && !current_user.voted_for?(project)
-                    .btn.btn-inverse
-                      = link_to "", vote_project_path(project, type: "up"), method: "post", class: 'icon-hand-up icon-white'
-                    .btn
-                      = link_to "", vote_project_path(project, type: "down"), method: "post", class: 'icon-black icon-hand-down'
+                  = render :partial => 'vote', locals: { project: project }
         .row
           .span5
             %b Mission: #{project.title}
