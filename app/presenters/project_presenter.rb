@@ -25,7 +25,7 @@ class ProjectPresenter < ApplicationPresenter
   end
 
   def travis_url
-    "http://travis-ci.org/railsforcharity/" + project.profile_url + '.png'
+    "http://travis-ci.org/railsforcharity/" + project.profile_url
   end
 
   def google_url

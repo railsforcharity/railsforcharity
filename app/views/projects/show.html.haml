@@ -11,17 +11,21 @@
       %br
       = project.website
       %br
-      -if project.status == "confirm"
-        %a(href="#{project.travis_url}")
-          %img(alt="Build Status" src="#{project.travis_url}" height="20px")
+      %br
       %span
         .hours_worked
           =@project.hours_worked
           %br
           %sub Hours Worked
 
-      %br
-      %br
+      -if project.status == "confirm"
+        %br
+        %br
+        %a(href="#{project.travis_url}" target="_blank")
+          %img(alt="Build Status" src="#{project.travis_url}.png" height="16px")
+        %br
+        %br
+
       .btn.btn-inverse
         =link_to "", vote_project_path(project, type: "up"), method: "post", class: 'icon-hand-up icon-white'
       .btn
@@ -71,15 +75,14 @@
       = render :partial => 'projects/collaborators', :locals => { project: @project, size: 80 }
 
     .span12
+      %h3 Contacts
       %br
-        %h3 Contacts
-        %br
-        %span Email Address:
-        %u info@railsforcharity.org
-        %br
-        - if project.name == "Spokenvote"
-          %span Google Group Email Address:
-          %u=project.google_group_email
-          %a(href="#{project.google_url}" target="_blank")
-            %p Join #{project.name} Google Group
+      %span Email Address:
+      %u info@railsforcharity.org
+      %br
+      - if project.name == "Spokenvote"
+        %span Google Group Email Address:
+        %u=project.google_group_email
+        %a(href="#{project.google_url}" target="_blank")
+          %p Join #{project.name} Google Group
 
