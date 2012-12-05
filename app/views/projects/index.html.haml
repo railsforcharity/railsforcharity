@@ -40,7 +40,7 @@
             %p.video_text Video is coming soon!
       .span2
         %p
-          =truncate(project.description, length: 350 )
+          =raw markdown.render(truncate(project.description, length: 350 ))
           .pull-right
             = link_to "more ...", project
 
