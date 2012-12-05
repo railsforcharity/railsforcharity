@@ -5,8 +5,12 @@ module ApplicationHelper
   end
 
   # Opens the link in a new tab/page
-  def link_to_blank(name, url=name, html_options = {})
-    link_to name, url, html_options.merge(:target => '_blank')
+  def link_to_blank(name, link_url=name, link_url_html_options = {})
+    link_to name, link_url, link_url_html_options.merge(:target => '_blank')
+  end
+
+  def link_to_image(image_url, image_html_options = {}, link_url=name, link_url_html_options = {})
+    link_to image_tag(image_url, image_html_options), link_url, link_url_html_options.merge(:target => '_blank')
   end
 
   def present(object, klass=nil)
