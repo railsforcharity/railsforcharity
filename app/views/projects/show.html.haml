@@ -42,10 +42,6 @@
         %h3 Technology Stack
         - project.technologies.each do |tag|
           %span.label(style="background:##{tag.color}")= tag.name
-      - if project.is_member?
-        %br
-        %br
-        = link_to 'New Task', new_project_task_path(project), :class => 'btn btn-large btn-success'
 
     .span5
       -if !project.video.blank? && project.video.starts_with?("http")
@@ -65,7 +61,12 @@
 
     .span12
       %br
-      %h3 Tasks
+      %br
+      %h3(style="display:inline-block") Tasks
+      - if project.is_member?
+        %div(style="float:right")
+          = link_to 'New Task', new_project_task_path(project), :class => 'btn btn-large btn-success'
+      %br
       %br
       = render :partial => 'projects/tasks'
     .span12
