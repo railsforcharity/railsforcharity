@@ -73,10 +73,12 @@ describe Task do
 
     context 'for estimated hours' do
       it { should allow_mass_assignment_of(:estimated_hours) }
+      it { should validate_presence_of(:estimated_hours) }
     end
 
     context 'for estimated minutes' do
       it { should allow_mass_assignment_of(:estimated_minutes) }
+      it { should validate_presence_of(:estimated_minutes) }
     end
 
     context 'for status' do

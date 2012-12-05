@@ -60,6 +60,8 @@ class Task < ActiveRecord::Base
   validates :name, :presence => true, :length => { :in => 2..255 }
   validates :description, :presence => true, :length => { :minimum => 20 }
   validates :category, :presence => true
+  validates :estimated_hours, :presence => true
+  validates :estimated_minutes, :presence => true
   validates :project_id, :presence => true
   validates :task_type, :presence => true, :if => :programming_task?
 
