@@ -33,7 +33,7 @@ class ProjectPresenter < ApplicationPresenter
   end
 
   def google_group_email
-    "railsforcharity-" + project.name + "@googlegroups.com"
+    "railsforcharity-" + project.name.downcase + "@googlegroups.com"
   end
 
   def can_edit?(project)
