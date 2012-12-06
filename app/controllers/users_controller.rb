@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.confirmed_users.name_like(params[:q]).limit(10)
+    @users = User.all
 
     respond_to do |format|
       format.html
