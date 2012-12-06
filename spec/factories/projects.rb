@@ -7,6 +7,8 @@ FactoryGirl.define do
     description 'To build open source web based applications which help in improving the society.'
     profile_url 'railsforcharity'
 
+    creator
+
     factory :project_same_category_and_technology do
       category_names 'Rails'
       technology_names 'Rails'
@@ -15,10 +17,6 @@ FactoryGirl.define do
     factory :project_with_tags do
       category_names 'Citizen Activism, Affordable Transportation'
       technology_names 'Ruby on Rails, jQuery'
-    end
-
-    factory :project_with_creator do
-      creator
     end
   end
 end

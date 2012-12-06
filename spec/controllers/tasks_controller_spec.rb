@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe TasksController do
-  let(:project) { create(:project_with_creator) }
+  let(:project) { create(:project) }
   let(:mail) { double("mail", :deliver => true) } # test double
 
   def valid_attributes

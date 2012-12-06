@@ -169,7 +169,6 @@ describe ProjectsController do
   end
 
   describe "DELETE destroy" do
-
     login_user
 
     it "destroys the requested project" do
@@ -186,15 +185,15 @@ describe ProjectsController do
     end
   end
 
-  describe "join" do
+  describe 'existing project' do
+    let!(:project) { create(:project) }
     login_user
 
-    let!(:project) { create(:project) }
     before :each do
       request.env["HTTP_REFERER"] = projects_url
     end
 
-    context 'making collaborator' do
+    describe "join" do
       context 'success' do
         it "makes the current user a collaborator" do
           expect do
@@ -212,34 +211,36 @@ describe ProjectsController do
         end
 
         it 'sets the flash message' do
-          post :join, {:id => project}
-          should set_the_flash.to("Thank you for joining #{assigns(:project).name}!, Happy collaborating !!!")
+          post :join, { :id => project }
+          should set_the_flash.to("Thank you for joining #{project.name}!, Happy collaborating !!!")
         end
       end
 
       context 'failure' do
         it 'sets the flash message' do
-          Project.any_instance.stub(:make_collaborator).and_return(false)
-          post :join, {:id => project}
-          should set_the_flash.to("Failed to join the project #{assigns(:project).name}, please try again later!")
+          Project.any_instance.stub(:join).and_return(false)
+          post :join, { :id => project }
+          should set_the_flash.to("Failed to join the project #{project.name}, please try again later!")
         end
       end
     end
 
-    context 'removing collaborator' do
-      before(:each) do
-        project.users << user
-      end
-
+    describe 'unjoin' do
       it 'remove the current user from project collaborators list' do
         expect do
-          post :unjoin, {:id => project}
+          post :unjoin, { :id => project }
         end.to change(project.users, :count).by(-1)
       end
 
       it 'sets the flash message' do
-        post :unjoin, {:id => project}
-        should set_the_flash.to("You are successfully removed from the collaborator list!")
+        post :unjoin, { :id => project }
+        should set_the_flash.to("Sorry to see you leave #{project.name}!, Hope you come back again !!!")
+      end
+
+      it 'deletes the project preference for that user' do
+        post :unjoin, { :id => project }
+        preference = Preference.find_by_user_id_and_entity_type_and_entity_id(user.id, 'Project', project.id)
+        preference.should be_nil
       end
     end
   end

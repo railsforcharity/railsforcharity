@@ -53,7 +53,8 @@ class Project < ActiveRecord::Base
   scope :name_like, lambda { |n| where("name ilike ?", "%#{n}%") } # WARN: Potential DB Change Problem
 
   # Callbacks
-  after_save lambda { make_admin(creator) }, :assign_tags
+  after_save lambda { make_admin(creator) }, on: :create
+  after_save :assign_tags
 
   # Attr Writers
   def collaborator_tokens=(ids_csv)
@@ -77,7 +78,7 @@ class Project < ActiveRecord::Base
   # end
   [:admin, :collaborator].each do |role_name|
     define_method("make_#{role_name}") do |user|
-      user_permission = user_permissions_obj(user) || self.user_permissions.build(:user => user)
+      user_permission = user_permissions_obj(user) || self.user_permissions.build(user: user)
       user_permission.role_id = Role::TYPES[:"project_#{role_name}"]
       user_permission.save
     end
@@ -100,6 +101,18 @@ class Project < ActiveRecord::Base
 
   def hours_worked
     self.tasks.done.reduce(0.0) { |sum, t| sum + t.estimated_time } / 60
+  end
+
+  def join(user)
+    self.make_collaborator(user)
+
+    properties = EmailTemplate::TYPES.reduce({}) { |accumulator, property| accumulator.merge(property.first.to_s => "1") }
+    Preference.create({ user: user, entity: self, properties: properties })
+  end
+
+  def unjoin(user)
+    self.user_permissions_obj(user).destroy
+    Preference.user_project_preference(user, self).destroy
   end
 
   private

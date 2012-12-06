@@ -65,6 +65,7 @@ end
 
 group :development do
   gem "travis-lint", "~> 1.4.0"
+  gem 'debugger'
 end
 
 group :development, :test do

@@ -88,12 +88,7 @@ class ProjectsController < ApplicationController
   end
 
   def join
-    if @project.make_collaborator(current_user)
-      properties = EmailTemplate::TYPES.reduce({}) { |accumulator, property| accumulator.merge(property.first.to_s => "1") }
-      Preference.find_or_create_by_user_id_and_entity_type_and_entity_id(current_user.id, 'Project', @project.id, {
-        properties: properties
-      })
-
+    if @project.join(current_user)
       redirect_to :back, notice: "Thank you for joining #{@project.name}!, Happy collaborating !!!"
     else
       redirect_to :back, notice: "Failed to join the project #{@project.name}, please try again later!"
@@ -102,10 +97,10 @@ class ProjectsController < ApplicationController
   end
 
   def unjoin
-    if @project.user_permissions_obj(current_user).destroy
-      redirect_to :back, notice: "You are successfully removed from the collaborator list!"
+    if @project.unjoin(current_user)
+      redirect_to :back, notice: "Sorry to see you leave #{@project.name}!, Hope you come back again !!!"
     else
-      redirect_to :back, notice: "Aww Snap! Failed to unjoin, please try again later!"
+      redirect_to :back, notice: "Aww Snap! Failed to unjoin the project #{@project.name}, please try again later!"
     end
   end
 

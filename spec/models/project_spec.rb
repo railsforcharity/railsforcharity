@@ -25,7 +25,6 @@ describe Project do
   subject { project }
 
   describe 'associations' do
-
   end
 
   describe 'validations' do
@@ -62,10 +61,8 @@ describe Project do
 
   describe 'callbacks' do
     describe '#after_create' do
-      let(:project) { create(:project, :creator => user) }
-
-      it 'makes creator the project admin' do
-        project.is_admin?(user).should be_true
+      it 'makes creator the project admin', focus: true do
+        project.is_admin?(project.creator).should be_true
       end
     end
 
@@ -105,28 +102,36 @@ describe Project do
     end
 
     describe '#make_admin(user)' do
-      it 'for existing collaborator' do
-        project.users << user
-        project.make_admin(user)
-        project.is_admin?(user).should be_true
+      context 'for existing collaborator' do
+        it 'makes the user an admin of the project' do
+          project.make_collaborator(user)
+          project.make_admin(user)
+          project.is_admin?(user).should be_true
+        end
       end
 
-      it 'for non-existing collaborator' do
-        project.make_admin(user)
-        project.is_admin?(user).should be_true
+      context 'for non-existing collaborator' do
+        it 'makes the user an admin of the project' do
+          project.make_admin(user)
+          project.is_admin?(user).should be_true
+        end
       end
     end
 
     describe '#make_collaborator(user)' do
-      it 'for existing collaborator' do
-        project.users << user
-        project.make_collaborator(user)
-        project.is_collaborator?(user).should be_true
+      context 'for existing collaborator' do
+        it 'makes the user a collaborator of the project' do
+          project.make_admin(user)
+          project.make_collaborator(user)
+          project.is_collaborator?(user).should be_true
+        end
       end
 
-      it 'for non-existing collaborator' do
-        project.make_collaborator(user)
-        project.is_collaborator?(user).should be_true
+      context 'for non-existing collaborator' do
+        it 'makes the user a collaborator of the project' do
+          project.make_collaborator(user)
+          project.is_collaborator?(user).should be_true
+        end
       end
     end
 
