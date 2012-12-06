@@ -198,13 +198,22 @@ describe ProjectsController do
       context 'success' do
         it "makes the current user a collaborator" do
           expect do
-            post :join, {:id => project}
+            post :join, { :id => project }
           end.to change(project.users, :count).by(1)
+        end
+
+        it "sets email preferences for user with respect to the project" do
+          post :join, { :id => project }
+
+          preference = Preference.find_by_user_id_and_entity_type_and_entity_id(user.id, 'Project', assigns(:project).id)
+          expected_properties = EmailTemplate::TYPES.reduce({}) { |accumulator, property| accumulator.merge(property.first.to_s => "1") }
+          preference.should_not be_nil
+          preference.properties.should == expected_properties
         end
 
         it 'sets the flash message' do
           post :join, {:id => project}
-          should set_the_flash.to("Thank you for joining us!, You are successfully added in the collaborator list!")
+          should set_the_flash.to("Thank you for joining #{assigns(:project).name}!, Happy collaborating !!!")
         end
       end
 
@@ -212,7 +221,7 @@ describe ProjectsController do
         it 'sets the flash message' do
           Project.any_instance.stub(:make_collaborator).and_return(false)
           post :join, {:id => project}
-          should set_the_flash.to("Failed to add, please try again later!")
+          should set_the_flash.to("Failed to join the project #{assigns(:project).name}, please try again later!")
         end
       end
     end

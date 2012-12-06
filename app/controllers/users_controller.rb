@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    @users = User.all(:include => [:avatar])
 
     respond_to do |format|
       format.html

@@ -89,9 +89,14 @@ class ProjectsController < ApplicationController
 
   def join
     if @project.make_collaborator(current_user)
-      redirect_to :back, notice: "Thank you for joining us!, You are successfully added in the collaborator list!"
+      properties = EmailTemplate::TYPES.reduce({}) { |accumulator, property| accumulator.merge(property.first.to_s => "1") }
+      Preference.find_or_create_by_user_id_and_entity_type_and_entity_id(current_user.id, 'Project', @project.id, {
+        properties: properties
+      })
+
+      redirect_to :back, notice: "Thank you for joining #{@project.name}!, Happy collaborating !!!"
     else
-      redirect_to :back, notice: "Failed to add, please try again later!"
+      redirect_to :back, notice: "Failed to join the project #{@project.name}, please try again later!"
     end
 
   end

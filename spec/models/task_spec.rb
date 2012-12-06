@@ -71,15 +71,15 @@ describe Task do
       end
     end
 
-    context 'for estimated hours' do
-      it { should allow_mass_assignment_of(:estimated_hours) }
-      it { should validate_presence_of(:estimated_hours) }
-    end
-
-    context 'for estimated minutes' do
-      it { should allow_mass_assignment_of(:estimated_minutes) }
-      it { should validate_presence_of(:estimated_minutes) }
-    end
+    #context 'for estimated hours' do
+    #  it { should allow_mass_assignment_of(:estimated_hours) }
+    #  it { should validate_presence_of(:estimated_hours) }
+    #end
+    #
+    #context 'for estimated minutes' do
+    #  it { should allow_mass_assignment_of(:estimated_minutes) }
+    #  it { should validate_presence_of(:estimated_minutes) }
+    #end
 
     context 'for status' do
       it { should_not allow_mass_assignment_of(:status) }
@@ -97,7 +97,6 @@ describe Task do
 
       it 'should set same estimated time on change of task\'s status' do
         task.status = Task::STATUSES[:done]
-        p task.status
         task.estimated_hours.should == 9
       end
     end
