@@ -94,7 +94,7 @@ end
 
 group :production do
   gem 'unicorn'
-  gem 'newrelic_rpm'
+  gem 'newrelic_rpm', '3.5.3.25'
 end
 
 # To use Jbuilder templates for JSON
