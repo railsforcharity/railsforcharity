@@ -4,14 +4,14 @@
   %p Hello #{@user.name},
   %br
   %p
-    The task you have requested,
+    The task you requested,
     %a{:href => "http://railsforcharity.org/tasks/" + @task.id.to_s, :target => "_blank"}
       %span.thick=@task.name
     is now assigned to #{taskp.assignee_name}
   %p
-    You can edit your requirements
+    You can edit your requirements at
     %a{:href => "http://railsforcharity.org/tasks/" + @task.id.to_s + '/edit', :target => "_blank"}
-      %span.thick="http://railsforcharity.org/tasks/" + @task.id.to_s + '/edit' + '.'
+      %span.thick="http://railsforcharity.org/tasks/" + @task.id.to_s + '/edit'
   %br
   %table.table.table-striped.table-hover
     %tbody
