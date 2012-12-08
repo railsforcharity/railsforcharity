@@ -38,5 +38,4 @@ class EmailTemplate
       subject: "(<%= project.name %>) Task rejected"
     }
   }
-
 end

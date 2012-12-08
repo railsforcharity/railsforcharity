@@ -144,5 +144,38 @@ describe Project do
         project.hours_worked.should == 9.75
       end
     end
+
+    describe '#join' do
+      it 'makes the user a collaborator' do
+        project.join(user)
+        user.is_collaborator?(project).should be_true
+      end
+
+      it 'makes a permissions object for the user for the project' do
+        project.join(user)
+        project.user_permissions_obj(user).should_not be_nil
+      end
+
+      it 'makes a preference object for the user for the project' do
+        project.join(user)
+        project.user_preferences_obj(user).should_not be_nil
+      end
+    end
+
+    describe '#unjoin' do
+      before(:each) do
+        project.join(user)
+      end
+
+      it "destroys the user's permissions for the project" do
+        project.unjoin(user)
+        project.user_permissions_obj(user).should be_nil
+      end
+
+      it "destroys the user's preferences for the project" do
+        project.unjoin(user)
+        project.user_preferences_obj(user).should be_nil
+      end
+    end
   end
 end

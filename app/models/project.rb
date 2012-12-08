@@ -109,9 +109,7 @@ class Project < ActiveRecord::Base
 
   def join(user)
     self.make_collaborator(user)
-
-    properties = EmailTemplate::TYPES.reduce({}) { |accumulator, property| accumulator.merge(property.first.to_s => "1") }
-    Preference.create({ user: user, entity: self, properties: properties })
+    Preference.create({ user: user, entity: self, properties: Preference.all_properties })
   end
 
   def unjoin(user)

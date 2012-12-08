@@ -204,43 +204,41 @@ describe ProjectsController do
         it "sets email preferences for user with respect to the project" do
           post :join, { :id => project }
 
-          preference = Preference.find_by_user_id_and_entity_type_and_entity_id(user.id, 'Project', assigns(:project).id)
-          expected_properties = EmailTemplate::TYPES.reduce({}) { |accumulator, property| accumulator.merge(property.first.to_s => "1") }
+          preference = assigns(:project).user_preferences_obj(user)
           preference.should_not be_nil
-          preference.properties.should == expected_properties
+          preference.properties.should == Preference.all_properties
         end
 
-        it 'sets the flash message' do
+        it 'sets a flash message' do
           post :join, { :id => project }
-          should set_the_flash.to("Thank you for joining #{project.name}!, Happy collaborating !!!")
+          should set_the_flash.to("Thank you for joining #{assigns(:project).name}!, Happy collaborating !!!")
         end
       end
 
       context 'failure' do
-        it 'sets the flash message' do
+        it 'sets a flash message' do
           Project.any_instance.stub(:join).and_return(false)
           post :join, { :id => project }
-          should set_the_flash.to("Failed to join the project #{project.name}, please try again later!")
+          should set_the_flash.to("Failed to join the project #{assigns(:project).name}, please try again later!")
         end
       end
     end
 
     describe 'unjoin' do
-      it 'remove the current user from project collaborators list' do
-        expect do
+      context "success" do
+        it 'sets a flash message' do
+          Project.any_instance.stub(:unjoin).and_return(true)
           post :unjoin, { :id => project }
-        end.to change(project.users, :count).by(-1)
+          should set_the_flash.to "Sorry to see you leave #{assigns(:project).name}!, Hope you come back again !!!"
+        end
       end
 
-      it 'sets the flash message' do
-        post :unjoin, { :id => project }
-        should set_the_flash.to("Sorry to see you leave #{project.name}!, Hope you come back again !!!")
-      end
-
-      it 'deletes the project preference for that user' do
-        post :unjoin, { :id => project }
-        preference = Preference.find_by_user_id_and_entity_type_and_entity_id(user.id, 'Project', project.id)
-        preference.should be_nil
+      context "failure" do
+        it 'sets a flash message' do
+          Project.any_instance.stub(:unjoin).and_return(false)
+          post :unjoin, { :id => project }
+          should set_the_flash.to "Aww Snap! Failed to unjoin the project #{assigns(:project).name}, please try again later!"
+        end
       end
     end
   end

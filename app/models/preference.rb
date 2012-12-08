@@ -39,4 +39,8 @@ class Preference < ActiveRecord::Base
       self.properties = (properties || {}).merge(name => value)   #   self.properties = (properties || {}).merge(:new_task => value)
     end                                                           # end
   end
+
+  def self.all_properties
+    EmailTemplate::TYPES.reduce({}) { |accumulator, property| accumulator.merge(property.first.to_s => "1") }
+  end
 end
