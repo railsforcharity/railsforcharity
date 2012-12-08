@@ -65,6 +65,10 @@ class Project < ActiveRecord::Base
     UserPermission.find_by_entity_type_and_entity_id_and_user_id('Project', self, user)
   end
 
+  def user_preferences_obj(user)
+    Preference.find_by_entity_type_and_entity_id_and_user_id('Project', self, user)
+  end
+
   def get_role(user)
     user_permissions_obj(user).try(:role_id)
   end
@@ -112,7 +116,7 @@ class Project < ActiveRecord::Base
 
   def unjoin(user)
     self.user_permissions_obj(user).destroy
-    Preference.user_project_preference(user, self).destroy
+    self.user_preferences_obj(user).destroy
   end
 
   private

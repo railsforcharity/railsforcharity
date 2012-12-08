@@ -61,7 +61,7 @@ describe Project do
 
   describe 'callbacks' do
     describe '#after_create' do
-      it 'makes creator the project admin', focus: true do
+      it 'makes creator the project admin' do
         project.is_admin?(project.creator).should be_true
       end
     end

@@ -39,8 +39,4 @@ class Preference < ActiveRecord::Base
       self.properties = (properties || {}).merge(name => value)   #   self.properties = (properties || {}).merge(:new_task => value)
     end                                                           # end
   end
-
-  def self.user_project_preference(user, project)
-    find_by_user_id_and_entity_type_and_entity_id(user.id, 'Project', project.id)
-  end
 end

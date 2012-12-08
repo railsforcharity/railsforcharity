@@ -2,7 +2,7 @@ require File.dirname(File.expand_path(__FILE__)) + "/../../config/environment"
 
 project = Project.find(ENV['PROJECT_ID'])
 project.users.each do |user|
-  preference = Preference.user_project_preference(user, project)
+  preference = project.user_preferences_obj(user)
   next if preference
 
   properties = {}
