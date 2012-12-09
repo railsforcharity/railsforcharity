@@ -7,6 +7,7 @@ gem 'heroku'
 gem 'lol_dba'
 gem 'airbrake'
 gem 'activerecord-postgres-hstore'
+gem 'dalli'
 
 # Authentication & Authorization
 gem 'devise'
