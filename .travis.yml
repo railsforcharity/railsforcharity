@@ -11,7 +11,7 @@ branches:
     - 'master'
 
 script:
-  - bundle exec rake --trace db:create:all
+  - bundle exec rake db:create:all --trace
   - RAILS_ENV=test bundle exec rake db:test_prep
   - bundle exec rspec spec/
 
