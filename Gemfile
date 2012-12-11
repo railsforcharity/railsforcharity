@@ -8,6 +8,7 @@ gem 'lol_dba'
 gem 'airbrake'
 gem 'activerecord-postgres-hstore'
 gem 'dalli'
+gem 'bloggy'
 
 # Authentication & Authorization
 gem 'devise'
