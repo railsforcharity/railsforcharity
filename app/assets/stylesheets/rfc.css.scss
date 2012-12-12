@@ -4,7 +4,6 @@ $base-color: #008080;
 
 html, body {
   font: 13px/18px 'Open Sans';
-  height: 100%;
 }
 
 p {
@@ -15,15 +14,13 @@ body {
   background-color: $base-color;
 
   .wrap {
-    min-height: 100%;
-    height: auto !important; /* ie7 fix */
-    height: 100%;
     margin: 0 auto 40px;
 
     .main {
       background-color: #f8f8ff;
       padding: 35px 10px 20px 10px;
       @include border-radius(5px);
+      min-height: 500px;
     }
   }
 }

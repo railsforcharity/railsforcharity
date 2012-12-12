@@ -1,0 +1,27 @@
+@import "compass";
+
+.about {
+  .founders_name {
+    font-weight: bold;
+    font-size: 18px;
+    font-weight: 5px;
+  }
+
+  .row.pk {
+    position: relative;
+    .span6 {
+      position: absolute;
+      top: 15%;
+      left: 25%;
+    }
+  }
+
+  .row.vm {
+    position: relative;
+    .span6 {
+      position: absolute;
+      top: 15%;
+      left: 25%
+    }
+  }
+}

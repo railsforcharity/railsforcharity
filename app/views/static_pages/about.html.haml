@@ -1,17 +1,25 @@
-.span12
-  .span8.offset1
+.span12.about
+  .span9.offset1
     %h2.heading
       %span.slash //
       About Us
     %br
-    =image_tag 'pk.png'
+    .row.pk
+      .span2
+        =image_tag 'about/pk.png'
+        %br
+      .span6
+        %a.founders_name(href="http://www.linkedin.com/in/pratikkhadloya" target='_blank')
+          %span Pratik Khadloya
+          %span.italic (Founder)
+        %p Pratik strives to make the world a better place to live, wipe out all the evils in society and help build a better tomorrow. His weapon of choice to achieve that end is web technology. He aims to build web applications which help the humanity and are self sustainable.
     %br
-    %br
-    %h3 Pratik Khadloya (Founder)
-    %p Pratik strives to make the world a better place to live, wipe out all the evils in society and help build a better tomorrow. His weapon of choice to achieve that end is web technology. He aims to build web applications which help the humanity and are self sustainable.
-    %br
-    =image_tag 'vm.png'
-    %br
-    %br
-    %h3 Vinti Maheshwari (Co-founder)
-    %p Vinti is an eternal optimist and has an extremely positive attitude towards life. She is a spiritualist, an avid speaker and motivator. She is especially known to get the most out of the situation when the odds are against you. You would never hear a ‘no’ from her for any task, no matter how difficult it is.
+    .row.vm
+      .span2
+        =image_tag 'about/vm.png'
+        %br
+      .span6
+        %a.founders_name(href="http://www.linkedin.com/in/vintimaheshwari" target='_blank')
+          %span Vinti Maheshwari
+          %span.italic (Co-founder)
+        %p Vinti is an eternal optimist and has an extremely positive attitude towards life. She is a spiritualist, an avid speaker and motivator. She is especially known to get the most out of the situation when the odds are against you. You would never hear a ‘no’ from her for any task, no matter how difficult it is.
