@@ -4,13 +4,13 @@ layout: nil
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
  
- <title>BLOG_NAME</title>
- <link href="YOUR_URL/atom.xml" rel="self"/>
- <link href="YOUR_URL"/>
+ <title>Rails for Charity</title>
+ <link href="railsforcharity.org/blog/atom.xml" rel="self"/>
+ <link href="railsforcharity.org"/>
  <updated>{{ site.time | date_to_xmlschema }}</updated>
- <id>BLOG_URL</id>
+ <id>railsforcharity.org/blog</id>
  <author>
-   <name>BLOG_NAME</name>
+   <name>Rails for Charity</name>
  </author>
 
  {% for post in site.posts %}
@@ -18,7 +18,7 @@ layout: nil
    <title>{{ post.title }}</title>
    <link href="YOUR_URL{{ post.url }}"/>
    <updated>{{ post.date | date_to_xmlschema }}</updated>
-   <id>BLOG_URL{{ post.id }}</id>
+   <id>railsforcharity.org/blog/{{ post.id }}</id>
    <content type="html">{{ post.content | xml_escape }}</content>
  </entry>
  {% endfor %}
