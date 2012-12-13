@@ -13,7 +13,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       user.skip_confirmation!
 
       if user.save
-        user.create_avatar(:remote_image_url => avatar_url) rescue nil  # Dont fail if we're unable to save avatar
+        #user.create_avatar(:remote_image_url => avatar_url) rescue nil  # Dont fail if we're unable to save avatar
         flash.notice = t('controllers.omniauth_callbacks.sign_up.success')
         custom_sign_in_and_redirect(user)
       else
