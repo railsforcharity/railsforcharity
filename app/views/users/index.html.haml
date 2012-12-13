@@ -4,8 +4,8 @@
   - @users.each do |user|
     %li.span2
       .thumbnail
-        - if user.avatar
-          = link_to image_tag(user.avatar.image_url(:thumb).to_s), user_path(user)
+        - if user.avatar && user.avatar.image_url(:thumb)
+          = link_to_image user.avatar.image_url(:thumb).to_s, {}, user_path(user)
         -else
           = image_tag 'default.png'
         .caption
