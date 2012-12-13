@@ -62,6 +62,10 @@ GEM
     autotest-rails (4.1.2)
       ZenTest (~> 4.5)
     bcrypt-ruby (3.0.1)
+    better_errors (0.2.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.7.0)
+    binding_of_caller (0.6.8)
     bloggy (0.1.1)
       jekyll
       rack-contrib
@@ -417,6 +421,8 @@ DEPENDENCIES
   ancestry
   annotate
   autotest-rails
+  better_errors
+  binding_of_caller
   bloggy
   bootstrap-sass (~> 2.0.4.2)
   bullet (~> 4.2.0)
