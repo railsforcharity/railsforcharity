@@ -61,8 +61,9 @@
       * Estimated Time
       = f.input :estimated_hours, :label => false, :collection => 0..8, :prompt => 'Hours'
       = f.input :estimated_minutes, :label => false, :collection => (0..59).step(15), :prompt => 'Minutes'
-      = f.input :category, :collection => Task::CATEGORIES, :include_blank => false
-      = f.input :task_type, :as => :radio, :item_wrapper_class => 'inline', :collection => ['Feature', 'Bug', 'Chore'], :include_blank => false
+      = f.input :category, :collection => Task::CATEGORIES.to_a.map{|a| [a.first.capitalize, a.last] }, :include_blank => false
+      .task_type
+        = f.input :task_type, :as => :radio, :item_wrapper_class => 'inline', :collection => ['Feature', 'Bug', 'Chore'], :include_blank => false
 
     .form-actions
       = f.button :submit, :class => 'btn btn-primary'
