@@ -110,3 +110,9 @@ footer {
 .heading {
   color: #008080;
 }
+
+.brand, .navbar .nav > li > a {
+  &:hover {
+    background-color: #555;
+  }
+}
