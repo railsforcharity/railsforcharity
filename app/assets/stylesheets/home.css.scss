@@ -25,14 +25,11 @@
   /* Colors */
   $base-color: #008080;
   .block:nth-child(4n+1) { background: darken($base-color, 0); }
-  .block:nth-child(4n+2) { background: darken($base-color, 7); }
-  .block:nth-child(4n+3) { background: darken($base-color, 9); }
-  .block:nth-child(4n+4) { background: darken($base-color, 11); }
-  .block:nth-child(4n+5) { background: darken($base-color, 13); }
-
-  .thumbnail {
-    background: #313131;
-  }
+  .block:nth-child(4n+2) { background: darken($base-color, 4); }
+  .block:nth-child(4n+3) { background: darken($base-color, 7); }
+  .block:nth-child(4n+4) { background: darken($base-color, 9); }
+  .block:nth-child(4n+5) { background: darken($base-color, 11); }
+  .block:nth-child(4n+6) { background: darken($base-color, 13); }
 
   margin-top: -20px;
 
@@ -66,6 +63,31 @@
     }
   }
 
+  #join {
+    .thumbnail {
+      background: #555;
+
+      p.description {
+        height: 150px;
+      }
+
+      p {
+        font-size: 14px;
+        padding: 5px;
+      }
+
+      p.sign_up {
+        text-align: center;
+      }
+    }
+  }
+
+  #how_it_works, #supporters {
+    .thumbnail {
+      background: #313131;
+    }
+  }
+
   #how_it_works {
     li {
       line-height: 25px;
@@ -78,4 +100,8 @@
   top: 40px;
   right: 0;
   border: 0;
+}
+
+.center {
+  margin: 0 auto;
 }
