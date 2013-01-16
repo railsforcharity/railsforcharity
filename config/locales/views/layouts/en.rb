@@ -11,14 +11,19 @@
           home: 'Home',
           edit_profile: 'Edit Profile',
           preferences: 'Preferences',
+
           submit_project: 'Submit Project',
           projects: 'Projects',
+          browse_tasks: 'Browse Tasks',
+          new_task: 'Create Task',
+
           charity_sign_up: 'Charity Sign Up',
           company_sign_up: 'Company Sign Up',
           individual_sign_up: 'Individual User Sign Up',
           log_in: 'Log In',
           sign_in: 'Sign In',
           log_out: 'Log Out',
+
           faq: 'FAQ',
           how_it_works: 'How it works?',
           about_us: 'About Us',
@@ -27,8 +32,7 @@
           blog: 'Blog',
           contact_us: 'Contact Us',
           tour: 'Take a Tour',
-          browse_tasks: 'Browse Tasks',
-          new_task: 'Create Task'
+          resources: 'Resources'
         }
       }
     }
