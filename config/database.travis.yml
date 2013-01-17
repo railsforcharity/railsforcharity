@@ -1,9 +1,5 @@
-test: &test
+test:
   adapter: postgresql
-  encoding: unicode
   database: railsforcharity_test
-  host: 127.0.0.1
-  user: postgres
-  password:
-  port: 5432
+  username: postgres
   min_messages: warning

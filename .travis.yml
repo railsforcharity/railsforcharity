@@ -3,20 +3,20 @@ language: ruby
 rvm:
   - 1.9.3
 
-env:
-  - DB=postgresql
-
 branches:
   only:
-    - 'master'
-
-script:
-  - bundle exec rake db:create:all --trace
-  - RAILS_ENV=test bundle exec rake db:test:prepare
-  - bundle exec rspec spec/
+    - master
 
 before_script:
   - psql -c 'create database railsforcharity_test' -U postgres
   - cp config/database.travis.yml config/database.yml
+  - rake db:test_prep
 
-bundler_args: "--without development"
+bundler_args: --without development
+
+notifications:
+  email:
+    recipients:
+      - info@railsforcharity.org
+    on_success: change
+    on_failure: always
