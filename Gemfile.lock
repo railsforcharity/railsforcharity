@@ -168,7 +168,7 @@ GEM
       nokogiri (~> 1.5.0)
       ruby-hmac
     formatador (0.2.4)
-    friendly_id (4.0.8)
+    friendly_id (4.0.9)
     fssm (0.2.9)
     gherkin (2.11.2)
       json (>= 1.4.6)
@@ -442,7 +442,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   fog (= 1.7.0)
-  friendly_id
+  friendly_id (= 4.0.9)
   guard-annotate
   guard-bundler
   guard-rspec

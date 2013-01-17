@@ -37,7 +37,7 @@ gem 'nokogiri'
 gem 'markitup-rails'
 
 # Other
-gem 'friendly_id'
+gem 'friendly_id', '4.0.9'
 gem 'carrierwave', '0.7.1'
 gem 'mini_magick'
 gem 'carmen-rails', '~> 1.0.0.beta3'
