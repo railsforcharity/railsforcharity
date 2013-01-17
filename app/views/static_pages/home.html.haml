@@ -18,27 +18,29 @@
             %p We believe that we can connect charities and charitable causes across the world to technology and help each other to achieve the social changes that we all want to see. So, we want to build open source web based applications which help in improving the society.
             %br
 
-  - if 1 != 1
+  - if !1
     #join.block
       .glow
         .container
           .row-fluid
-            %ul.thumbnails
-              %li.span4
-                .thumbnail
-                  %p.description If you are a charity and have some software needs which would help in your day to day work or for a social cause, then please signup as a Charity, create your profile and submit a project so that Rails for Charity volunteers and the registered company volunteers can work on those and help you achieve your software goals.
-                  %p.sign_up
-                    = link_to t('views.layouts._navigation.charity_sign_up'), new_user_registration_path(type: 'charity'), class: 'btn btn-large btn-success'
-              %li.span4
-                .thumbnail
-                  %p.description If you are a company who want to volunteer your people resources for a social cause and earn some Karma, please signup as a Company and selectively add your employees and choose the projects that you want to support.
-                  %p.sign_up
-                    = link_to t('views.layouts._navigation.company_sign_up'), new_user_registration_path(type: 'company'), class: 'btn btn-large btn-info'
-              %li.span4
-                .thumbnail
-                  %p.description If your an individual who is interested to volunteer your skills for a social cause and earn some Karma, please signup as an Individual and join the projects of your interests and start collaborating.
-                  %p.sign_up
-                    = link_to t('views.layouts._navigation.individual_sign_up'), new_user_registration_path(type: 'individual'), class: 'btn btn-large btn-primary'
+            %h1 Signup
+            %p
+              %ul.thumbnails
+                %li.span4
+                  .thumbnail
+                    %p.description If you are a charity and have some software needs which would help in your day to day work or for a social cause, then please signup as a Charity, create your profile and submit a project so that our volunteers and the volunteers from the companies registered with us can work on those projects and help you achieve your software goals.
+                    %p.sign_up
+                      = link_to t('views.layouts._navigation.charity_sign_up'), new_user_registration_path(type: 'charity'), class: 'btn btn-large btn-success'
+                %li.span4
+                  .thumbnail
+                    %p.description If you are a company who want to volunteer your people resources or your bench strength for a social cause and earn some Karma, please signup as a Company and selectively add your employees and choose the projects that you want to support.
+                    %p.sign_up
+                      = link_to t('views.layouts._navigation.company_sign_up'), new_user_registration_path(type: 'company'), class: 'btn btn-large btn-info'
+                %li.span4
+                  .thumbnail
+                    %p.description If you are an individual who is interested in volunteering your skills for a social cause and earn some Karma, please signup as an Individual and join the projects of your interests and start collaborating.
+                    %p.sign_up
+                      = link_to t('views.layouts._navigation.individual_sign_up'), new_user_registration_path(type: 'individual'), class: 'btn btn-large btn-primary'
 
   .block
     .glow

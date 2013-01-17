@@ -1,10 +1,10 @@
 %br
 %ul.flat_list
   %li
-    = link_to image_tag('icons/providers/facebook.png'), user_omniauth_authorize_path(:facebook)
+    = link_to image_tag('icons/providers/facebook.png'), user_omniauth_authorize_path(:facebook, state: params[:type])
     Facebook
   %li
-    = link_to image_tag('icons/providers/google.png'), user_omniauth_authorize_path(:google_oauth2)
+    = link_to image_tag('icons/providers/google.png'), user_omniauth_authorize_path(:google_oauth2, state: params[:type])
     Google
 .clearfix
 %br

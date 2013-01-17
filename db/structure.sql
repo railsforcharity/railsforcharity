@@ -567,7 +567,8 @@ CREATE TABLE users (
     updated_at timestamp without time zone NOT NULL,
     bio text,
     website character varying(255),
-    slug character varying(255)
+    slug character varying(255),
+    user_type integer
 );
 
 
@@ -1008,3 +1009,5 @@ INSERT INTO schema_migrations (version) VALUES ('20121027191731');
 INSERT INTO schema_migrations (version) VALUES ('20121029074448');
 
 INSERT INTO schema_migrations (version) VALUES ('20121119225226');
+
+INSERT INTO schema_migrations (version) VALUES ('20130117010133');

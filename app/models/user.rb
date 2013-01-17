@@ -26,10 +26,17 @@
 #
 
 class User < ActiveRecord::Base
+  # Constants (should always be declared at the top)
+  TYPES = {
+    individual: 1,
+    charity: 2,
+    company: 3
+  }
+
   # Devise modules. Others available are: :token_authenticatable, :lockable, :timeoutable
   devise :database_authenticatable, :registerable, :omniauthable, :confirmable, :recoverable, :rememberable, :trackable, :validatable
 
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me , :website, :bio,
+  attr_accessible :name, :email, :password, :password_confirmation, :remember_me , :website, :bio, :user_type,
     # singular
     :avatar_attributes, :location_attributes,
     # plural
