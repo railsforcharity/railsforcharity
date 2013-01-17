@@ -24,12 +24,9 @@
 
   /* Colors */
   $base-color: #008080;
-  .block:nth-child(4n+1) { background: darken($base-color, 0); }
-  .block:nth-child(4n+2) { background: darken($base-color, 4); }
-  .block:nth-child(4n+3) { background: darken($base-color, 7); }
-  .block:nth-child(4n+4) { background: darken($base-color, 9); }
-  .block:nth-child(4n+5) { background: darken($base-color, 11); }
-  .block:nth-child(4n+6) { background: darken($base-color, 13); }
+  @for $i from 1 through 8 {
+    .block:nth-child(4n+#{$i}) { background: darken($base-color, $i+2); }
+  }
 
   margin-top: -20px;
 
