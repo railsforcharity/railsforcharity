@@ -254,6 +254,9 @@ GEM
       railties (~> 3.0)
     maruku (0.6.1)
       syntax (>= 1.0.0)
+    meta_request (0.2.1)
+      rack-contrib
+      rails
     method_source (0.8.1)
     mime-types (1.19)
     mini_magick (3.4)
@@ -459,6 +462,7 @@ DEPENDENCIES
   launchy
   lol_dba
   markitup-rails
+  meta_request
   mini_magick
   newrelic_rpm (= 3.5.3.25)
   nokogiri
