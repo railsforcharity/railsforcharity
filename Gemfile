@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Infrastructure
-gem 'rails', '3.2.11'
+gem 'rails'
 gem 'pg'
 gem 'heroku'
 gem 'lol_dba'
