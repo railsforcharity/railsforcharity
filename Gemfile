@@ -38,7 +38,7 @@ gem 'nokogiri'
 gem 'markitup-rails'
 
 # Other
-gem 'friendly_id', '4.0.9'
+gem 'friendly_id'
 gem 'carrierwave', '0.7.1'
 gem 'mini_magick'
 gem 'carmen-rails', '~> 1.0.0.beta3'
@@ -101,7 +101,7 @@ end
 
 group :production do
   gem 'unicorn'
-  gem 'newrelic_rpm', '3.5.3.25'
+  gem 'newrelic_rpm'
 end
 
 # To use Jbuilder templates for JSON
