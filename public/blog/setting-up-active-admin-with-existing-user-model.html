@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-   <title>The making of Rails for Charity web application</title>
+   <title>Setting up Active Admin with existing User model</title>
    <meta name="author" content="Rails for Charity" />
 
    <!-- syntax highlighting CSS -->
@@ -30,9 +30,77 @@ var WRInitTime=(new Date()).getTime();
   </div>
   
   <div id="post">
-<p>The mission of Rails for Charity is to build open source web based applications which help in improving the society.
-We thought we should be sharing the knowledge about how to make a web application like this. We will be putting up
-a series of blog posts explaining how we built that piece of functionality.</p>
+<h1>Setting up Active Admin with existing User model</h1>
+
+<p><strong>Gemfile</strong></p>
+
+<pre><code>gem 'activeadmin'  
+</code></pre>
+
+<p><strong>Install gem</strong></p>
+
+<pre><code>$ bundle install
+</code></pre>
+
+<p><strong>Run Generator</strong> (to re-use existing users table)</p>
+
+<pre><code>$ rails g active_admin:install --skip-users
+</code></pre>
+
+<p><strong>Migrate Database</strong></p>
+
+<pre><code>$ bundle exec rake db:migrate
+</code></pre>
+
+<p><strong>Update</strong> <code>config/initializers/active_admin.rb</code><br/>
+  Reference: <a href="http://stackoverflow.com/a/14651686/238880">http://stackoverflow.com/a/14651686/238880</a></p>
+
+<ul>
+<li>config.current_user_method = :current_user</li>
+<li>config.logout_link_path = :destroy_user_session_path</li>
+<li>config.logout_link_method = :delete</li>
+</ul>
+
+
+<p>This last change is required if the default HTTP method used by your devise config is set to <code>:delete</code>, which it is unless you changed it. It matters that they are now synced because if you follow these instructions, you will be using <code>destroy_user_session_path</code> which is a path already defined by devise. Otherwise you will get a message stating that <code>[GET] /users/sign_out</code> route does not exist.</p>
+
+<p><strong>Update</strong> <code>app/models/user.rb</code></p>
+
+<pre><code>def is_admin?
+  self.email &amp;&amp; ENV['ADMIN_EMAILS'].to_s.include?(self.email)
+end
+</code></pre>
+
+<p><strong>Update</strong> <code>application_controller.rb</code></p>
+
+<pre><code>def authenticate_admin_user!
+  redirect_to new_user_session_path unless current_user.try(:is_admin?)
+end
+</code></pre>
+
+<p><strong>Add the admin link in nav bar</strong></p>
+
+<pre><code>- if current_user.is_admin?
+  = link_to 'Admin', admin_dashboard_path
+</code></pre>
+
+<p><strong>Generate resources for each model you need to have administration for</strong><br/>
+<code>rails g active_admin:resource &lt;Model Name&gt;</code></p>
+
+<p>Examples:</p>
+
+<pre><code>$ rails g active_admin:resource User  
+$ rails g active_admin:resource Hub
+</code></pre>
+
+<p><strong>Start server and verify</strong><br/>
+<code>$ bundle exec rails s</code><br/>
+When you are testing, make sure you set the environment variable <code>ADMIN_EMAILS</code> with the comma separated email ids of the admin users you want to grant access to</p>
+
+<p><strong>Set environment variable in production</strong><br/>
+Set the <code>ADMIN_EMAILS</code> environment variable when you deploy</p>
+
+<p><strong>And lastly, don't forget to migrate the database in production</strong></p>
 
 </div>
 
@@ -40,7 +108,7 @@ a series of blog posts explaining how we built that piece of functionality.</p>
   <h2>Related Posts</h2>
   <ul class="posts">
     
-      <li><span>16 Feb 2013</span> &raquo; <a href="/blog/setting-up-active-admin-with-existing-user-model.html">Setting up Active Admin with existing User model</a></li>
+      <li><span>11 Dec 2012</span> &raquo; <a href="/blog/making-of-railsforcharity-web-application.html">The making of Rails for Charity web application</a></li>
     
   </ul>
 </div>

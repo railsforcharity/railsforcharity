@@ -4,12 +4,91 @@
  <title>Rails for Charity</title>
  <link href="railsforcharity.org/blog/atom.xml" rel="self"/>
  <link href="railsforcharity.org"/>
- <updated>2012-12-11T21:19:18-08:00</updated>
+ <updated>2013-02-16T14:45:44-08:00</updated>
  <id>railsforcharity.org/blog</id>
  <author>
    <name>Rails for Charity</name>
  </author>
 
+ 
+ <entry>
+   <title>Setting up Active Admin with existing User model</title>
+   <link href="YOUR_URL/setting-up-active-admin-with-existing-user-model.html"/>
+   <updated>2013-02-16T00:00:00-08:00</updated>
+   <id>railsforcharity.org/blog//setting-up-active-admin-with-existing-user-model</id>
+   <content type="html">&lt;h1&gt;Setting up Active Admin with existing User model&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Gemfile&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;gem 'activeadmin'  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Install gem&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ bundle install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Run Generator&lt;/strong&gt; (to re-use existing users table)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rails g active_admin:install --skip-users
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Migrate Database&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ bundle exec rake db:migrate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt; &lt;code&gt;config/initializers/active_admin.rb&lt;/code&gt;&lt;br/&gt;
+  Reference: &lt;a href=&quot;http://stackoverflow.com/a/14651686/238880&quot;&gt;http://stackoverflow.com/a/14651686/238880&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;config.current_user_method = :current_user&lt;/li&gt;
+&lt;li&gt;config.logout_link_path = :destroy_user_session_path&lt;/li&gt;
+&lt;li&gt;config.logout_link_method = :delete&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;This last change is required if the default HTTP method used by your devise config is set to &lt;code&gt;:delete&lt;/code&gt;, which it is unless you changed it. It matters that they are now synced because if you follow these instructions, you will be using &lt;code&gt;destroy_user_session_path&lt;/code&gt; which is a path already defined by devise. Otherwise you will get a message stating that &lt;code&gt;[GET] /users/sign_out&lt;/code&gt; route does not exist.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt; &lt;code&gt;app/models/user.rb&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def is_admin?
+  self.email &amp;amp;&amp;amp; ENV['ADMIN_EMAILS'].to_s.include?(self.email)
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt; &lt;code&gt;application_controller.rb&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def authenticate_admin_user!
+  redirect_to new_user_session_path unless current_user.try(:is_admin?)
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Add the admin link in nav bar&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;- if current_user.is_admin?
+  = link_to 'Admin', admin_dashboard_path
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Generate resources for each model you need to have administration for&lt;/strong&gt;&lt;br/&gt;
+&lt;code&gt;rails g active_admin:resource &amp;lt;Model Name&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Examples:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rails g active_admin:resource User  
+$ rails g active_admin:resource Hub
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Start server and verify&lt;/strong&gt;&lt;br/&gt;
+&lt;code&gt;$ bundle exec rails s&lt;/code&gt;&lt;br/&gt;
+When you are testing, make sure you set the environment variable &lt;code&gt;ADMIN_EMAILS&lt;/code&gt; with the comma separated email ids of the admin users you want to grant access to&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Set environment variable in production&lt;/strong&gt;&lt;br/&gt;
+Set the &lt;code&gt;ADMIN_EMAILS&lt;/code&gt; environment variable when you deploy&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;And lastly, don't forget to migrate the database in production&lt;/strong&gt;&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>The making of Rails for Charity web application</title>
