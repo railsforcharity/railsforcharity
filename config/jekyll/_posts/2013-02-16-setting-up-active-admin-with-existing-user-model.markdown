@@ -19,7 +19,7 @@ title: Setting up Active Admin with existing User model
 
 **Precompile assets for deployment environment (heroku)**
 Add the following line to `config/environments/production.rb`  
-    config.assets.precompile += ['active_admin.js', 'active_admin.css']
+    config.assets.precompile += ['active_admin.js', 'active_admin.css', 'active_admin/print.css']
 
 **For heroku, turn on serving static assets**
     config.serve_static_assets = true
