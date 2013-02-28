@@ -52,6 +52,12 @@ var WRInitTime=(new Date()).getTime();
 <pre><code>$ bundle exec rake db:migrate
 </code></pre>
 
+<p><strong>Precompile assets for deployment environment (heroku)</strong>
+Add the following line to <code>config/environments/production.rb</code></p>
+
+<pre><code>config.assets.precompile += ['active_admin.js', 'active_admin.css']
+</code></pre>
+
 <p><strong>Update</strong> <code>config/initializers/active_admin.rb</code><br/>
   Reference: <a href="http://stackoverflow.com/a/14651686/238880">http://stackoverflow.com/a/14651686/238880</a></p>
 

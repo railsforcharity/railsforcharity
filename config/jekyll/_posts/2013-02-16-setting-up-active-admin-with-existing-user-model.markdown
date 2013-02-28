@@ -17,6 +17,10 @@ title: Setting up Active Admin with existing User model
 **Migrate Database**
     $ bundle exec rake db:migrate
 
+**Precompile assets for deployment environment (heroku)**
+Add the following line to `config/environments/production.rb`  
+    config.assets.precompile += ['active_admin.js', 'active_admin.css']
+
 **Update** `config/initializers/active_admin.rb`  
   Reference: [http://stackoverflow.com/a/14651686/238880](http://stackoverflow.com/a/14651686/238880)
 
