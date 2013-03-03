@@ -4,7 +4,6 @@ ruby '1.9.3'
 # Infrastructure
 gem 'rails'
 gem 'pg'
-gem 'heroku'
 gem 'lol_dba'
 gem 'activerecord-postgres-hstore'
 gem 'dalli'
