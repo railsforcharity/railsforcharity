@@ -1,3 +1,5 @@
-Airbrake.configure do |config|
-  config.api_key = '510871518c8dbdd4937482989a7bcca2'
+if Rails.env.production?
+  Airbrake.configure do |config|
+    config.api_key = ENV['AIBRAKE_API_KEY']
+  end
 end

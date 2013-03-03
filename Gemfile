@@ -6,7 +6,6 @@ gem 'rails'
 gem 'pg'
 gem 'heroku'
 gem 'lol_dba'
-gem 'airbrake'
 gem 'activerecord-postgres-hstore'
 gem 'dalli'
 gem 'bloggy'
@@ -100,6 +99,7 @@ group :test do
 end
 
 group :production do
+  gem 'airbrake'
   gem 'unicorn'
   gem 'newrelic_rpm'
 end
