@@ -55,16 +55,16 @@
         %p
           = raw markdown.render(project.description)
 
-    .span12
-      %br
-      %br
-      %h3.tasks_text Tasks
-      - if project.is_member?
-        .new_task_button
-          = link_to 'New Task', new_project_task_path(project), :class => 'btn btn-large btn-success'
-      %br
-      %br
-      = render :partial => 'projects/tasks'
+    -#.span12
+    -#  %br
+    -#  %br
+    -#  %h3.tasks_text Tasks
+    -#  - if project.is_member?
+    -#    .new_task_button
+    -#      = link_to 'New Task', new_project_task_path(project), :class => 'btn btn-large btn-success'
+    -#  %br
+    -#  %br
+    -#  = render :partial => 'projects/tasks'
     .span12
       %br
       = render :partial => 'projects/collaborators', :locals => { project: @project, size: 80 }
